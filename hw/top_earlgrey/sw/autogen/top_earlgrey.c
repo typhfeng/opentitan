@@ -1,15 +1,15 @@
-// Copyright lowRISC contributors.
-// Licensed under the Apache License, Version 2.0, see LICENSE for details.
-// SPDX-License-Identifier: Apache-2.0
-
-#include "hw/top_earlgrey/sw/autogen/top_earlgrey.h"
-
-/**
- * PLIC Interrupt Source to Peripheral Map
- *
- * This array is a mapping from `top_earlgrey_plic_irq_id_t` to
- * `top_earlgrey_plic_peripheral_t`.
- */
+// Copyright lowRISC contributors.
+// Licensed under the Apache License, Version 2.0, see LICENSE for details.
+// SPDX-License-Identifier: Apache-2.0
+
+#include "hw\top_earlgrey\sw\autogen\top_earlgrey.h"
+
+/**
+ * PLIC Interrupt Source to Peripheral Map
+ *
+ * This array is a mapping from `top_earlgrey_plic_irq_id_t` to
+ * `top_earlgrey_plic_peripheral_t`.
+ */
 const top_earlgrey_plic_peripheral_t
     top_earlgrey_plic_interrupt_for_peripheral[185] = {
   [kTopEarlgreyPlicIrqIdNone] = kTopEarlgreyPlicPeripheralUnknown,
@@ -198,14 +198,14 @@ const top_earlgrey_plic_peripheral_t
   [kTopEarlgreyPlicIrqIdEdn1EdnCmdReqDone] = kTopEarlgreyPlicPeripheralEdn1,
   [kTopEarlgreyPlicIrqIdEdn1EdnFatalErr] = kTopEarlgreyPlicPeripheralEdn1,
 };
-
-
-/**
- * Alert Handler Alert Source to Peripheral Map
- *
- * This array is a mapping from `top_earlgrey_alert_id_t` to
- * `top_earlgrey_alert_peripheral_t`.
- */
+
+
+/**
+ * Alert Handler Alert Source to Peripheral Map
+ *
+ * This array is a mapping from `top_earlgrey_alert_id_t` to
+ * `top_earlgrey_alert_peripheral_t`.
+ */
 const top_earlgrey_alert_peripheral_t
     top_earlgrey_alert_for_peripheral[65] = {
   [kTopEarlgreyAlertIdUart0FatalFault] = kTopEarlgreyAlertPeripheralUart0,
