@@ -33,8 +33,6 @@
   input rst_main_ni,
   input clk_io_i,
   input rst_io_ni,
-  input clk_usb_i,
-  input rst_usb_ni,
   input clk_aon_i,
   input rst_aon_ni,
 
@@ -49,7 +47,6 @@
   input rst_root_io_ni,
   input rst_root_io_div2_ni,
   input rst_root_io_div4_ni,
-  input rst_root_usb_ni,
 
   // Bus Interface
   input tlul_pkg::tl_h2d_t tl_i,
@@ -212,8 +209,6 @@
     .rst_io_div4_ni,
     .clk_main_i,
     .rst_main_ni,
-    .clk_usb_i,
-    .rst_usb_ni,
     .tl_i,
     .tl_o,
     .reg2hw,
@@ -247,8 +242,6 @@
     hw2reg.recov_err_code.io_div4_timeout_err.de |
     hw2reg.recov_err_code.main_measure_err.de |
     hw2reg.recov_err_code.main_timeout_err.de |
-    hw2reg.recov_err_code.usb_measure_err.de |
-    hw2reg.recov_err_code.usb_timeout_err.de |
     hw2reg.recov_err_code.shadow_update_err.de;
 
   assign alerts = {
@@ -339,13 +332,6 @@
 
   // clock gated indication for alert handler: these clocks are never gated.
   assign cg_en_o.io_powerup = MuBi4False;
-  prim_clock_buf u_clk_usb_powerup_buf (
-    .clk_i(clk_usb_i),
-    .clk_o(clocks_o.clk_usb_powerup)
-  );
-
-  // clock gated indication for alert handler: these clocks are never gated.
-  assign cg_en_o.usb_powerup = MuBi4False;
   prim_clock_buf u_clk_io_div2_powerup_buf (
     .clk_i(clk_io_div2_i),
     .clk_o(clocks_o.clk_io_div2_powerup)
@@ -388,9 +374,6 @@
   assign pwrmgr_io_en = pwr_i.io_ip_clk_en;
   assign pwrmgr_io_div2_en = pwr_i.io_ip_clk_en;
   assign pwrmgr_io_div4_en = pwr_i.io_ip_clk_en;
-  // clk_usb family
-  logic pwrmgr_usb_en;
-  assign pwrmgr_usb_en = pwr_i.usb_ip_clk_en;
 
   ////////////////////////////////////////////////////
   // Root gating
@@ -470,31 +453,6 @@
     .status_o(pwr_o.io_status)
   );
 
-  // clk_usb family
-  logic [0:0] usb_ens;
-
-  logic clk_usb_en;
-  logic clk_usb_root;
-  clkmgr_root_ctrl u_usb_root_ctrl (
-    .clk_i(clk_usb_i),
-    .rst_ni(rst_root_usb_ni),
-    .scanmode_i,
-    .async_en_i(pwrmgr_usb_en),
-    .en_o(clk_usb_en),
-    .clk_o(clk_usb_root)
-  );
-  assign usb_ens[0] = clk_usb_en;
-
-  // create synchronized status
-  clkmgr_clk_status #(
-    .NumClocks(1)
-  ) u_usb_status (
-    .clk_i,
-    .rst_ni(rst_root_ni),
-    .ens_i(usb_ens),
-    .status_o(pwr_o.usb_status)
-  );
-
   ////////////////////////////////////////////////////
   // Clock Measurement for the roots
   // SEC_CM: TIMEOUT.CLK.BKGN_CHK, MEAS.CLK.BKGN_CHK
@@ -506,7 +464,6 @@
     ClkIoDiv2Idx,
     ClkIoDiv4Idx,
     ClkMainIdx,
-    ClkUsbIdx,
     CalibRdyLastIdx
   } clkmgr_calib_idx_e;
 
@@ -641,33 +598,6 @@
   assign hw2reg.recov_err_code.main_timeout_err.d = 1'b1;
 
 
-  clkmgr_meas_chk #(
-    .Cnt(480),
-    .RefCnt(1)
-  ) u_usb_meas (
-    .clk_i,
-    .rst_ni,
-    .clk_src_i(clk_usb_i),
-    .rst_src_ni(rst_usb_ni),
-    .clk_ref_i(clk_aon_i),
-    .rst_ref_ni(rst_aon_ni),
-    // signals on source domain
-    .src_en_i(clk_usb_en & mubi4_test_true_loose(mubi4_t'(reg2hw.usb_meas_ctrl_en))),
-    .src_max_cnt_i(reg2hw.usb_meas_ctrl_shadowed.hi.q),
-    .src_min_cnt_i(reg2hw.usb_meas_ctrl_shadowed.lo.q),
-    .src_cfg_meas_en_i(mubi4_t'(reg2hw.usb_meas_ctrl_en.q)),
-    .src_cfg_meas_en_valid_o(hw2reg.usb_meas_ctrl_en.de),
-    .src_cfg_meas_en_o(hw2reg.usb_meas_ctrl_en.d),
-    // signals on local clock domain
-    .calib_rdy_i(calib_rdy[ClkUsbIdx]),
-    .meas_err_o(hw2reg.recov_err_code.usb_measure_err.de),
-    .timeout_err_o(hw2reg.recov_err_code.usb_timeout_err.de)
-  );
-
-  assign hw2reg.recov_err_code.usb_measure_err.d = 1'b1;
-  assign hw2reg.recov_err_code.usb_timeout_err.d = 1'b1;
-
-
   ////////////////////////////////////////////////////
   // Clocks with only root gate
   ////////////////////////////////////////////////////
@@ -692,17 +622,6 @@
     .rst_ni(rst_main_ni),
     .mubi_i(((clk_main_en) ? MuBi4False : MuBi4True)),
     .mubi_o(cg_en_o.main_infra)
-  );
-  assign clocks_o.clk_usb_infra = clk_usb_root;
-
-  // clock gated indication for alert handler
-  prim_mubi4_sender #(
-    .ResetValue(MuBi4True)
-  ) u_prim_mubi4_sender_clk_usb_infra (
-    .clk_i(clk_usb_i),
-    .rst_ni(rst_usb_ni),
-    .mubi_i(((clk_usb_en) ? MuBi4False : MuBi4True)),
-    .mubi_o(cg_en_o.usb_infra)
   );
   assign clocks_o.clk_io_infra = clk_io_root;
 
@@ -767,7 +686,6 @@
   logic clk_io_div4_peri_sw_en;
   logic clk_io_div2_peri_sw_en;
   logic clk_io_peri_sw_en;
-  logic clk_usb_peri_sw_en;
 
   prim_flop_2sync #(
     .Width(1)
@@ -893,48 +811,6 @@
     .rst_ni(rst_io_ni),
     .mubi_i(((clk_io_peri_combined_en) ? MuBi4False : MuBi4True)),
     .mubi_o(cg_en_o.io_peri)
-  );
-
-  prim_flop_2sync #(
-    .Width(1)
-  ) u_clk_usb_peri_sw_en_sync (
-    .clk_i(clk_usb_i),
-    .rst_ni(rst_usb_ni),
-    .d_i(reg2hw.clk_enables.clk_usb_peri_en.q),
-    .q_o(clk_usb_peri_sw_en)
-  );
-
-  // Declared as size 1 packed array to avoid FPV warning.
-  prim_mubi_pkg::mubi4_t [0:0] clk_usb_peri_scanmode;
-  prim_mubi4_sync #(
-    .NumCopies(1),
-    .AsyncOn(0)
-  ) u_clk_usb_peri_scanmode_sync  (
-    .clk_i,
-    .rst_ni,
-    .mubi_i(scanmode_i),
-    .mubi_o(clk_usb_peri_scanmode)
-  );
-
-  logic clk_usb_peri_combined_en;
-  assign clk_usb_peri_combined_en = clk_usb_peri_sw_en & clk_usb_en;
-  prim_clock_gating #(
-    .FpgaBufGlobal(1'b1) // This clock spans across multiple clock regions.
-  ) u_clk_usb_peri_cg (
-    .clk_i(clk_usb_i),
-    .en_i(clk_usb_peri_combined_en),
-    .test_en_i(mubi4_test_true_strict(clk_usb_peri_scanmode[0])),
-    .clk_o(clocks_o.clk_usb_peri)
-  );
-
-  // clock gated indication for alert handler
-  prim_mubi4_sender #(
-    .ResetValue(MuBi4True)
-  ) u_prim_mubi4_sender_clk_usb_peri (
-    .clk_i(clk_usb_i),
-    .rst_ni(rst_usb_ni),
-    .mubi_i(((clk_usb_peri_combined_en) ? MuBi4False : MuBi4True)),
-    .mubi_o(cg_en_o.usb_peri)
   );
 
 

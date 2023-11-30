@@ -36,15 +36,6 @@ module chip_earlgrey_cw340 #(
   inout IOR8, // Dedicated Pad for sysrst_ctrl_aon_ec_rst_l
   inout IOR9, // Dedicated Pad for sysrst_ctrl_aon_flash_wp_l
   inout IO_CLK, // Manual Pad
-  inout IO_USB_CONNECT, // Manual Pad
-  inout IO_USB_DP_TX, // Manual Pad
-  inout IO_USB_DN_TX, // Manual Pad
-  inout IO_USB_D_RX, // Manual Pad
-  inout IO_USB_DP_RX, // Manual Pad
-  inout IO_USB_DN_RX, // Manual Pad
-  inout IO_USB_OE_N, // Manual Pad
-  inout IO_USB_SPEED, // Manual Pad
-  inout IO_USB_SUSPEND, // Manual Pad
   inout IO_CLKOUT, // Manual Pad
   inout IO_TRIGGER, // Manual Pad
 
@@ -145,9 +136,7 @@ module chip_earlgrey_cw340 #(
       BidirStd, // DIO spi_host0_sd
       BidirStd, // DIO spi_host0_sd
       BidirStd, // DIO spi_host0_sd
-      BidirStd, // DIO spi_host0_sd
-      BidirStd, // DIO usbdev_usb_dn
-      BidirStd  // DIO usbdev_usb_dp
+      BidirStd  // DIO spi_host0_sd
     },
     mio_pad_type: {
       BidirOd, // MIO Pad 46
@@ -224,29 +213,11 @@ module chip_earlgrey_cw340 #(
   // Manual pads
   logic manual_in_por_n, manual_out_por_n, manual_oe_por_n;
   logic manual_in_io_clk, manual_out_io_clk, manual_oe_io_clk;
-  logic manual_in_io_usb_connect, manual_out_io_usb_connect, manual_oe_io_usb_connect;
-  logic manual_in_io_usb_dp_tx, manual_out_io_usb_dp_tx, manual_oe_io_usb_dp_tx;
-  logic manual_in_io_usb_dn_tx, manual_out_io_usb_dn_tx, manual_oe_io_usb_dn_tx;
-  logic manual_in_io_usb_d_rx, manual_out_io_usb_d_rx, manual_oe_io_usb_d_rx;
-  logic manual_in_io_usb_dp_rx, manual_out_io_usb_dp_rx, manual_oe_io_usb_dp_rx;
-  logic manual_in_io_usb_dn_rx, manual_out_io_usb_dn_rx, manual_oe_io_usb_dn_rx;
-  logic manual_in_io_usb_oe_n, manual_out_io_usb_oe_n, manual_oe_io_usb_oe_n;
-  logic manual_in_io_usb_speed, manual_out_io_usb_speed, manual_oe_io_usb_speed;
-  logic manual_in_io_usb_suspend, manual_out_io_usb_suspend, manual_oe_io_usb_suspend;
   logic manual_in_io_clkout, manual_out_io_clkout, manual_oe_io_clkout;
   logic manual_in_io_trigger, manual_out_io_trigger, manual_oe_io_trigger;
 
   pad_attr_t manual_attr_por_n;
   pad_attr_t manual_attr_io_clk;
-  pad_attr_t manual_attr_io_usb_connect;
-  pad_attr_t manual_attr_io_usb_dp_tx;
-  pad_attr_t manual_attr_io_usb_dn_tx;
-  pad_attr_t manual_attr_io_usb_d_rx;
-  pad_attr_t manual_attr_io_usb_dp_rx;
-  pad_attr_t manual_attr_io_usb_dn_rx;
-  pad_attr_t manual_attr_io_usb_oe_n;
-  pad_attr_t manual_attr_io_usb_speed;
-  pad_attr_t manual_attr_io_usb_suspend;
   pad_attr_t manual_attr_io_clkout;
   pad_attr_t manual_attr_io_trigger;
 
@@ -255,7 +226,7 @@ module chip_earlgrey_cw340 #(
   /////////////////////////
 
   // Only signals going to non-custom pads need to be tied off.
-  logic [69:0] unused_sig;
+  logic [67:0] unused_sig;
 
   //////////////////////
   // Padring Instance //
@@ -267,20 +238,11 @@ module chip_earlgrey_cw340 #(
   padring #(
     // Padring specific counts may differ from pinmux config due
     // to custom, stubbed or added pads.
-    .NDioPads(27),
+    .NDioPads(18),
     .NMioPads(47),
     .DioPadType ({
       BidirStd, // IO_TRIGGER
       BidirStd, // IO_CLKOUT
-      BidirStd, // IO_USB_SUSPEND
-      BidirStd, // IO_USB_SPEED
-      BidirStd, // IO_USB_OE_N
-      BidirStd, // IO_USB_DN_RX
-      BidirStd, // IO_USB_DP_RX
-      BidirStd, // IO_USB_D_RX
-      BidirStd, // IO_USB_DN_TX
-      BidirStd, // IO_USB_DP_TX
-      BidirStd, // IO_USB_CONNECT
       InputStd, // IO_CLK
       BidirOd, // IOR9
       BidirOd, // IOR8
@@ -356,15 +318,6 @@ module chip_earlgrey_cw340 #(
     .dio_pad_io ({
       IO_TRIGGER,
       IO_CLKOUT,
-      IO_USB_SUSPEND,
-      IO_USB_SPEED,
-      IO_USB_OE_N,
-      IO_USB_DN_RX,
-      IO_USB_DP_RX,
-      IO_USB_D_RX,
-      IO_USB_DN_TX,
-      IO_USB_DP_TX,
-      IO_USB_CONNECT,
       IO_CLK,
       IOR9,
       IOR8,
@@ -445,15 +398,6 @@ module chip_earlgrey_cw340 #(
     .dio_in_o ({
         manual_in_io_trigger,
         manual_in_io_clkout,
-        manual_in_io_usb_suspend,
-        manual_in_io_usb_speed,
-        manual_in_io_usb_oe_n,
-        manual_in_io_usb_dn_rx,
-        manual_in_io_usb_dp_rx,
-        manual_in_io_usb_d_rx,
-        manual_in_io_usb_dn_tx,
-        manual_in_io_usb_dp_tx,
-        manual_in_io_usb_connect,
         manual_in_io_clk,
         dio_in[DioSysrstCtrlAonFlashWpL],
         dio_in[DioSysrstCtrlAonEcRstL],
@@ -474,15 +418,6 @@ module chip_earlgrey_cw340 #(
     .dio_out_i ({
         manual_out_io_trigger,
         manual_out_io_clkout,
-        manual_out_io_usb_suspend,
-        manual_out_io_usb_speed,
-        manual_out_io_usb_oe_n,
-        manual_out_io_usb_dn_rx,
-        manual_out_io_usb_dp_rx,
-        manual_out_io_usb_d_rx,
-        manual_out_io_usb_dn_tx,
-        manual_out_io_usb_dp_tx,
-        manual_out_io_usb_connect,
         manual_out_io_clk,
         dio_out[DioSysrstCtrlAonFlashWpL],
         dio_out[DioSysrstCtrlAonEcRstL],
@@ -503,15 +438,6 @@ module chip_earlgrey_cw340 #(
     .dio_oe_i ({
         manual_oe_io_trigger,
         manual_oe_io_clkout,
-        manual_oe_io_usb_suspend,
-        manual_oe_io_usb_speed,
-        manual_oe_io_usb_oe_n,
-        manual_oe_io_usb_dn_rx,
-        manual_oe_io_usb_dp_rx,
-        manual_oe_io_usb_d_rx,
-        manual_oe_io_usb_dn_tx,
-        manual_oe_io_usb_dp_tx,
-        manual_oe_io_usb_connect,
         manual_oe_io_clk,
         dio_oe[DioSysrstCtrlAonFlashWpL],
         dio_oe[DioSysrstCtrlAonEcRstL],
@@ -532,15 +458,6 @@ module chip_earlgrey_cw340 #(
     .dio_attr_i ({
         manual_attr_io_trigger,
         manual_attr_io_clkout,
-        manual_attr_io_usb_suspend,
-        manual_attr_io_usb_speed,
-        manual_attr_io_usb_oe_n,
-        manual_attr_io_usb_dn_rx,
-        manual_attr_io_usb_dp_rx,
-        manual_attr_io_usb_d_rx,
-        manual_attr_io_usb_dn_tx,
-        manual_attr_io_usb_dp_tx,
-        manual_attr_io_usb_connect,
         manual_attr_io_clk,
         dio_attr[DioSysrstCtrlAonFlashWpL],
         dio_attr[DioSysrstCtrlAonEcRstL],
@@ -857,13 +774,11 @@ module chip_earlgrey_cw340 #(
     .clk_ast_alert_i (clkmgr_aon_clocks.clk_io_div4_secure),
     .clk_ast_es_i (clkmgr_aon_clocks.clk_main_secure),
     .clk_ast_rng_i (clkmgr_aon_clocks.clk_main_secure),
-    .clk_ast_usb_i (clkmgr_aon_clocks.clk_usb_peri),
     .rst_ast_tlul_ni (rstmgr_aon_resets.rst_lc_io_div4_n[rstmgr_pkg::Domain0Sel]),
     .rst_ast_adc_ni (rstmgr_aon_resets.rst_lc_aon_n[rstmgr_pkg::DomainAonSel]),
     .rst_ast_alert_ni (rstmgr_aon_resets.rst_lc_io_div4_n[rstmgr_pkg::Domain0Sel]),
     .rst_ast_es_ni (rstmgr_aon_resets.rst_lc_n[rstmgr_pkg::Domain0Sel]),
     .rst_ast_rng_ni (rstmgr_aon_resets.rst_lc_n[rstmgr_pkg::Domain0Sel]),
-    .rst_ast_usb_ni (rstmgr_aon_resets.rst_usb_n[rstmgr_pkg::Domain0Sel]),
     .clk_ast_ext_i         ( ext_clk ),
 
     // pok test for FPGA

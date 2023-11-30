@@ -16,8 +16,6 @@ module chip_earlgrey_asic #(
 ) (
   // Dedicated Pads
   inout POR_N, // Manual Pad
-  inout USB_P, // Manual Pad
-  inout USB_N, // Manual Pad
   `INOUT_AI CC1, // Manual Pad
   `INOUT_AI CC2, // Manual Pad
   inout FLASH_TEST_VOLT, // Manual Pad
@@ -137,9 +135,7 @@ module chip_earlgrey_asic #(
       BidirStd, // DIO spi_host0_sd
       BidirStd, // DIO spi_host0_sd
       BidirStd, // DIO spi_host0_sd
-      BidirStd, // DIO spi_host0_sd
-      BidirStd, // DIO usbdev_usb_dn
-      BidirStd  // DIO usbdev_usb_dp
+      BidirStd  // DIO spi_host0_sd
     },
     mio_pad_type: {
       BidirOd, // MIO Pad 46
@@ -215,8 +211,6 @@ module chip_earlgrey_asic #(
 
   // Manual pads
   logic manual_in_por_n, manual_out_por_n, manual_oe_por_n;
-  logic manual_in_usb_p, manual_out_usb_p, manual_oe_usb_p;
-  logic manual_in_usb_n, manual_out_usb_n, manual_oe_usb_n;
   logic manual_in_cc1, manual_out_cc1, manual_oe_cc1;
   logic manual_in_cc2, manual_out_cc2, manual_oe_cc2;
   logic manual_in_flash_test_volt, manual_out_flash_test_volt, manual_oe_flash_test_volt;
@@ -226,8 +220,6 @@ module chip_earlgrey_asic #(
   logic manual_in_ast_misc, manual_out_ast_misc, manual_oe_ast_misc;
 
   pad_attr_t manual_attr_por_n;
-  pad_attr_t manual_attr_usb_p;
-  pad_attr_t manual_attr_usb_n;
   pad_attr_t manual_attr_cc1;
   pad_attr_t manual_attr_cc2;
   pad_attr_t manual_attr_flash_test_volt;
@@ -250,7 +242,7 @@ module chip_earlgrey_asic #(
   padring #(
     // Padring specific counts may differ from pinmux config due
     // to custom, stubbed or added pads.
-    .NDioPads(24),
+    .NDioPads(22),
     .NMioPads(47),
     .PhysicalPads(1),
     .NIoBanks(int'(IoBankCount)),
@@ -276,8 +268,6 @@ module chip_earlgrey_asic #(
       scan_role_pkg::DioPadFlashTestVoltScanRole,
       scan_role_pkg::DioPadCc2ScanRole,
       scan_role_pkg::DioPadCc1ScanRole,
-      scan_role_pkg::DioPadUsbNScanRole,
-      scan_role_pkg::DioPadUsbPScanRole,
       scan_role_pkg::DioPadPorNScanRole
     }),
     .MioScanRole ({
@@ -351,8 +341,6 @@ module chip_earlgrey_asic #(
       IoBankVcc, // FLASH_TEST_VOLT
       IoBankAvcc, // CC2
       IoBankAvcc, // CC1
-      IoBankVcc, // USB_N
-      IoBankVcc, // USB_P
       IoBankVcc  // POR_N
     }),
     .MioPadBank ({
@@ -426,8 +414,6 @@ module chip_earlgrey_asic #(
       AnalogIn0, // FLASH_TEST_VOLT
       InputStd, // CC2
       InputStd, // CC1
-      DualBidirTol, // USB_N
-      DualBidirTol, // USB_P
       InputStd  // POR_N
     }),
     .MioPadType ({
@@ -515,8 +501,6 @@ module chip_earlgrey_asic #(
 `else
       CC1,
 `endif
-      USB_N,
-      USB_P,
       POR_N
     }),
 
@@ -601,8 +585,6 @@ module chip_earlgrey_asic #(
         manual_in_flash_test_volt,
         manual_in_cc2,
         manual_in_cc1,
-        manual_in_usb_n,
-        manual_in_usb_p,
         manual_in_por_n
       }),
     .dio_out_i ({
@@ -627,8 +609,6 @@ module chip_earlgrey_asic #(
         manual_out_flash_test_volt,
         manual_out_cc2,
         manual_out_cc1,
-        manual_out_usb_n,
-        manual_out_usb_p,
         manual_out_por_n
       }),
     .dio_oe_i ({
@@ -653,8 +633,6 @@ module chip_earlgrey_asic #(
         manual_oe_flash_test_volt,
         manual_oe_cc2,
         manual_oe_cc1,
-        manual_oe_usb_n,
-        manual_oe_usb_p,
         manual_oe_por_n
       }),
     .dio_attr_i ({
@@ -679,8 +657,6 @@ module chip_earlgrey_asic #(
         manual_attr_flash_test_volt,
         manual_attr_cc2,
         manual_attr_cc1,
-        manual_attr_usb_n,
-        manual_attr_usb_p,
         manual_attr_por_n
       }),
 
@@ -905,13 +881,11 @@ module chip_earlgrey_asic #(
     .clk_ast_alert_i (clkmgr_aon_clocks.clk_io_div4_secure),
     .clk_ast_es_i (clkmgr_aon_clocks.clk_main_secure),
     .clk_ast_rng_i (clkmgr_aon_clocks.clk_main_secure),
-    .clk_ast_usb_i (clkmgr_aon_clocks.clk_usb_peri),
     .rst_ast_tlul_ni (rstmgr_aon_resets.rst_lc_io_div4_n[rstmgr_pkg::Domain0Sel]),
     .rst_ast_adc_ni (rstmgr_aon_resets.rst_lc_aon_n[rstmgr_pkg::DomainAonSel]),
     .rst_ast_alert_ni (rstmgr_aon_resets.rst_lc_io_div4_n[rstmgr_pkg::Domain0Sel]),
     .rst_ast_es_ni (rstmgr_aon_resets.rst_lc_n[rstmgr_pkg::Domain0Sel]),
     .rst_ast_rng_ni (rstmgr_aon_resets.rst_lc_n[rstmgr_pkg::Domain0Sel]),
-    .rst_ast_usb_ni (rstmgr_aon_resets.rst_usb_n[rstmgr_pkg::Domain0Sel]),
     .clk_ast_ext_i         ( ext_clk ),
 
     // pok test for FPGA

@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0, see LICENSE for details.
 // SPDX-License-Identifier: Apache-2.0
 
-#include "hw\top_earlgrey\sw\autogen\top_earlgrey.h"
+#include "sw\autogen\top_earlgrey.h"
 
 /**
  * PLIC Interrupt Source to Peripheral Map
@@ -11,7 +11,7 @@
  * `top_earlgrey_plic_peripheral_t`.
  */
 const top_earlgrey_plic_peripheral_t
-    top_earlgrey_plic_interrupt_for_peripheral[185] = {
+    top_earlgrey_plic_interrupt_for_peripheral[168] = {
   [kTopEarlgreyPlicIrqIdNone] = kTopEarlgreyPlicPeripheralUnknown,
   [kTopEarlgreyPlicIrqIdUart0TxWatermark] = kTopEarlgreyPlicPeripheralUart0,
   [kTopEarlgreyPlicIrqIdUart0RxWatermark] = kTopEarlgreyPlicPeripheralUart0,
@@ -147,23 +147,6 @@ const top_earlgrey_plic_peripheral_t
   [kTopEarlgreyPlicIrqIdSpiHost0SpiEvent] = kTopEarlgreyPlicPeripheralSpiHost0,
   [kTopEarlgreyPlicIrqIdSpiHost1Error] = kTopEarlgreyPlicPeripheralSpiHost1,
   [kTopEarlgreyPlicIrqIdSpiHost1SpiEvent] = kTopEarlgreyPlicPeripheralSpiHost1,
-  [kTopEarlgreyPlicIrqIdUsbdevPktReceived] = kTopEarlgreyPlicPeripheralUsbdev,
-  [kTopEarlgreyPlicIrqIdUsbdevPktSent] = kTopEarlgreyPlicPeripheralUsbdev,
-  [kTopEarlgreyPlicIrqIdUsbdevDisconnected] = kTopEarlgreyPlicPeripheralUsbdev,
-  [kTopEarlgreyPlicIrqIdUsbdevHostLost] = kTopEarlgreyPlicPeripheralUsbdev,
-  [kTopEarlgreyPlicIrqIdUsbdevLinkReset] = kTopEarlgreyPlicPeripheralUsbdev,
-  [kTopEarlgreyPlicIrqIdUsbdevLinkSuspend] = kTopEarlgreyPlicPeripheralUsbdev,
-  [kTopEarlgreyPlicIrqIdUsbdevLinkResume] = kTopEarlgreyPlicPeripheralUsbdev,
-  [kTopEarlgreyPlicIrqIdUsbdevAvEmpty] = kTopEarlgreyPlicPeripheralUsbdev,
-  [kTopEarlgreyPlicIrqIdUsbdevRxFull] = kTopEarlgreyPlicPeripheralUsbdev,
-  [kTopEarlgreyPlicIrqIdUsbdevAvOverflow] = kTopEarlgreyPlicPeripheralUsbdev,
-  [kTopEarlgreyPlicIrqIdUsbdevLinkInErr] = kTopEarlgreyPlicPeripheralUsbdev,
-  [kTopEarlgreyPlicIrqIdUsbdevRxCrcErr] = kTopEarlgreyPlicPeripheralUsbdev,
-  [kTopEarlgreyPlicIrqIdUsbdevRxPidErr] = kTopEarlgreyPlicPeripheralUsbdev,
-  [kTopEarlgreyPlicIrqIdUsbdevRxBitstuffErr] = kTopEarlgreyPlicPeripheralUsbdev,
-  [kTopEarlgreyPlicIrqIdUsbdevFrame] = kTopEarlgreyPlicPeripheralUsbdev,
-  [kTopEarlgreyPlicIrqIdUsbdevPowered] = kTopEarlgreyPlicPeripheralUsbdev,
-  [kTopEarlgreyPlicIrqIdUsbdevLinkOutErr] = kTopEarlgreyPlicPeripheralUsbdev,
   [kTopEarlgreyPlicIrqIdPwrmgrAonWakeup] = kTopEarlgreyPlicPeripheralPwrmgrAon,
   [kTopEarlgreyPlicIrqIdSysrstCtrlAonEventDetected] = kTopEarlgreyPlicPeripheralSysrstCtrlAon,
   [kTopEarlgreyPlicIrqIdAdcCtrlAonMatchDone] = kTopEarlgreyPlicPeripheralAdcCtrlAon,
@@ -207,7 +190,7 @@ const top_earlgrey_plic_peripheral_t
  * `top_earlgrey_alert_peripheral_t`.
  */
 const top_earlgrey_alert_peripheral_t
-    top_earlgrey_alert_for_peripheral[65] = {
+    top_earlgrey_alert_for_peripheral[64] = {
   [kTopEarlgreyAlertIdUart0FatalFault] = kTopEarlgreyAlertPeripheralUart0,
   [kTopEarlgreyAlertIdUart1FatalFault] = kTopEarlgreyAlertPeripheralUart1,
   [kTopEarlgreyAlertIdUart2FatalFault] = kTopEarlgreyAlertPeripheralUart2,
@@ -229,7 +212,6 @@ const top_earlgrey_alert_peripheral_t
   [kTopEarlgreyAlertIdLcCtrlFatalBusIntegError] = kTopEarlgreyAlertPeripheralLcCtrl,
   [kTopEarlgreyAlertIdSpiHost0FatalFault] = kTopEarlgreyAlertPeripheralSpiHost0,
   [kTopEarlgreyAlertIdSpiHost1FatalFault] = kTopEarlgreyAlertPeripheralSpiHost1,
-  [kTopEarlgreyAlertIdUsbdevFatalFault] = kTopEarlgreyAlertPeripheralUsbdev,
   [kTopEarlgreyAlertIdPwrmgrAonFatalFault] = kTopEarlgreyAlertPeripheralPwrmgrAon,
   [kTopEarlgreyAlertIdRstmgrAonFatalFault] = kTopEarlgreyAlertPeripheralRstmgrAon,
   [kTopEarlgreyAlertIdRstmgrAonFatalCnstyFault] = kTopEarlgreyAlertPeripheralRstmgrAon,

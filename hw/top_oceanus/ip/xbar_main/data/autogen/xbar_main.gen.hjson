@@ -12,7 +12,6 @@
   {
     clk_main_i: main
     clk_fixed_i: io_div4
-    clk_usb_i: usb
     clk_spi_host0_i: io
     clk_spi_host1_i: io_div2
   }
@@ -30,11 +29,6 @@
       name: lc_io_div4
       domain: "0"
     }
-    rst_usb_ni:
-    {
-      name: lc_usb
-      domain: "0"
-    }
     rst_spi_host0_ni:
     {
       name: lc_io
@@ -50,7 +44,6 @@
   {
     clk_main_i: clkmgr_aon_clocks.clk_main_infra
     clk_fixed_i: clkmgr_aon_clocks.clk_io_div4_infra
-    clk_usb_i: clkmgr_aon_clocks.clk_usb_infra
     clk_spi_host0_i: clkmgr_aon_clocks.clk_io_infra
     clk_spi_host1_i: clkmgr_aon_clocks.clk_io_div2_infra
   }
@@ -77,7 +70,6 @@
       peri
       spi_host0
       spi_host1
-      usbdev
       flash_ctrl.core
       flash_ctrl.prim
       flash_ctrl.mem
@@ -104,7 +96,6 @@
       peri
       spi_host0
       spi_host1
-      usbdev
       flash_ctrl.core
       flash_ctrl.prim
       flash_ctrl.mem
@@ -290,25 +281,6 @@
         {
           base_addr: 0x40310000
           size_byte: 0x40
-        }
-      ]
-      xbar: false
-      stub: false
-      pipeline: true
-    }
-    {
-      name: usbdev
-      type: device
-      clock: clk_usb_i
-      reset: rst_usb_ni
-      req_fifo_pass: false
-      rsp_fifo_pass: false
-      inst_type: usbdev
-      addr_range:
-      [
-        {
-          base_addr: 0x40320000
-          size_byte: 0x1000
         }
       ]
       xbar: false

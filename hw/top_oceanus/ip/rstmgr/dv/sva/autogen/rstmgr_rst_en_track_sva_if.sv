@@ -18,7 +18,6 @@ interface rstmgr_rst_en_track_sva_if (
   input logic clk_main_i,
   input logic clk_io_i,
   input logic clk_io_div2_i,
-  input logic clk_usb_i,
   input logic rst_por_ni
 );
   import rstmgr_pkg::DomainAonSel;
@@ -101,19 +100,6 @@ interface rstmgr_rst_en_track_sva_if (
           !resets_i.rst_por_io_div4_n[DomainAonSel] ||
           reset_en_i.por_io_div4[DomainAonSel] == prim_mubi_pkg::MuBi4False,
           clk_io_div4_i,
-          !rst_por_ni)
-
-  `ASSERT(DAonRstPorUsbEnTracksRstPorUsbActive_A,
-          $fell(resets_i.rst_por_usb_n[DomainAonSel]) |-> ##[0:DELAY]
-          reset_en_i.por_usb[DomainAonSel] == prim_mubi_pkg::MuBi4True,
-          clk_usb_i,
-          !rst_por_ni)
-
-  `ASSERT(DAonRstPorUsbEnTracksRstPorUsbInactive_A,
-          $rose(resets_i.rst_por_usb_n[DomainAonSel]) |-> ##DELAY
-          !resets_i.rst_por_usb_n[DomainAonSel] ||
-          reset_en_i.por_usb[DomainAonSel] == prim_mubi_pkg::MuBi4False,
-          clk_usb_i,
           !rst_por_ni)
 
   `ASSERT(D0RstLcShadowedEnTracksRstLcShadowedActive_A,
@@ -233,32 +219,6 @@ interface rstmgr_rst_en_track_sva_if (
           clk_io_div4_i,
           !rst_por_ni)
 
-  `ASSERT(DAonRstLcUsbEnTracksRstLcUsbActive_A,
-          $fell(resets_i.rst_lc_usb_n[DomainAonSel]) |-> ##[0:DELAY]
-          reset_en_i.lc_usb[DomainAonSel] == prim_mubi_pkg::MuBi4True,
-          clk_usb_i,
-          !rst_por_ni)
-
-  `ASSERT(DAonRstLcUsbEnTracksRstLcUsbInactive_A,
-          $rose(resets_i.rst_lc_usb_n[DomainAonSel]) |-> ##DELAY
-          !resets_i.rst_lc_usb_n[DomainAonSel] ||
-          reset_en_i.lc_usb[DomainAonSel] == prim_mubi_pkg::MuBi4False,
-          clk_usb_i,
-          !rst_por_ni)
-
-  `ASSERT(D0RstLcUsbEnTracksRstLcUsbActive_A,
-          $fell(resets_i.rst_lc_usb_n[Domain0Sel]) |-> ##[0:DELAY]
-          reset_en_i.lc_usb[Domain0Sel] == prim_mubi_pkg::MuBi4True,
-          clk_usb_i,
-          !rst_por_ni)
-
-  `ASSERT(D0RstLcUsbEnTracksRstLcUsbInactive_A,
-          $rose(resets_i.rst_lc_usb_n[Domain0Sel]) |-> ##DELAY
-          !resets_i.rst_lc_usb_n[Domain0Sel] ||
-          reset_en_i.lc_usb[Domain0Sel] == prim_mubi_pkg::MuBi4False,
-          clk_usb_i,
-          !rst_por_ni)
-
   `ASSERT(D0RstSysEnTracksRstSysActive_A,
           $fell(resets_i.rst_sys_n[Domain0Sel]) |-> ##[0:DELAY]
           reset_en_i.sys[Domain0Sel] == prim_mubi_pkg::MuBi4True,
@@ -322,32 +282,6 @@ interface rstmgr_rst_en_track_sva_if (
           !resets_i.rst_spi_host1_n[Domain0Sel] ||
           reset_en_i.spi_host1[Domain0Sel] == prim_mubi_pkg::MuBi4False,
           clk_io_div2_i,
-          !rst_por_ni)
-
-  `ASSERT(D0RstUsbEnTracksRstUsbActive_A,
-          $fell(resets_i.rst_usb_n[Domain0Sel]) |-> ##[0:DELAY]
-          reset_en_i.usb[Domain0Sel] == prim_mubi_pkg::MuBi4True,
-          clk_usb_i,
-          !rst_por_ni)
-
-  `ASSERT(D0RstUsbEnTracksRstUsbInactive_A,
-          $rose(resets_i.rst_usb_n[Domain0Sel]) |-> ##DELAY
-          !resets_i.rst_usb_n[Domain0Sel] ||
-          reset_en_i.usb[Domain0Sel] == prim_mubi_pkg::MuBi4False,
-          clk_usb_i,
-          !rst_por_ni)
-
-  `ASSERT(D0RstUsbAonEnTracksRstUsbAonActive_A,
-          $fell(resets_i.rst_usb_aon_n[Domain0Sel]) |-> ##[0:DELAY]
-          reset_en_i.usb_aon[Domain0Sel] == prim_mubi_pkg::MuBi4True,
-          clk_aon_i,
-          !rst_por_ni)
-
-  `ASSERT(D0RstUsbAonEnTracksRstUsbAonInactive_A,
-          $rose(resets_i.rst_usb_aon_n[Domain0Sel]) |-> ##DELAY
-          !resets_i.rst_usb_aon_n[Domain0Sel] ||
-          reset_en_i.usb_aon[Domain0Sel] == prim_mubi_pkg::MuBi4False,
-          clk_aon_i,
           !rst_por_ni)
 
   `ASSERT(D0RstI2c0EnTracksRstI2c0Active_A,

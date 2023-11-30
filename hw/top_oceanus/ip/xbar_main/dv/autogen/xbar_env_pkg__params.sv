@@ -29,9 +29,6 @@ tl_device_t xbar_devices[$] = '{
     '{"spi_host1", '{
         '{32'h40310000, 32'h4031003f}
     }},
-    '{"usbdev", '{
-        '{32'h40320000, 32'h40320fff}
-    }},
     '{"flash_ctrl__core", '{
         '{32'h41000000, 32'h410001ff}
     }},
@@ -98,7 +95,6 @@ tl_host_t xbar_hosts[$] = '{
         "peri",
         "spi_host0",
         "spi_host1",
-        "usbdev",
         "flash_ctrl__core",
         "flash_ctrl__prim",
         "flash_ctrl__mem",
@@ -124,7 +120,6 @@ tl_host_t xbar_hosts[$] = '{
         "peri",
         "spi_host0",
         "spi_host1",
-        "usbdev",
         "flash_ctrl__core",
         "flash_ctrl__prim",
         "flash_ctrl__mem",
