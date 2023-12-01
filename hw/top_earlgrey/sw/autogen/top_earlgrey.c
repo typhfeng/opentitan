@@ -11,7 +11,7 @@
  * `top_earlgrey_plic_peripheral_t`.
  */
 const top_earlgrey_plic_peripheral_t
-    top_earlgrey_plic_interrupt_for_peripheral[168] = {
+    top_earlgrey_plic_interrupt_for_peripheral[144] = {
   [kTopEarlgreyPlicIrqIdNone] = kTopEarlgreyPlicPeripheralUnknown,
   [kTopEarlgreyPlicIrqIdUart0TxWatermark] = kTopEarlgreyPlicPeripheralUart0,
   [kTopEarlgreyPlicIrqIdUart0RxWatermark] = kTopEarlgreyPlicPeripheralUart0,
@@ -21,30 +21,6 @@ const top_earlgrey_plic_peripheral_t
   [kTopEarlgreyPlicIrqIdUart0RxBreakErr] = kTopEarlgreyPlicPeripheralUart0,
   [kTopEarlgreyPlicIrqIdUart0RxTimeout] = kTopEarlgreyPlicPeripheralUart0,
   [kTopEarlgreyPlicIrqIdUart0RxParityErr] = kTopEarlgreyPlicPeripheralUart0,
-  [kTopEarlgreyPlicIrqIdUart1TxWatermark] = kTopEarlgreyPlicPeripheralUart1,
-  [kTopEarlgreyPlicIrqIdUart1RxWatermark] = kTopEarlgreyPlicPeripheralUart1,
-  [kTopEarlgreyPlicIrqIdUart1TxEmpty] = kTopEarlgreyPlicPeripheralUart1,
-  [kTopEarlgreyPlicIrqIdUart1RxOverflow] = kTopEarlgreyPlicPeripheralUart1,
-  [kTopEarlgreyPlicIrqIdUart1RxFrameErr] = kTopEarlgreyPlicPeripheralUart1,
-  [kTopEarlgreyPlicIrqIdUart1RxBreakErr] = kTopEarlgreyPlicPeripheralUart1,
-  [kTopEarlgreyPlicIrqIdUart1RxTimeout] = kTopEarlgreyPlicPeripheralUart1,
-  [kTopEarlgreyPlicIrqIdUart1RxParityErr] = kTopEarlgreyPlicPeripheralUart1,
-  [kTopEarlgreyPlicIrqIdUart2TxWatermark] = kTopEarlgreyPlicPeripheralUart2,
-  [kTopEarlgreyPlicIrqIdUart2RxWatermark] = kTopEarlgreyPlicPeripheralUart2,
-  [kTopEarlgreyPlicIrqIdUart2TxEmpty] = kTopEarlgreyPlicPeripheralUart2,
-  [kTopEarlgreyPlicIrqIdUart2RxOverflow] = kTopEarlgreyPlicPeripheralUart2,
-  [kTopEarlgreyPlicIrqIdUart2RxFrameErr] = kTopEarlgreyPlicPeripheralUart2,
-  [kTopEarlgreyPlicIrqIdUart2RxBreakErr] = kTopEarlgreyPlicPeripheralUart2,
-  [kTopEarlgreyPlicIrqIdUart2RxTimeout] = kTopEarlgreyPlicPeripheralUart2,
-  [kTopEarlgreyPlicIrqIdUart2RxParityErr] = kTopEarlgreyPlicPeripheralUart2,
-  [kTopEarlgreyPlicIrqIdUart3TxWatermark] = kTopEarlgreyPlicPeripheralUart3,
-  [kTopEarlgreyPlicIrqIdUart3RxWatermark] = kTopEarlgreyPlicPeripheralUart3,
-  [kTopEarlgreyPlicIrqIdUart3TxEmpty] = kTopEarlgreyPlicPeripheralUart3,
-  [kTopEarlgreyPlicIrqIdUart3RxOverflow] = kTopEarlgreyPlicPeripheralUart3,
-  [kTopEarlgreyPlicIrqIdUart3RxFrameErr] = kTopEarlgreyPlicPeripheralUart3,
-  [kTopEarlgreyPlicIrqIdUart3RxBreakErr] = kTopEarlgreyPlicPeripheralUart3,
-  [kTopEarlgreyPlicIrqIdUart3RxTimeout] = kTopEarlgreyPlicPeripheralUart3,
-  [kTopEarlgreyPlicIrqIdUart3RxParityErr] = kTopEarlgreyPlicPeripheralUart3,
   [kTopEarlgreyPlicIrqIdGpioGpio0] = kTopEarlgreyPlicPeripheralGpio,
   [kTopEarlgreyPlicIrqIdGpioGpio1] = kTopEarlgreyPlicPeripheralGpio,
   [kTopEarlgreyPlicIrqIdGpioGpio2] = kTopEarlgreyPlicPeripheralGpio,
@@ -190,11 +166,8 @@ const top_earlgrey_plic_peripheral_t
  * `top_earlgrey_alert_peripheral_t`.
  */
 const top_earlgrey_alert_peripheral_t
-    top_earlgrey_alert_for_peripheral[64] = {
+    top_earlgrey_alert_for_peripheral[61] = {
   [kTopEarlgreyAlertIdUart0FatalFault] = kTopEarlgreyAlertPeripheralUart0,
-  [kTopEarlgreyAlertIdUart1FatalFault] = kTopEarlgreyAlertPeripheralUart1,
-  [kTopEarlgreyAlertIdUart2FatalFault] = kTopEarlgreyAlertPeripheralUart2,
-  [kTopEarlgreyAlertIdUart3FatalFault] = kTopEarlgreyAlertPeripheralUart3,
   [kTopEarlgreyAlertIdGpioFatalFault] = kTopEarlgreyAlertPeripheralGpio,
   [kTopEarlgreyAlertIdSpiDeviceFatalFault] = kTopEarlgreyAlertPeripheralSpiDevice,
   [kTopEarlgreyAlertIdI2c0FatalFault] = kTopEarlgreyAlertPeripheralI2c0,

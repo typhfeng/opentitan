@@ -76,15 +76,6 @@ tl_device_t xbar_devices[$] = '{
     '{"uart0", '{
         '{32'h40000000, 32'h4000003f}
     }},
-    '{"uart1", '{
-        '{32'h40010000, 32'h4001003f}
-    }},
-    '{"uart2", '{
-        '{32'h40020000, 32'h4002003f}
-    }},
-    '{"uart3", '{
-        '{32'h40030000, 32'h4003003f}
-    }},
     '{"i2c0", '{
         '{32'h40080000, 32'h4008007f}
     }},
@@ -170,9 +161,6 @@ tl_host_t xbar_hosts[$] = '{
         "rv_dm__regs",
         "sram_ctrl_main__ram",
         "uart0",
-        "uart1",
-        "uart2",
-        "uart3",
         "i2c0",
         "i2c1",
         "i2c2",
@@ -221,9 +209,6 @@ tl_host_t xbar_hosts[$] = '{
         "rv_dm__regs",
         "sram_ctrl_main__ram",
         "uart0",
-        "uart1",
-        "uart2",
-        "uart3",
         "i2c0",
         "i2c1",
         "i2c2",

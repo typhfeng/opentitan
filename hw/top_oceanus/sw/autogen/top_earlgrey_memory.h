@@ -81,57 +81,6 @@
  */
 #define TOP_EARLGREY_UART0_SIZE_BYTES 0x40
 /**
- * Peripheral base address for uart1 in top earlgrey.
- *
- * This should be used with #mmio_region_from_addr to access the memory-mapped
- * registers associated with the peripheral (usually via a DIF).
- */
-#define TOP_EARLGREY_UART1_BASE_ADDR 0x40010000
-
-/**
- * Peripheral size for uart1 in top earlgrey.
- *
- * This is the size (in bytes) of the peripheral's reserved memory area. All
- * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_EARLGREY_UART1_BASE_ADDR and
- * `TOP_EARLGREY_UART1_BASE_ADDR + TOP_EARLGREY_UART1_SIZE_BYTES`.
- */
-#define TOP_EARLGREY_UART1_SIZE_BYTES 0x40
-/**
- * Peripheral base address for uart2 in top earlgrey.
- *
- * This should be used with #mmio_region_from_addr to access the memory-mapped
- * registers associated with the peripheral (usually via a DIF).
- */
-#define TOP_EARLGREY_UART2_BASE_ADDR 0x40020000
-
-/**
- * Peripheral size for uart2 in top earlgrey.
- *
- * This is the size (in bytes) of the peripheral's reserved memory area. All
- * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_EARLGREY_UART2_BASE_ADDR and
- * `TOP_EARLGREY_UART2_BASE_ADDR + TOP_EARLGREY_UART2_SIZE_BYTES`.
- */
-#define TOP_EARLGREY_UART2_SIZE_BYTES 0x40
-/**
- * Peripheral base address for uart3 in top earlgrey.
- *
- * This should be used with #mmio_region_from_addr to access the memory-mapped
- * registers associated with the peripheral (usually via a DIF).
- */
-#define TOP_EARLGREY_UART3_BASE_ADDR 0x40030000
-
-/**
- * Peripheral size for uart3 in top earlgrey.
- *
- * This is the size (in bytes) of the peripheral's reserved memory area. All
- * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_EARLGREY_UART3_BASE_ADDR and
- * `TOP_EARLGREY_UART3_BASE_ADDR + TOP_EARLGREY_UART3_SIZE_BYTES`.
- */
-#define TOP_EARLGREY_UART3_SIZE_BYTES 0x40
-/**
  * Peripheral base address for gpio in top earlgrey.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped

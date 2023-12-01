@@ -23,24 +23,6 @@
       reset:     "rst_peri_ni",
       pipeline:  false
     },
-    { name:      "uart1",
-      type:      "device",
-      clock:     "clk_peri_i",
-      reset:     "rst_peri_ni",
-      pipeline:  false
-    },
-    { name:      "uart2",
-      type:      "device",
-      clock:     "clk_peri_i",
-      reset:     "rst_peri_ni",
-      pipeline:  false
-    },
-    { name:      "uart3",
-      type:      "device",
-      clock:     "clk_peri_i",
-      reset:     "rst_peri_ni",
-      pipeline:  false
-    },
     { name:      "i2c0",
       type:      "device",
       clock:     "clk_peri_i",
@@ -182,7 +164,7 @@
   ],
   connections: {
     main:  [
-      "uart0", "uart1", "uart2", "uart3", "i2c0", "i2c1", "i2c2", "pattgen",
+      "uart0", "i2c0", "i2c1", "i2c2", "pattgen",
       "gpio", "spi_device", "rv_timer",
       "pwrmgr_aon", "rstmgr_aon", "clkmgr_aon", "pinmux_aon",
       "otp_ctrl.core", "otp_ctrl.prim", "lc_ctrl", "sensor_ctrl_aon",
