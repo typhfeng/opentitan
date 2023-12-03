@@ -86,7 +86,7 @@ tl_device_t xbar_devices[$] = '{
         '{32'h40500000, 32'h4050001f}
     }},
     '{"sram_ctrl_ret_aon__ram", '{
-        '{32'h40600000, 32'h40600fff}
+        '{32'h40600000, 32'h406fffff}
     }},
     '{"aon_timer_aon", '{
         '{32'h40470000, 32'h4047003f}

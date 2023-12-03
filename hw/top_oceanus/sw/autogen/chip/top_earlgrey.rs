@@ -341,7 +341,7 @@ pub const SRAM_CTRL_RET_AON_RAM_BASE_ADDR: usize = 0x40600000;
 /// memory-mapped registers associated with this peripheral should have an
 /// address between #SRAM_CTRL_RET_AON_RAM_BASE_ADDR and
 /// `SRAM_CTRL_RET_AON_RAM_BASE_ADDR + SRAM_CTRL_RET_AON_RAM_SIZE_BYTES`.
-pub const SRAM_CTRL_RET_AON_RAM_SIZE_BYTES: usize = 0x1000;
+pub const SRAM_CTRL_RET_AON_RAM_SIZE_BYTES: usize = 0x100000;
 
 /// Peripheral base address for core device on flash_ctrl in top earlgrey.
 ///
@@ -501,7 +501,7 @@ pub const RV_CORE_IBEX_CFG_SIZE_BYTES: usize = 0x100;
 pub const RAM_RET_AON_BASE_ADDR: usize = 0x40600000;
 
 /// Memory size for ram_ret_aon in top earlgrey.
-pub const RAM_RET_AON_SIZE_BYTES: usize = 0x1000;
+pub const RAM_RET_AON_SIZE_BYTES: usize = 0x100000;
 
 /// Memory base address for eflash in top earlgrey.
 pub const EFLASH_BASE_ADDR: usize = 0x20000000;

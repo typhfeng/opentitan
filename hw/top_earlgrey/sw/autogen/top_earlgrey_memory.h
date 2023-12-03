@@ -29,7 +29,7 @@
 /**
  * Memory size for sram_ctrl_ret_aon_ram_ret_aon in top earlgrey.
  */
-#define TOP_EARLGREY_RAM_RET_AON_SIZE_BYTES 0x1000
+#define TOP_EARLGREY_RAM_RET_AON_SIZE_BYTES 0x100000
 
 /**
  * Memory base for flash_ctrl_eflash in top earlgrey.
@@ -453,7 +453,7 @@
  * address between #TOP_EARLGREY_SRAM_CTRL_RET_AON_RAM_BASE_ADDR and
  * `TOP_EARLGREY_SRAM_CTRL_RET_AON_RAM_BASE_ADDR + TOP_EARLGREY_SRAM_CTRL_RET_AON_RAM_SIZE_BYTES`.
  */
-#define TOP_EARLGREY_SRAM_CTRL_RET_AON_RAM_SIZE_BYTES 0x1000
+#define TOP_EARLGREY_SRAM_CTRL_RET_AON_RAM_SIZE_BYTES 0x100000
 /**
  * Peripheral base address for core device on flash_ctrl in top earlgrey.
  *

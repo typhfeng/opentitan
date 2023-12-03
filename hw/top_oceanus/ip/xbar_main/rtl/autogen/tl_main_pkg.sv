@@ -28,7 +28,7 @@ package tl_main_pkg;
   localparam logic [31:0] ADDR_MASK_ROM_CTRL__ROM        = 32'h 00007fff;
   localparam logic [31:0] ADDR_MASK_ROM_CTRL__REGS       = 32'h 0000007f;
   localparam logic [1:0][31:0] ADDR_MASK_PERI                 = {
-    32'h 00200fff,
+    32'h 002fffff,
     32'h 001fffff
   };
   localparam logic [31:0] ADDR_MASK_SPI_HOST0            = 32'h 0000003f;

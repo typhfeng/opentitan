@@ -239,7 +239,7 @@ package top_earlgrey_pkg;
   /**
    * Peripheral size in bytes for ram device on sram_ctrl_ret_aon in top earlgrey.
    */
-  parameter int unsigned TOP_EARLGREY_SRAM_CTRL_RET_AON_RAM_SIZE_BYTES = 32'h1000;
+  parameter int unsigned TOP_EARLGREY_SRAM_CTRL_RET_AON_RAM_SIZE_BYTES = 32'h100000;
 
   /**
    * Peripheral base address for core device on flash_ctrl in top earlgrey.
@@ -359,7 +359,7 @@ package top_earlgrey_pkg;
   /**
    * Memory size for ram_ret_aon in top earlgrey.
    */
-  parameter int unsigned TOP_EARLGREY_RAM_RET_AON_SIZE_BYTES = 32'h1000;
+  parameter int unsigned TOP_EARLGREY_RAM_RET_AON_SIZE_BYTES = 32'h100000;
 
   /**
    * Memory base address for eflash in top earlgrey.

@@ -1416,7 +1416,7 @@ module top_earlgrey #(
     .RndCnstSramNonce(RndCnstSramCtrlRetAonSramNonce),
     .RndCnstLfsrSeed(RndCnstSramCtrlRetAonLfsrSeed),
     .RndCnstLfsrPerm(RndCnstSramCtrlRetAonLfsrPerm),
-    .MemSizeRam(4096),
+    .MemSizeRam(1048576),
     .InstrExec(SramCtrlRetAonInstrExec)
   ) u_sram_ctrl_ret_aon (
       // [27]: fatal_error
