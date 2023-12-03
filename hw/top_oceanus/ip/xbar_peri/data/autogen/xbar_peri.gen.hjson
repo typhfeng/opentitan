@@ -36,9 +36,6 @@
     [
       uart0
       i2c0
-      i2c1
-      i2c2
-      pattgen
       gpio
       spi_device
       rv_timer
@@ -49,8 +46,6 @@
       otp_ctrl.core
       otp_ctrl.prim
       lc_ctrl
-      sensor_ctrl_aon
-      alert_handler
       ast
       sram_ctrl_ret_aon.ram
       sram_ctrl_ret_aon.regs
@@ -104,60 +99,6 @@
         {
           base_addr: 0x40080000
           size_byte: 0x80
-        }
-      ]
-      xbar: false
-      stub: false
-      req_fifo_pass: true
-    }
-    {
-      name: i2c1
-      type: device
-      clock: clk_peri_i
-      reset: rst_peri_ni
-      pipeline: false
-      inst_type: i2c
-      addr_range:
-      [
-        {
-          base_addr: 0x40090000
-          size_byte: 0x80
-        }
-      ]
-      xbar: false
-      stub: false
-      req_fifo_pass: true
-    }
-    {
-      name: i2c2
-      type: device
-      clock: clk_peri_i
-      reset: rst_peri_ni
-      pipeline: false
-      inst_type: i2c
-      addr_range:
-      [
-        {
-          base_addr: 0x400a0000
-          size_byte: 0x80
-        }
-      ]
-      xbar: false
-      stub: false
-      req_fifo_pass: true
-    }
-    {
-      name: pattgen
-      type: device
-      clock: clk_peri_i
-      reset: rst_peri_ni
-      pipeline: false
-      inst_type: pattgen
-      addr_range:
-      [
-        {
-          base_addr: 0x400e0000
-          size_byte: 0x40
         }
       ]
       xbar: false
@@ -356,42 +297,6 @@
         {
           base_addr: 0x40140000
           size_byte: 0x100
-        }
-      ]
-      xbar: false
-      stub: false
-      req_fifo_pass: true
-    }
-    {
-      name: sensor_ctrl_aon
-      type: device
-      clock: clk_peri_i
-      reset: rst_peri_ni
-      pipeline: false
-      inst_type: sensor_ctrl
-      addr_range:
-      [
-        {
-          base_addr: 0x40490000
-          size_byte: 0x40
-        }
-      ]
-      xbar: false
-      stub: false
-      req_fifo_pass: true
-    }
-    {
-      name: alert_handler
-      type: device
-      clock: clk_peri_i
-      reset: rst_peri_ni
-      pipeline: false
-      inst_type: alert_handler
-      addr_range:
-      [
-        {
-          base_addr: 0x40150000
-          size_byte: 0x800
         }
       ]
       xbar: false
