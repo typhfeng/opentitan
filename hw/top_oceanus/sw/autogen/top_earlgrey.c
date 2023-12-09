@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0, see LICENSE for details.
 // SPDX-License-Identifier: Apache-2.0
 
-#include "hw\top_earlgrey\sw\autogen\top_earlgrey.h"
+#include "sw\autogen\top_earlgrey.h"
 
 /**
  * PLIC Interrupt Source to Peripheral Map

@@ -2,8 +2,8 @@
 // Licensed under the Apache License, Version 2.0, see LICENSE for details.
 // SPDX-License-Identifier: Apache-2.0
 
-#ifndef OPENTITAN_HW\TOP_EARLGREY\SW\AUTOGEN_TOP_EARLGREY_H_
-#define OPENTITAN_HW\TOP_EARLGREY\SW\AUTOGEN_TOP_EARLGREY_H_
+#ifndef OPENTITAN_SW\AUTOGEN_TOP_EARLGREY_H_
+#define OPENTITAN_SW\AUTOGEN_TOP_EARLGREY_H_
 
 /**
  * @file
@@ -1782,4 +1782,4 @@ typedef enum top_earlgrey_hintable_clocks {
 }  // extern "C"
 #endif
 
-#endif  // OPENTITAN_HW\TOP_EARLGREY\SW\AUTOGEN_TOP_EARLGREY_H_
+#endif  // OPENTITAN_SW\AUTOGEN_TOP_EARLGREY_H_
