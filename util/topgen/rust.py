@@ -611,7 +611,8 @@ class TopGenRust:
             clock_name = Name.from_snake_case(name).remove_part("clk")
             docstring = "Clock {} in group {}".format(name, c2g[name].name)
             hintable_clocks.add_constant(clock_name, docstring)
-        hintable_clocks.add_number_of_variants("Number of Valid Hintable Clock")
+        if by_type.hint_clks :
+            hintable_clocks.add_number_of_variants("Number of Valid Hintable Clock")
 
         self.clkmgr_gateable_clocks = gateable_clocks
         self.clkmgr_hintable_clocks = hintable_clocks

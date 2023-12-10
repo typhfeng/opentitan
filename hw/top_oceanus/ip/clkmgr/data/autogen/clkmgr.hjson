@@ -41,16 +41,16 @@
     {clock: "clk_i", reset: "rst_ni", primary: true},
     {reset: "rst_root_ni"},
     {clock: "clk_main_i", reset: "rst_main_ni"},
+    {clock: "clk_adc_i", reset: "rst_adc_ni"},
     {clock: "clk_io_i", reset: "rst_io_ni"},
-    {clock: "clk_usb_i", reset: "rst_usb_ni"},
     {clock: "clk_aon_i", reset: "rst_aon_ni"},
     {clock: "clk_io_div2_i", reset: "rst_io_div2_ni", internal: true},
     {clock: "clk_io_div4_i", reset: "rst_io_div4_ni", internal: true},
     {reset: "rst_root_main_ni"},
+    {reset: "rst_root_adc_ni"},
     {reset: "rst_root_io_ni"},
     {reset: "rst_root_io_div2_ni"},
     {reset: "rst_root_io_div4_ni"},
-    {reset: "rst_root_usb_ni"},
   ]
   bus_interfaces: [
     { protocol: "tlul", direction: "device" }
@@ -72,19 +72,19 @@
     { name: "NumGroups",
       desc: "Number of clock groups",
       type: "int",
-      default: "7",
+      default: "6",
       local: "true"
     },
     { name: "NumSwGateableClocks",
       desc: "Number of SW gateable clocks",
       type: "int",
-      default: "4",
+      default: "3",
       local: "true"
     },
     { name: "NumHintableClocks",
       desc: "Number of hintable clocks",
       type: "int",
-      default: "4",
+      default: "0",
       local: "true"
     },
   ],
@@ -98,21 +98,6 @@
     }
     { name: "CLKMGR.ENABLE.IO",
       desc: "Gating of IO peripheral clock."
-    }
-    { name: "CLKMGR.ENABLE.USB",
-      desc: "Gating of USB peripheral clock."
-    }
-    { name: "CLKMGR.HINT.AES",
-      desc: "Gating of AES transactional clock."
-    }
-    { name: "CLKMGR.HINT.HMAC",
-      desc: "Gating of HMAC transactional clock."
-    }
-    { name: "CLKMGR.HINT.KMAC",
-      desc: "Gating of KMAC transactional clock."
-    }
-    { name: "CLKMGR.HINT.OTBN",
-      desc: "Gating of OTBN transactional clock."
     }
     { name: "CLKMGR.MEAS_CTRL.REGWEN",
       desc: '''Control modification of all clock frequency and timeout
@@ -130,9 +115,6 @@
     }
     { name: "CLKMGR.MEAS_CTRL.MAIN",
       desc: "Frequency and timeout measurements of MAIN clock."
-    }
-    { name: "CLKMGR.MEAS_CTRL.USB",
-      desc: "Frequency and timeout measurements of USB clock."
     }
     { name: "CLKMGR.MEAS_CTRL.RECOV_ERR",
       desc: "Frequency and timeout measurements can flag recoverable errors."
@@ -258,7 +240,7 @@
       name:    "idle",
       act:     "rcv",
       package: "prim_mubi_pkg",
-      width:   "4"
+      width:   "1"
     },
 
     { struct:  "mubi4",
@@ -486,15 +468,6 @@
             1 CLK_IO_PERI is enabled.
           '''
         }
-        {
-          bits: "3",
-          name: "CLK_USB_PERI_EN",
-          resval: 1,
-          desc: '''
-            0 CLK_USB_PERI is disabled.
-            1 CLK_USB_PERI is enabled.
-          '''
-        }
       ]
       // the CLK_ENABLE register cannot be written.
       // During top level randomized tests, it is possible to disable the clocks and then access
@@ -521,38 +494,11 @@
       fields: [
         {
           bits: "0",
-          name: "CLK_MAIN_AES_HINT",
+          name: "Null_HINT",
           resval: 1,
           desc: '''
-            0 CLK_MAIN_AES can be disabled.
-            1 CLK_MAIN_AES is enabled.
-          '''
-        }
-        {
-          bits: "1",
-          name: "CLK_MAIN_HMAC_HINT",
-          resval: 1,
-          desc: '''
-            0 CLK_MAIN_HMAC can be disabled.
-            1 CLK_MAIN_HMAC is enabled.
-          '''
-        }
-        {
-          bits: "2",
-          name: "CLK_MAIN_KMAC_HINT",
-          resval: 1,
-          desc: '''
-            0 CLK_MAIN_KMAC can be disabled.
-            1 CLK_MAIN_KMAC is enabled.
-          '''
-        }
-        {
-          bits: "3",
-          name: "CLK_MAIN_OTBN_HINT",
-          resval: 1,
-          desc: '''
-            0 CLK_MAIN_OTBN can be disabled.
-            1 CLK_MAIN_OTBN is enabled.
+            0 CLK_IO_PERI can be disabled.
+            1 CLK_IO_PERI is enabled.
           '''
         }
       ]
@@ -573,38 +519,11 @@
       fields: [
         {
           bits: "0",
-          name: "CLK_MAIN_AES_VAL",
+          name: "Null_HINT",
           resval: 1,
           desc: '''
-            0 CLK_MAIN_AES is disabled.
-            1 CLK_MAIN_AES is enabled.
-          '''
-        }
-        {
-          bits: "1",
-          name: "CLK_MAIN_HMAC_VAL",
-          resval: 1,
-          desc: '''
-            0 CLK_MAIN_HMAC is disabled.
-            1 CLK_MAIN_HMAC is enabled.
-          '''
-        }
-        {
-          bits: "2",
-          name: "CLK_MAIN_KMAC_VAL",
-          resval: 1,
-          desc: '''
-            0 CLK_MAIN_KMAC is disabled.
-            1 CLK_MAIN_KMAC is enabled.
-          '''
-        }
-        {
-          bits: "3",
-          name: "CLK_MAIN_OTBN_VAL",
-          resval: 1,
-          desc: '''
-            0 CLK_MAIN_OTBN is disabled.
-            1 CLK_MAIN_OTBN is enabled.
+            0 CLK_IO_PERI can be disabled.
+            1 CLK_IO_PERI is enabled.
           '''
         }
       ]
@@ -830,71 +749,17 @@
       storage_err_alert: "fatal_fault",
       fields: [
         {
-          bits: "9:0",
+          bits: "11:0",
           name: "HI",
           desc: "Max threshold for main measurement",
-          resval: "510"
+          resval: "1510"
         },
 
         {
-          bits: "19:10",
+          bits: "23:12",
           name: "LO",
           desc: "Min threshold for main measurement",
-          resval: "490"
-        },
-      ]
-    },
-    { name: "USB_MEAS_CTRL_EN",
-      desc: '''
-        Enable for measurement control
-      ''',
-      regwen: "MEASURE_CTRL_REGWEN",
-      swaccess: "rw",
-      hwaccess: "hrw",
-      async: "clk_usb_i",
-      fields: [
-        {
-          bits: "3:0",
-          name: "EN",
-          desc: "Enable measurement for usb",
-          mubi: true,
-          resval: false,
-        },
-      ]
-      // Measurements can cause recoverable errors depending on the
-      // thresholds which randomized CSR tests will not predict correctly.
-      // To provide better CSR coverage we allow writing the threshold
-      // fields, but not enabling the counters.
-      tags: ["excl:CsrAllTests:CsrExclWrite"]
-    },
-
-    { name: "USB_MEAS_CTRL_SHADOWED",
-      desc: '''
-        Configuration controls for usb measurement.
-
-        The threshold fields are made wider than required (by 1 bit) to ensure
-        there is room to adjust for measurement inaccuracies.
-      ''',
-      regwen: "MEASURE_CTRL_REGWEN",
-      swaccess: "rw",
-      hwaccess: "hro",
-      async: "clk_usb_i",
-      shadowed: "true",
-      update_err_alert: "recov_fault",
-      storage_err_alert: "fatal_fault",
-      fields: [
-        {
-          bits: "8:0",
-          name: "HI",
-          desc: "Max threshold for usb measurement",
-          resval: "250"
-        },
-
-        {
-          bits: "17:9",
-          name: "LO",
-          desc: "Min threshold for usb measurement",
-          resval: "230"
+          resval: "1490"
         },
       ]
     },
@@ -945,14 +810,6 @@
         },
         {
           bits: "5",
-          name: "USB_MEASURE_ERR",
-          resval: 0,
-          desc: '''
-            usb has encountered a measurement error.
-          '''
-        },
-        {
-          bits: "6",
           name: "IO_TIMEOUT_ERR",
           resval: 0,
           desc: '''
@@ -960,7 +817,7 @@
           '''
         }
         {
-          bits: "7",
+          bits: "6",
           name: "IO_DIV2_TIMEOUT_ERR",
           resval: 0,
           desc: '''
@@ -968,7 +825,7 @@
           '''
         }
         {
-          bits: "8",
+          bits: "7",
           name: "IO_DIV4_TIMEOUT_ERR",
           resval: 0,
           desc: '''
@@ -976,19 +833,11 @@
           '''
         }
         {
-          bits: "9",
+          bits: "8",
           name: "MAIN_TIMEOUT_ERR",
           resval: 0,
           desc: '''
             main has timed out.
-          '''
-        }
-        {
-          bits: "10",
-          name: "USB_TIMEOUT_ERR",
-          resval: 0,
-          desc: '''
-            usb has timed out.
           '''
         }
       ]

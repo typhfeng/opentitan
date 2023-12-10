@@ -146,12 +146,6 @@ ${helper.pwrmgr_reset_requests.render()}
 /// The Software has full control over these clocks.
 ${helper.clkmgr_gateable_clocks.render()}
 
-/// Clock Manager Software-Hinted Clocks.
-///
-/// The Software has partial control over these clocks. It can ask them to stop,
-/// but the clock manager is in control of whether the clock actually is stopped.
-${helper.clkmgr_hintable_clocks.render()}
-
 /// MMIO Region
 ///
 /// MMIO region excludes any memory that is separate from the module

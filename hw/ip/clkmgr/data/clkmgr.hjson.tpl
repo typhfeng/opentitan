@@ -243,7 +243,11 @@
       name:    "idle",
       act:     "rcv",
       package: "prim_mubi_pkg",
+% if hint_names:
       width:   "${len(hint_names)}"
+% else:
+      width:   "1"
+% endif
     },
 
     { struct:  "mubi4",
@@ -479,6 +483,7 @@
       swaccess: "rw",
       hwaccess: "hro",
       fields: [
+% if hint_name:     
 % for clk in hint_names.keys():
         {
           bits: "${loop.index}",
@@ -490,6 +495,17 @@
           '''
         }
 % endfor
+% else:
+        {
+          bits: "0",
+          name: "Null_HINT",
+          resval: 1,
+          desc: '''
+            0 ${clk.upper()} can be disabled.
+            1 ${clk.upper()} is enabled.
+          '''
+        }
+% endif
       ]
       // the CLK_HINT register cannot be written.
       // During top level randomized tests, it is possible to disable the clocks to transactional blocks
@@ -506,6 +522,7 @@
       swaccess: "ro",
       hwaccess: "hwo",
       fields: [
+% if hint_name:     
 % for clk in hint_names.keys():
         {
           bits: "${loop.index}",
@@ -517,6 +534,17 @@
           '''
         }
 % endfor
+% else:
+        {
+          bits: "0",
+          name: "Null_HINT",
+          resval: 1,
+          desc: '''
+            0 ${clk.upper()} can be disabled.
+            1 ${clk.upper()} is enabled.
+          '''
+        }
+% endif
       ]
       // the CLK_HINT_STATUS register is read-only and cannot be checked.
       // This register's value depends on the IDLE inputs, so cannot be predicted.

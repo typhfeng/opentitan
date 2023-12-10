@@ -22,12 +22,6 @@ tl_device_t xbar_devices[$] = '{
     '{"spi_host0", '{
         '{32'h40300000, 32'h4030003f}
     }},
-    '{"spi_host1", '{
-        '{32'h40310000, 32'h4031003f}
-    }},
-    '{"usbdev", '{
-        '{32'h40320000, 32'h40320fff}
-    }},
     '{"flash_ctrl__core", '{
         '{32'h41000000, 32'h410001ff}
     }},
@@ -37,35 +31,8 @@ tl_device_t xbar_devices[$] = '{
     '{"flash_ctrl__mem", '{
         '{32'h20000000, 32'h200fffff}
     }},
-    '{"hmac", '{
-        '{32'h41110000, 32'h41110fff}
-    }},
-    '{"kmac", '{
-        '{32'h41120000, 32'h41120fff}
-    }},
-    '{"aes", '{
-        '{32'h41100000, 32'h411000ff}
-    }},
-    '{"entropy_src", '{
-        '{32'h41160000, 32'h411600ff}
-    }},
-    '{"csrng", '{
-        '{32'h41150000, 32'h4115007f}
-    }},
-    '{"edn0", '{
-        '{32'h41170000, 32'h4117007f}
-    }},
-    '{"edn1", '{
-        '{32'h41180000, 32'h4118007f}
-    }},
     '{"rv_plic", '{
         '{32'h48000000, 32'h4fffffff}
-    }},
-    '{"otbn", '{
-        '{32'h41130000, 32'h4113ffff}
-    }},
-    '{"keymgr", '{
-        '{32'h41140000, 32'h411400ff}
     }},
     '{"rv_core_ibex__cfg", '{
         '{32'h411f0000, 32'h411f00ff}
@@ -79,26 +46,8 @@ tl_device_t xbar_devices[$] = '{
     '{"uart0", '{
         '{32'h40000000, 32'h4000003f}
     }},
-    '{"uart1", '{
-        '{32'h40010000, 32'h4001003f}
-    }},
-    '{"uart2", '{
-        '{32'h40020000, 32'h4002003f}
-    }},
-    '{"uart3", '{
-        '{32'h40030000, 32'h4003003f}
-    }},
     '{"i2c0", '{
         '{32'h40080000, 32'h4008007f}
-    }},
-    '{"i2c1", '{
-        '{32'h40090000, 32'h4009007f}
-    }},
-    '{"i2c2", '{
-        '{32'h400a0000, 32'h400a007f}
-    }},
-    '{"pattgen", '{
-        '{32'h400e0000, 32'h400e003f}
     }},
     '{"pwm_aon", '{
         '{32'h40450000, 32'h4045007f}
@@ -133,17 +82,11 @@ tl_device_t xbar_devices[$] = '{
     '{"lc_ctrl", '{
         '{32'h40140000, 32'h401400ff}
     }},
-    '{"sensor_ctrl_aon", '{
-        '{32'h40490000, 32'h4049003f}
-    }},
-    '{"alert_handler", '{
-        '{32'h40150000, 32'h401507ff}
-    }},
     '{"sram_ctrl_ret_aon__regs", '{
         '{32'h40500000, 32'h4050001f}
     }},
     '{"sram_ctrl_ret_aon__ram", '{
-        '{32'h40600000, 32'h40600fff}
+        '{32'h40600000, 32'h406fffff}
     }},
     '{"aon_timer_aon", '{
         '{32'h40470000, 32'h4047003f}
@@ -173,13 +116,7 @@ tl_host_t xbar_hosts[$] = '{
         "rv_dm__regs",
         "sram_ctrl_main__ram",
         "uart0",
-        "uart1",
-        "uart2",
-        "uart3",
         "i2c0",
-        "i2c1",
-        "i2c2",
-        "pattgen",
         "gpio",
         "spi_device",
         "rv_timer",
@@ -190,8 +127,6 @@ tl_host_t xbar_hosts[$] = '{
         "otp_ctrl__core",
         "otp_ctrl__prim",
         "lc_ctrl",
-        "sensor_ctrl_aon",
-        "alert_handler",
         "ast",
         "sram_ctrl_ret_aon__ram",
         "sram_ctrl_ret_aon__regs",
@@ -200,21 +135,10 @@ tl_host_t xbar_hosts[$] = '{
         "sysrst_ctrl_aon",
         "pwm_aon",
         "spi_host0",
-        "spi_host1",
-        "usbdev",
         "flash_ctrl__core",
         "flash_ctrl__prim",
         "flash_ctrl__mem",
-        "aes",
-        "entropy_src",
-        "csrng",
-        "edn0",
-        "edn1",
-        "hmac",
         "rv_plic",
-        "otbn",
-        "keymgr",
-        "kmac",
         "sram_ctrl_main__regs",
         "rv_core_ibex__cfg"}}
     ,
@@ -225,13 +149,7 @@ tl_host_t xbar_hosts[$] = '{
         "rv_dm__regs",
         "sram_ctrl_main__ram",
         "uart0",
-        "uart1",
-        "uart2",
-        "uart3",
         "i2c0",
-        "i2c1",
-        "i2c2",
-        "pattgen",
         "gpio",
         "spi_device",
         "rv_timer",
@@ -242,8 +160,6 @@ tl_host_t xbar_hosts[$] = '{
         "otp_ctrl__core",
         "otp_ctrl__prim",
         "lc_ctrl",
-        "sensor_ctrl_aon",
-        "alert_handler",
         "ast",
         "sram_ctrl_ret_aon__ram",
         "sram_ctrl_ret_aon__regs",
@@ -252,21 +168,10 @@ tl_host_t xbar_hosts[$] = '{
         "sysrst_ctrl_aon",
         "pwm_aon",
         "spi_host0",
-        "spi_host1",
-        "usbdev",
         "flash_ctrl__core",
         "flash_ctrl__prim",
         "flash_ctrl__mem",
-        "aes",
-        "entropy_src",
-        "csrng",
-        "edn0",
-        "edn1",
-        "hmac",
         "rv_plic",
-        "otbn",
-        "keymgr",
-        "kmac",
         "sram_ctrl_main__regs",
         "rv_core_ibex__cfg"}}
 };

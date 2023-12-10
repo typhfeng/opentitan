@@ -18,13 +18,7 @@ initial force dut.rst_peri_ni = rst_n;
 
 // Device TileLink interface connections
 `CONNECT_TL_DEVICE_IF(uart0, dut, clk_peri_i, rst_n)
-`CONNECT_TL_DEVICE_IF(uart1, dut, clk_peri_i, rst_n)
-`CONNECT_TL_DEVICE_IF(uart2, dut, clk_peri_i, rst_n)
-`CONNECT_TL_DEVICE_IF(uart3, dut, clk_peri_i, rst_n)
 `CONNECT_TL_DEVICE_IF(i2c0, dut, clk_peri_i, rst_n)
-`CONNECT_TL_DEVICE_IF(i2c1, dut, clk_peri_i, rst_n)
-`CONNECT_TL_DEVICE_IF(i2c2, dut, clk_peri_i, rst_n)
-`CONNECT_TL_DEVICE_IF(pattgen, dut, clk_peri_i, rst_n)
 `CONNECT_TL_DEVICE_IF(pwm_aon, dut, clk_peri_i, rst_n)
 `CONNECT_TL_DEVICE_IF(gpio, dut, clk_peri_i, rst_n)
 `CONNECT_TL_DEVICE_IF(spi_device, dut, clk_peri_i, rst_n)
@@ -36,8 +30,6 @@ initial force dut.rst_peri_ni = rst_n;
 `CONNECT_TL_DEVICE_IF(otp_ctrl__core, dut, clk_peri_i, rst_n)
 `CONNECT_TL_DEVICE_IF(otp_ctrl__prim, dut, clk_peri_i, rst_n)
 `CONNECT_TL_DEVICE_IF(lc_ctrl, dut, clk_peri_i, rst_n)
-`CONNECT_TL_DEVICE_IF(sensor_ctrl_aon, dut, clk_peri_i, rst_n)
-`CONNECT_TL_DEVICE_IF(alert_handler, dut, clk_peri_i, rst_n)
 `CONNECT_TL_DEVICE_IF(sram_ctrl_ret_aon__regs, dut, clk_peri_i, rst_n)
 `CONNECT_TL_DEVICE_IF(sram_ctrl_ret_aon__ram, dut, clk_peri_i, rst_n)
 `CONNECT_TL_DEVICE_IF(aon_timer_aon, dut, clk_peri_i, rst_n)

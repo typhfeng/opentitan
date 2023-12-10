@@ -35,48 +35,6 @@ pub const UART0_BASE_ADDR: usize = 0x40000000;
 /// `UART0_BASE_ADDR + UART0_SIZE_BYTES`.
 pub const UART0_SIZE_BYTES: usize = 0x40;
 
-/// Peripheral base address for uart1 in top earlgrey.
-///
-/// This should be used with #mmio_region_from_addr to access the memory-mapped
-/// registers associated with the peripheral (usually via a DIF).
-pub const UART1_BASE_ADDR: usize = 0x40010000;
-
-/// Peripheral size for uart1 in top earlgrey.
-///
-/// This is the size (in bytes) of the peripheral's reserved memory area. All
-/// memory-mapped registers associated with this peripheral should have an
-/// address between #UART1_BASE_ADDR and
-/// `UART1_BASE_ADDR + UART1_SIZE_BYTES`.
-pub const UART1_SIZE_BYTES: usize = 0x40;
-
-/// Peripheral base address for uart2 in top earlgrey.
-///
-/// This should be used with #mmio_region_from_addr to access the memory-mapped
-/// registers associated with the peripheral (usually via a DIF).
-pub const UART2_BASE_ADDR: usize = 0x40020000;
-
-/// Peripheral size for uart2 in top earlgrey.
-///
-/// This is the size (in bytes) of the peripheral's reserved memory area. All
-/// memory-mapped registers associated with this peripheral should have an
-/// address between #UART2_BASE_ADDR and
-/// `UART2_BASE_ADDR + UART2_SIZE_BYTES`.
-pub const UART2_SIZE_BYTES: usize = 0x40;
-
-/// Peripheral base address for uart3 in top earlgrey.
-///
-/// This should be used with #mmio_region_from_addr to access the memory-mapped
-/// registers associated with the peripheral (usually via a DIF).
-pub const UART3_BASE_ADDR: usize = 0x40030000;
-
-/// Peripheral size for uart3 in top earlgrey.
-///
-/// This is the size (in bytes) of the peripheral's reserved memory area. All
-/// memory-mapped registers associated with this peripheral should have an
-/// address between #UART3_BASE_ADDR and
-/// `UART3_BASE_ADDR + UART3_SIZE_BYTES`.
-pub const UART3_SIZE_BYTES: usize = 0x40;
-
 /// Peripheral base address for gpio in top earlgrey.
 ///
 /// This should be used with #mmio_region_from_addr to access the memory-mapped
@@ -118,34 +76,6 @@ pub const I2C0_BASE_ADDR: usize = 0x40080000;
 /// address between #I2C0_BASE_ADDR and
 /// `I2C0_BASE_ADDR + I2C0_SIZE_BYTES`.
 pub const I2C0_SIZE_BYTES: usize = 0x80;
-
-/// Peripheral base address for i2c1 in top earlgrey.
-///
-/// This should be used with #mmio_region_from_addr to access the memory-mapped
-/// registers associated with the peripheral (usually via a DIF).
-pub const I2C1_BASE_ADDR: usize = 0x40090000;
-
-/// Peripheral size for i2c1 in top earlgrey.
-///
-/// This is the size (in bytes) of the peripheral's reserved memory area. All
-/// memory-mapped registers associated with this peripheral should have an
-/// address between #I2C1_BASE_ADDR and
-/// `I2C1_BASE_ADDR + I2C1_SIZE_BYTES`.
-pub const I2C1_SIZE_BYTES: usize = 0x80;
-
-/// Peripheral base address for i2c2 in top earlgrey.
-///
-/// This should be used with #mmio_region_from_addr to access the memory-mapped
-/// registers associated with the peripheral (usually via a DIF).
-pub const I2C2_BASE_ADDR: usize = 0x400A0000;
-
-/// Peripheral size for i2c2 in top earlgrey.
-///
-/// This is the size (in bytes) of the peripheral's reserved memory area. All
-/// memory-mapped registers associated with this peripheral should have an
-/// address between #I2C2_BASE_ADDR and
-/// `I2C2_BASE_ADDR + I2C2_SIZE_BYTES`.
-pub const I2C2_SIZE_BYTES: usize = 0x80;
 
 /// Peripheral base address for pattgen in top earlgrey.
 ///
@@ -229,7 +159,7 @@ pub const ALERT_HANDLER_BASE_ADDR: usize = 0x40150000;
 /// memory-mapped registers associated with this peripheral should have an
 /// address between #ALERT_HANDLER_BASE_ADDR and
 /// `ALERT_HANDLER_BASE_ADDR + ALERT_HANDLER_SIZE_BYTES`.
-pub const ALERT_HANDLER_SIZE_BYTES: usize = 0x800;
+pub const ALERT_HANDLER_SIZE_BYTES: usize = 0x400;
 
 /// Peripheral base address for spi_host0 in top earlgrey.
 ///
@@ -244,34 +174,6 @@ pub const SPI_HOST0_BASE_ADDR: usize = 0x40300000;
 /// address between #SPI_HOST0_BASE_ADDR and
 /// `SPI_HOST0_BASE_ADDR + SPI_HOST0_SIZE_BYTES`.
 pub const SPI_HOST0_SIZE_BYTES: usize = 0x40;
-
-/// Peripheral base address for spi_host1 in top earlgrey.
-///
-/// This should be used with #mmio_region_from_addr to access the memory-mapped
-/// registers associated with the peripheral (usually via a DIF).
-pub const SPI_HOST1_BASE_ADDR: usize = 0x40310000;
-
-/// Peripheral size for spi_host1 in top earlgrey.
-///
-/// This is the size (in bytes) of the peripheral's reserved memory area. All
-/// memory-mapped registers associated with this peripheral should have an
-/// address between #SPI_HOST1_BASE_ADDR and
-/// `SPI_HOST1_BASE_ADDR + SPI_HOST1_SIZE_BYTES`.
-pub const SPI_HOST1_SIZE_BYTES: usize = 0x40;
-
-/// Peripheral base address for usbdev in top earlgrey.
-///
-/// This should be used with #mmio_region_from_addr to access the memory-mapped
-/// registers associated with the peripheral (usually via a DIF).
-pub const USBDEV_BASE_ADDR: usize = 0x40320000;
-
-/// Peripheral size for usbdev in top earlgrey.
-///
-/// This is the size (in bytes) of the peripheral's reserved memory area. All
-/// memory-mapped registers associated with this peripheral should have an
-/// address between #USBDEV_BASE_ADDR and
-/// `USBDEV_BASE_ADDR + USBDEV_SIZE_BYTES`.
-pub const USBDEV_SIZE_BYTES: usize = 0x1000;
 
 /// Peripheral base address for pwrmgr_aon in top earlgrey.
 ///
@@ -439,7 +341,7 @@ pub const SRAM_CTRL_RET_AON_RAM_BASE_ADDR: usize = 0x40600000;
 /// memory-mapped registers associated with this peripheral should have an
 /// address between #SRAM_CTRL_RET_AON_RAM_BASE_ADDR and
 /// `SRAM_CTRL_RET_AON_RAM_BASE_ADDR + SRAM_CTRL_RET_AON_RAM_SIZE_BYTES`.
-pub const SRAM_CTRL_RET_AON_RAM_SIZE_BYTES: usize = 0x1000;
+pub const SRAM_CTRL_RET_AON_RAM_SIZE_BYTES: usize = 0x100000;
 
 /// Peripheral base address for core device on flash_ctrl in top earlgrey.
 ///
@@ -525,132 +427,6 @@ pub const RV_PLIC_BASE_ADDR: usize = 0x48000000;
 /// `RV_PLIC_BASE_ADDR + RV_PLIC_SIZE_BYTES`.
 pub const RV_PLIC_SIZE_BYTES: usize = 0x8000000;
 
-/// Peripheral base address for aes in top earlgrey.
-///
-/// This should be used with #mmio_region_from_addr to access the memory-mapped
-/// registers associated with the peripheral (usually via a DIF).
-pub const AES_BASE_ADDR: usize = 0x41100000;
-
-/// Peripheral size for aes in top earlgrey.
-///
-/// This is the size (in bytes) of the peripheral's reserved memory area. All
-/// memory-mapped registers associated with this peripheral should have an
-/// address between #AES_BASE_ADDR and
-/// `AES_BASE_ADDR + AES_SIZE_BYTES`.
-pub const AES_SIZE_BYTES: usize = 0x100;
-
-/// Peripheral base address for hmac in top earlgrey.
-///
-/// This should be used with #mmio_region_from_addr to access the memory-mapped
-/// registers associated with the peripheral (usually via a DIF).
-pub const HMAC_BASE_ADDR: usize = 0x41110000;
-
-/// Peripheral size for hmac in top earlgrey.
-///
-/// This is the size (in bytes) of the peripheral's reserved memory area. All
-/// memory-mapped registers associated with this peripheral should have an
-/// address between #HMAC_BASE_ADDR and
-/// `HMAC_BASE_ADDR + HMAC_SIZE_BYTES`.
-pub const HMAC_SIZE_BYTES: usize = 0x1000;
-
-/// Peripheral base address for kmac in top earlgrey.
-///
-/// This should be used with #mmio_region_from_addr to access the memory-mapped
-/// registers associated with the peripheral (usually via a DIF).
-pub const KMAC_BASE_ADDR: usize = 0x41120000;
-
-/// Peripheral size for kmac in top earlgrey.
-///
-/// This is the size (in bytes) of the peripheral's reserved memory area. All
-/// memory-mapped registers associated with this peripheral should have an
-/// address between #KMAC_BASE_ADDR and
-/// `KMAC_BASE_ADDR + KMAC_SIZE_BYTES`.
-pub const KMAC_SIZE_BYTES: usize = 0x1000;
-
-/// Peripheral base address for otbn in top earlgrey.
-///
-/// This should be used with #mmio_region_from_addr to access the memory-mapped
-/// registers associated with the peripheral (usually via a DIF).
-pub const OTBN_BASE_ADDR: usize = 0x41130000;
-
-/// Peripheral size for otbn in top earlgrey.
-///
-/// This is the size (in bytes) of the peripheral's reserved memory area. All
-/// memory-mapped registers associated with this peripheral should have an
-/// address between #OTBN_BASE_ADDR and
-/// `OTBN_BASE_ADDR + OTBN_SIZE_BYTES`.
-pub const OTBN_SIZE_BYTES: usize = 0x10000;
-
-/// Peripheral base address for keymgr in top earlgrey.
-///
-/// This should be used with #mmio_region_from_addr to access the memory-mapped
-/// registers associated with the peripheral (usually via a DIF).
-pub const KEYMGR_BASE_ADDR: usize = 0x41140000;
-
-/// Peripheral size for keymgr in top earlgrey.
-///
-/// This is the size (in bytes) of the peripheral's reserved memory area. All
-/// memory-mapped registers associated with this peripheral should have an
-/// address between #KEYMGR_BASE_ADDR and
-/// `KEYMGR_BASE_ADDR + KEYMGR_SIZE_BYTES`.
-pub const KEYMGR_SIZE_BYTES: usize = 0x100;
-
-/// Peripheral base address for csrng in top earlgrey.
-///
-/// This should be used with #mmio_region_from_addr to access the memory-mapped
-/// registers associated with the peripheral (usually via a DIF).
-pub const CSRNG_BASE_ADDR: usize = 0x41150000;
-
-/// Peripheral size for csrng in top earlgrey.
-///
-/// This is the size (in bytes) of the peripheral's reserved memory area. All
-/// memory-mapped registers associated with this peripheral should have an
-/// address between #CSRNG_BASE_ADDR and
-/// `CSRNG_BASE_ADDR + CSRNG_SIZE_BYTES`.
-pub const CSRNG_SIZE_BYTES: usize = 0x80;
-
-/// Peripheral base address for entropy_src in top earlgrey.
-///
-/// This should be used with #mmio_region_from_addr to access the memory-mapped
-/// registers associated with the peripheral (usually via a DIF).
-pub const ENTROPY_SRC_BASE_ADDR: usize = 0x41160000;
-
-/// Peripheral size for entropy_src in top earlgrey.
-///
-/// This is the size (in bytes) of the peripheral's reserved memory area. All
-/// memory-mapped registers associated with this peripheral should have an
-/// address between #ENTROPY_SRC_BASE_ADDR and
-/// `ENTROPY_SRC_BASE_ADDR + ENTROPY_SRC_SIZE_BYTES`.
-pub const ENTROPY_SRC_SIZE_BYTES: usize = 0x100;
-
-/// Peripheral base address for edn0 in top earlgrey.
-///
-/// This should be used with #mmio_region_from_addr to access the memory-mapped
-/// registers associated with the peripheral (usually via a DIF).
-pub const EDN0_BASE_ADDR: usize = 0x41170000;
-
-/// Peripheral size for edn0 in top earlgrey.
-///
-/// This is the size (in bytes) of the peripheral's reserved memory area. All
-/// memory-mapped registers associated with this peripheral should have an
-/// address between #EDN0_BASE_ADDR and
-/// `EDN0_BASE_ADDR + EDN0_SIZE_BYTES`.
-pub const EDN0_SIZE_BYTES: usize = 0x80;
-
-/// Peripheral base address for edn1 in top earlgrey.
-///
-/// This should be used with #mmio_region_from_addr to access the memory-mapped
-/// registers associated with the peripheral (usually via a DIF).
-pub const EDN1_BASE_ADDR: usize = 0x41180000;
-
-/// Peripheral size for edn1 in top earlgrey.
-///
-/// This is the size (in bytes) of the peripheral's reserved memory area. All
-/// memory-mapped registers associated with this peripheral should have an
-/// address between #EDN1_BASE_ADDR and
-/// `EDN1_BASE_ADDR + EDN1_SIZE_BYTES`.
-pub const EDN1_SIZE_BYTES: usize = 0x80;
-
 /// Peripheral base address for regs device on sram_ctrl_main in top earlgrey.
 ///
 /// This should be used with #mmio_region_from_addr to access the memory-mapped
@@ -725,7 +501,7 @@ pub const RV_CORE_IBEX_CFG_SIZE_BYTES: usize = 0x100;
 pub const RAM_RET_AON_BASE_ADDR: usize = 0x40600000;
 
 /// Memory size for ram_ret_aon in top earlgrey.
-pub const RAM_RET_AON_SIZE_BYTES: usize = 0x1000;
+pub const RAM_RET_AON_SIZE_BYTES: usize = 0x100000;
 
 /// Memory base address for eflash in top earlgrey.
 pub const EFLASH_BASE_ADDR: usize = 0x20000000;
@@ -756,64 +532,34 @@ pub enum PlicPeripheral {
     Unknown = 0,
     /// uart0
     Uart0 = 1,
-    /// uart1
-    Uart1 = 2,
-    /// uart2
-    Uart2 = 3,
-    /// uart3
-    Uart3 = 4,
     /// gpio
-    Gpio = 5,
+    Gpio = 2,
     /// spi_device
-    SpiDevice = 6,
+    SpiDevice = 3,
     /// i2c0
-    I2c0 = 7,
-    /// i2c1
-    I2c1 = 8,
-    /// i2c2
-    I2c2 = 9,
+    I2c0 = 4,
     /// pattgen
-    Pattgen = 10,
+    Pattgen = 5,
     /// rv_timer
-    RvTimer = 11,
+    RvTimer = 6,
     /// otp_ctrl
-    OtpCtrl = 12,
+    OtpCtrl = 7,
     /// alert_handler
-    AlertHandler = 13,
+    AlertHandler = 8,
     /// spi_host0
-    SpiHost0 = 14,
-    /// spi_host1
-    SpiHost1 = 15,
-    /// usbdev
-    Usbdev = 16,
+    SpiHost0 = 9,
     /// pwrmgr_aon
-    PwrmgrAon = 17,
+    PwrmgrAon = 10,
     /// sysrst_ctrl_aon
-    SysrstCtrlAon = 18,
+    SysrstCtrlAon = 11,
     /// adc_ctrl_aon
-    AdcCtrlAon = 19,
+    AdcCtrlAon = 12,
     /// aon_timer_aon
-    AonTimerAon = 20,
+    AonTimerAon = 13,
     /// sensor_ctrl_aon
-    SensorCtrlAon = 21,
+    SensorCtrlAon = 14,
     /// flash_ctrl
-    FlashCtrl = 22,
-    /// hmac
-    Hmac = 23,
-    /// kmac
-    Kmac = 24,
-    /// otbn
-    Otbn = 25,
-    /// keymgr
-    Keymgr = 26,
-    /// csrng
-    Csrng = 27,
-    /// entropy_src
-    EntropySrc = 28,
-    /// edn0
-    Edn0 = 29,
-    /// edn1
-    Edn1 = 30,
+    FlashCtrl = 15,
 }
 
 impl TryFrom<u32> for PlicPeripheral {
@@ -822,35 +568,20 @@ impl TryFrom<u32> for PlicPeripheral {
         match val {
             0 => Ok(Self::Unknown),
             1 => Ok(Self::Uart0),
-            2 => Ok(Self::Uart1),
-            3 => Ok(Self::Uart2),
-            4 => Ok(Self::Uart3),
-            5 => Ok(Self::Gpio),
-            6 => Ok(Self::SpiDevice),
-            7 => Ok(Self::I2c0),
-            8 => Ok(Self::I2c1),
-            9 => Ok(Self::I2c2),
-            10 => Ok(Self::Pattgen),
-            11 => Ok(Self::RvTimer),
-            12 => Ok(Self::OtpCtrl),
-            13 => Ok(Self::AlertHandler),
-            14 => Ok(Self::SpiHost0),
-            15 => Ok(Self::SpiHost1),
-            16 => Ok(Self::Usbdev),
-            17 => Ok(Self::PwrmgrAon),
-            18 => Ok(Self::SysrstCtrlAon),
-            19 => Ok(Self::AdcCtrlAon),
-            20 => Ok(Self::AonTimerAon),
-            21 => Ok(Self::SensorCtrlAon),
-            22 => Ok(Self::FlashCtrl),
-            23 => Ok(Self::Hmac),
-            24 => Ok(Self::Kmac),
-            25 => Ok(Self::Otbn),
-            26 => Ok(Self::Keymgr),
-            27 => Ok(Self::Csrng),
-            28 => Ok(Self::EntropySrc),
-            29 => Ok(Self::Edn0),
-            30 => Ok(Self::Edn1),
+            2 => Ok(Self::Gpio),
+            3 => Ok(Self::SpiDevice),
+            4 => Ok(Self::I2c0),
+            5 => Ok(Self::Pattgen),
+            6 => Ok(Self::RvTimer),
+            7 => Ok(Self::OtpCtrl),
+            8 => Ok(Self::AlertHandler),
+            9 => Ok(Self::SpiHost0),
+            10 => Ok(Self::PwrmgrAon),
+            11 => Ok(Self::SysrstCtrlAon),
+            12 => Ok(Self::AdcCtrlAon),
+            13 => Ok(Self::AonTimerAon),
+            14 => Ok(Self::SensorCtrlAon),
+            15 => Ok(Self::FlashCtrl),
             _ => Err(val),
         }
     }
@@ -881,358 +612,172 @@ pub enum PlicIrqId {
     Uart0RxTimeout = 7,
     /// uart0_rx_parity_err
     Uart0RxParityErr = 8,
-    /// uart1_tx_watermark
-    Uart1TxWatermark = 9,
-    /// uart1_rx_watermark
-    Uart1RxWatermark = 10,
-    /// uart1_tx_empty
-    Uart1TxEmpty = 11,
-    /// uart1_rx_overflow
-    Uart1RxOverflow = 12,
-    /// uart1_rx_frame_err
-    Uart1RxFrameErr = 13,
-    /// uart1_rx_break_err
-    Uart1RxBreakErr = 14,
-    /// uart1_rx_timeout
-    Uart1RxTimeout = 15,
-    /// uart1_rx_parity_err
-    Uart1RxParityErr = 16,
-    /// uart2_tx_watermark
-    Uart2TxWatermark = 17,
-    /// uart2_rx_watermark
-    Uart2RxWatermark = 18,
-    /// uart2_tx_empty
-    Uart2TxEmpty = 19,
-    /// uart2_rx_overflow
-    Uart2RxOverflow = 20,
-    /// uart2_rx_frame_err
-    Uart2RxFrameErr = 21,
-    /// uart2_rx_break_err
-    Uart2RxBreakErr = 22,
-    /// uart2_rx_timeout
-    Uart2RxTimeout = 23,
-    /// uart2_rx_parity_err
-    Uart2RxParityErr = 24,
-    /// uart3_tx_watermark
-    Uart3TxWatermark = 25,
-    /// uart3_rx_watermark
-    Uart3RxWatermark = 26,
-    /// uart3_tx_empty
-    Uart3TxEmpty = 27,
-    /// uart3_rx_overflow
-    Uart3RxOverflow = 28,
-    /// uart3_rx_frame_err
-    Uart3RxFrameErr = 29,
-    /// uart3_rx_break_err
-    Uart3RxBreakErr = 30,
-    /// uart3_rx_timeout
-    Uart3RxTimeout = 31,
-    /// uart3_rx_parity_err
-    Uart3RxParityErr = 32,
     /// gpio_gpio 0
-    GpioGpio0 = 33,
+    GpioGpio0 = 9,
     /// gpio_gpio 1
-    GpioGpio1 = 34,
+    GpioGpio1 = 10,
     /// gpio_gpio 2
-    GpioGpio2 = 35,
+    GpioGpio2 = 11,
     /// gpio_gpio 3
-    GpioGpio3 = 36,
+    GpioGpio3 = 12,
     /// gpio_gpio 4
-    GpioGpio4 = 37,
+    GpioGpio4 = 13,
     /// gpio_gpio 5
-    GpioGpio5 = 38,
+    GpioGpio5 = 14,
     /// gpio_gpio 6
-    GpioGpio6 = 39,
+    GpioGpio6 = 15,
     /// gpio_gpio 7
-    GpioGpio7 = 40,
+    GpioGpio7 = 16,
     /// gpio_gpio 8
-    GpioGpio8 = 41,
+    GpioGpio8 = 17,
     /// gpio_gpio 9
-    GpioGpio9 = 42,
+    GpioGpio9 = 18,
     /// gpio_gpio 10
-    GpioGpio10 = 43,
+    GpioGpio10 = 19,
     /// gpio_gpio 11
-    GpioGpio11 = 44,
+    GpioGpio11 = 20,
     /// gpio_gpio 12
-    GpioGpio12 = 45,
+    GpioGpio12 = 21,
     /// gpio_gpio 13
-    GpioGpio13 = 46,
+    GpioGpio13 = 22,
     /// gpio_gpio 14
-    GpioGpio14 = 47,
+    GpioGpio14 = 23,
     /// gpio_gpio 15
-    GpioGpio15 = 48,
+    GpioGpio15 = 24,
     /// gpio_gpio 16
-    GpioGpio16 = 49,
+    GpioGpio16 = 25,
     /// gpio_gpio 17
-    GpioGpio17 = 50,
+    GpioGpio17 = 26,
     /// gpio_gpio 18
-    GpioGpio18 = 51,
+    GpioGpio18 = 27,
     /// gpio_gpio 19
-    GpioGpio19 = 52,
+    GpioGpio19 = 28,
     /// gpio_gpio 20
-    GpioGpio20 = 53,
+    GpioGpio20 = 29,
     /// gpio_gpio 21
-    GpioGpio21 = 54,
+    GpioGpio21 = 30,
     /// gpio_gpio 22
-    GpioGpio22 = 55,
+    GpioGpio22 = 31,
     /// gpio_gpio 23
-    GpioGpio23 = 56,
+    GpioGpio23 = 32,
     /// gpio_gpio 24
-    GpioGpio24 = 57,
+    GpioGpio24 = 33,
     /// gpio_gpio 25
-    GpioGpio25 = 58,
+    GpioGpio25 = 34,
     /// gpio_gpio 26
-    GpioGpio26 = 59,
+    GpioGpio26 = 35,
     /// gpio_gpio 27
-    GpioGpio27 = 60,
+    GpioGpio27 = 36,
     /// gpio_gpio 28
-    GpioGpio28 = 61,
+    GpioGpio28 = 37,
     /// gpio_gpio 29
-    GpioGpio29 = 62,
+    GpioGpio29 = 38,
     /// gpio_gpio 30
-    GpioGpio30 = 63,
+    GpioGpio30 = 39,
     /// gpio_gpio 31
-    GpioGpio31 = 64,
+    GpioGpio31 = 40,
     /// spi_device_generic_rx_full
-    SpiDeviceGenericRxFull = 65,
+    SpiDeviceGenericRxFull = 41,
     /// spi_device_generic_rx_watermark
-    SpiDeviceGenericRxWatermark = 66,
+    SpiDeviceGenericRxWatermark = 42,
     /// spi_device_generic_tx_watermark
-    SpiDeviceGenericTxWatermark = 67,
+    SpiDeviceGenericTxWatermark = 43,
     /// spi_device_generic_rx_error
-    SpiDeviceGenericRxError = 68,
+    SpiDeviceGenericRxError = 44,
     /// spi_device_generic_rx_overflow
-    SpiDeviceGenericRxOverflow = 69,
+    SpiDeviceGenericRxOverflow = 45,
     /// spi_device_generic_tx_underflow
-    SpiDeviceGenericTxUnderflow = 70,
+    SpiDeviceGenericTxUnderflow = 46,
     /// spi_device_upload_cmdfifo_not_empty
-    SpiDeviceUploadCmdfifoNotEmpty = 71,
+    SpiDeviceUploadCmdfifoNotEmpty = 47,
     /// spi_device_upload_payload_not_empty
-    SpiDeviceUploadPayloadNotEmpty = 72,
+    SpiDeviceUploadPayloadNotEmpty = 48,
     /// spi_device_upload_payload_overflow
-    SpiDeviceUploadPayloadOverflow = 73,
+    SpiDeviceUploadPayloadOverflow = 49,
     /// spi_device_readbuf_watermark
-    SpiDeviceReadbufWatermark = 74,
+    SpiDeviceReadbufWatermark = 50,
     /// spi_device_readbuf_flip
-    SpiDeviceReadbufFlip = 75,
+    SpiDeviceReadbufFlip = 51,
     /// spi_device_tpm_header_not_empty
-    SpiDeviceTpmHeaderNotEmpty = 76,
+    SpiDeviceTpmHeaderNotEmpty = 52,
     /// i2c0_fmt_threshold
-    I2c0FmtThreshold = 77,
+    I2c0FmtThreshold = 53,
     /// i2c0_rx_threshold
-    I2c0RxThreshold = 78,
+    I2c0RxThreshold = 54,
     /// i2c0_fmt_overflow
-    I2c0FmtOverflow = 79,
+    I2c0FmtOverflow = 55,
     /// i2c0_rx_overflow
-    I2c0RxOverflow = 80,
+    I2c0RxOverflow = 56,
     /// i2c0_nak
-    I2c0Nak = 81,
+    I2c0Nak = 57,
     /// i2c0_scl_interference
-    I2c0SclInterference = 82,
+    I2c0SclInterference = 58,
     /// i2c0_sda_interference
-    I2c0SdaInterference = 83,
+    I2c0SdaInterference = 59,
     /// i2c0_stretch_timeout
-    I2c0StretchTimeout = 84,
+    I2c0StretchTimeout = 60,
     /// i2c0_sda_unstable
-    I2c0SdaUnstable = 85,
+    I2c0SdaUnstable = 61,
     /// i2c0_cmd_complete
-    I2c0CmdComplete = 86,
+    I2c0CmdComplete = 62,
     /// i2c0_tx_stretch
-    I2c0TxStretch = 87,
+    I2c0TxStretch = 63,
     /// i2c0_tx_overflow
-    I2c0TxOverflow = 88,
+    I2c0TxOverflow = 64,
     /// i2c0_acq_full
-    I2c0AcqFull = 89,
+    I2c0AcqFull = 65,
     /// i2c0_unexp_stop
-    I2c0UnexpStop = 90,
+    I2c0UnexpStop = 66,
     /// i2c0_host_timeout
-    I2c0HostTimeout = 91,
-    /// i2c1_fmt_threshold
-    I2c1FmtThreshold = 92,
-    /// i2c1_rx_threshold
-    I2c1RxThreshold = 93,
-    /// i2c1_fmt_overflow
-    I2c1FmtOverflow = 94,
-    /// i2c1_rx_overflow
-    I2c1RxOverflow = 95,
-    /// i2c1_nak
-    I2c1Nak = 96,
-    /// i2c1_scl_interference
-    I2c1SclInterference = 97,
-    /// i2c1_sda_interference
-    I2c1SdaInterference = 98,
-    /// i2c1_stretch_timeout
-    I2c1StretchTimeout = 99,
-    /// i2c1_sda_unstable
-    I2c1SdaUnstable = 100,
-    /// i2c1_cmd_complete
-    I2c1CmdComplete = 101,
-    /// i2c1_tx_stretch
-    I2c1TxStretch = 102,
-    /// i2c1_tx_overflow
-    I2c1TxOverflow = 103,
-    /// i2c1_acq_full
-    I2c1AcqFull = 104,
-    /// i2c1_unexp_stop
-    I2c1UnexpStop = 105,
-    /// i2c1_host_timeout
-    I2c1HostTimeout = 106,
-    /// i2c2_fmt_threshold
-    I2c2FmtThreshold = 107,
-    /// i2c2_rx_threshold
-    I2c2RxThreshold = 108,
-    /// i2c2_fmt_overflow
-    I2c2FmtOverflow = 109,
-    /// i2c2_rx_overflow
-    I2c2RxOverflow = 110,
-    /// i2c2_nak
-    I2c2Nak = 111,
-    /// i2c2_scl_interference
-    I2c2SclInterference = 112,
-    /// i2c2_sda_interference
-    I2c2SdaInterference = 113,
-    /// i2c2_stretch_timeout
-    I2c2StretchTimeout = 114,
-    /// i2c2_sda_unstable
-    I2c2SdaUnstable = 115,
-    /// i2c2_cmd_complete
-    I2c2CmdComplete = 116,
-    /// i2c2_tx_stretch
-    I2c2TxStretch = 117,
-    /// i2c2_tx_overflow
-    I2c2TxOverflow = 118,
-    /// i2c2_acq_full
-    I2c2AcqFull = 119,
-    /// i2c2_unexp_stop
-    I2c2UnexpStop = 120,
-    /// i2c2_host_timeout
-    I2c2HostTimeout = 121,
+    I2c0HostTimeout = 67,
     /// pattgen_done_ch0
-    PattgenDoneCh0 = 122,
+    PattgenDoneCh0 = 68,
     /// pattgen_done_ch1
-    PattgenDoneCh1 = 123,
+    PattgenDoneCh1 = 69,
     /// rv_timer_timer_expired_hart0_timer0
-    RvTimerTimerExpiredHart0Timer0 = 124,
+    RvTimerTimerExpiredHart0Timer0 = 70,
     /// otp_ctrl_otp_operation_done
-    OtpCtrlOtpOperationDone = 125,
+    OtpCtrlOtpOperationDone = 71,
     /// otp_ctrl_otp_error
-    OtpCtrlOtpError = 126,
+    OtpCtrlOtpError = 72,
     /// alert_handler_classa
-    AlertHandlerClassa = 127,
+    AlertHandlerClassa = 73,
     /// alert_handler_classb
-    AlertHandlerClassb = 128,
+    AlertHandlerClassb = 74,
     /// alert_handler_classc
-    AlertHandlerClassc = 129,
+    AlertHandlerClassc = 75,
     /// alert_handler_classd
-    AlertHandlerClassd = 130,
+    AlertHandlerClassd = 76,
     /// spi_host0_error
-    SpiHost0Error = 131,
+    SpiHost0Error = 77,
     /// spi_host0_spi_event
-    SpiHost0SpiEvent = 132,
-    /// spi_host1_error
-    SpiHost1Error = 133,
-    /// spi_host1_spi_event
-    SpiHost1SpiEvent = 134,
-    /// usbdev_pkt_received
-    UsbdevPktReceived = 135,
-    /// usbdev_pkt_sent
-    UsbdevPktSent = 136,
-    /// usbdev_disconnected
-    UsbdevDisconnected = 137,
-    /// usbdev_host_lost
-    UsbdevHostLost = 138,
-    /// usbdev_link_reset
-    UsbdevLinkReset = 139,
-    /// usbdev_link_suspend
-    UsbdevLinkSuspend = 140,
-    /// usbdev_link_resume
-    UsbdevLinkResume = 141,
-    /// usbdev_av_empty
-    UsbdevAvEmpty = 142,
-    /// usbdev_rx_full
-    UsbdevRxFull = 143,
-    /// usbdev_av_overflow
-    UsbdevAvOverflow = 144,
-    /// usbdev_link_in_err
-    UsbdevLinkInErr = 145,
-    /// usbdev_rx_crc_err
-    UsbdevRxCrcErr = 146,
-    /// usbdev_rx_pid_err
-    UsbdevRxPidErr = 147,
-    /// usbdev_rx_bitstuff_err
-    UsbdevRxBitstuffErr = 148,
-    /// usbdev_frame
-    UsbdevFrame = 149,
-    /// usbdev_powered
-    UsbdevPowered = 150,
-    /// usbdev_link_out_err
-    UsbdevLinkOutErr = 151,
+    SpiHost0SpiEvent = 78,
     /// pwrmgr_aon_wakeup
-    PwrmgrAonWakeup = 152,
+    PwrmgrAonWakeup = 79,
     /// sysrst_ctrl_aon_event_detected
-    SysrstCtrlAonEventDetected = 153,
+    SysrstCtrlAonEventDetected = 80,
     /// adc_ctrl_aon_match_done
-    AdcCtrlAonMatchDone = 154,
+    AdcCtrlAonMatchDone = 81,
     /// aon_timer_aon_wkup_timer_expired
-    AonTimerAonWkupTimerExpired = 155,
+    AonTimerAonWkupTimerExpired = 82,
     /// aon_timer_aon_wdog_timer_bark
-    AonTimerAonWdogTimerBark = 156,
+    AonTimerAonWdogTimerBark = 83,
     /// sensor_ctrl_aon_io_status_change
-    SensorCtrlAonIoStatusChange = 157,
+    SensorCtrlAonIoStatusChange = 84,
     /// sensor_ctrl_aon_init_status_change
-    SensorCtrlAonInitStatusChange = 158,
+    SensorCtrlAonInitStatusChange = 85,
     /// flash_ctrl_prog_empty
-    FlashCtrlProgEmpty = 159,
+    FlashCtrlProgEmpty = 86,
     /// flash_ctrl_prog_lvl
-    FlashCtrlProgLvl = 160,
+    FlashCtrlProgLvl = 87,
     /// flash_ctrl_rd_full
-    FlashCtrlRdFull = 161,
+    FlashCtrlRdFull = 88,
     /// flash_ctrl_rd_lvl
-    FlashCtrlRdLvl = 162,
+    FlashCtrlRdLvl = 89,
     /// flash_ctrl_op_done
-    FlashCtrlOpDone = 163,
+    FlashCtrlOpDone = 90,
     /// flash_ctrl_corr_err
-    FlashCtrlCorrErr = 164,
-    /// hmac_hmac_done
-    HmacHmacDone = 165,
-    /// hmac_fifo_empty
-    HmacFifoEmpty = 166,
-    /// hmac_hmac_err
-    HmacHmacErr = 167,
-    /// kmac_kmac_done
-    KmacKmacDone = 168,
-    /// kmac_fifo_empty
-    KmacFifoEmpty = 169,
-    /// kmac_kmac_err
-    KmacKmacErr = 170,
-    /// otbn_done
-    OtbnDone = 171,
-    /// keymgr_op_done
-    KeymgrOpDone = 172,
-    /// csrng_cs_cmd_req_done
-    CsrngCsCmdReqDone = 173,
-    /// csrng_cs_entropy_req
-    CsrngCsEntropyReq = 174,
-    /// csrng_cs_hw_inst_exc
-    CsrngCsHwInstExc = 175,
-    /// csrng_cs_fatal_err
-    CsrngCsFatalErr = 176,
-    /// entropy_src_es_entropy_valid
-    EntropySrcEsEntropyValid = 177,
-    /// entropy_src_es_health_test_failed
-    EntropySrcEsHealthTestFailed = 178,
-    /// entropy_src_es_observe_fifo_ready
-    EntropySrcEsObserveFifoReady = 179,
-    /// entropy_src_es_fatal_err
-    EntropySrcEsFatalErr = 180,
-    /// edn0_edn_cmd_req_done
-    Edn0EdnCmdReqDone = 181,
-    /// edn0_edn_fatal_err
-    Edn0EdnFatalErr = 182,
-    /// edn1_edn_cmd_req_done
-    Edn1EdnCmdReqDone = 183,
-    /// edn1_edn_fatal_err
-    Edn1EdnFatalErr = 184,
+    FlashCtrlCorrErr = 91,
 }
 
 impl TryFrom<u32> for PlicIrqId {
@@ -1248,182 +793,89 @@ impl TryFrom<u32> for PlicIrqId {
             6 => Ok(Self::Uart0RxBreakErr),
             7 => Ok(Self::Uart0RxTimeout),
             8 => Ok(Self::Uart0RxParityErr),
-            9 => Ok(Self::Uart1TxWatermark),
-            10 => Ok(Self::Uart1RxWatermark),
-            11 => Ok(Self::Uart1TxEmpty),
-            12 => Ok(Self::Uart1RxOverflow),
-            13 => Ok(Self::Uart1RxFrameErr),
-            14 => Ok(Self::Uart1RxBreakErr),
-            15 => Ok(Self::Uart1RxTimeout),
-            16 => Ok(Self::Uart1RxParityErr),
-            17 => Ok(Self::Uart2TxWatermark),
-            18 => Ok(Self::Uart2RxWatermark),
-            19 => Ok(Self::Uart2TxEmpty),
-            20 => Ok(Self::Uart2RxOverflow),
-            21 => Ok(Self::Uart2RxFrameErr),
-            22 => Ok(Self::Uart2RxBreakErr),
-            23 => Ok(Self::Uart2RxTimeout),
-            24 => Ok(Self::Uart2RxParityErr),
-            25 => Ok(Self::Uart3TxWatermark),
-            26 => Ok(Self::Uart3RxWatermark),
-            27 => Ok(Self::Uart3TxEmpty),
-            28 => Ok(Self::Uart3RxOverflow),
-            29 => Ok(Self::Uart3RxFrameErr),
-            30 => Ok(Self::Uart3RxBreakErr),
-            31 => Ok(Self::Uart3RxTimeout),
-            32 => Ok(Self::Uart3RxParityErr),
-            33 => Ok(Self::GpioGpio0),
-            34 => Ok(Self::GpioGpio1),
-            35 => Ok(Self::GpioGpio2),
-            36 => Ok(Self::GpioGpio3),
-            37 => Ok(Self::GpioGpio4),
-            38 => Ok(Self::GpioGpio5),
-            39 => Ok(Self::GpioGpio6),
-            40 => Ok(Self::GpioGpio7),
-            41 => Ok(Self::GpioGpio8),
-            42 => Ok(Self::GpioGpio9),
-            43 => Ok(Self::GpioGpio10),
-            44 => Ok(Self::GpioGpio11),
-            45 => Ok(Self::GpioGpio12),
-            46 => Ok(Self::GpioGpio13),
-            47 => Ok(Self::GpioGpio14),
-            48 => Ok(Self::GpioGpio15),
-            49 => Ok(Self::GpioGpio16),
-            50 => Ok(Self::GpioGpio17),
-            51 => Ok(Self::GpioGpio18),
-            52 => Ok(Self::GpioGpio19),
-            53 => Ok(Self::GpioGpio20),
-            54 => Ok(Self::GpioGpio21),
-            55 => Ok(Self::GpioGpio22),
-            56 => Ok(Self::GpioGpio23),
-            57 => Ok(Self::GpioGpio24),
-            58 => Ok(Self::GpioGpio25),
-            59 => Ok(Self::GpioGpio26),
-            60 => Ok(Self::GpioGpio27),
-            61 => Ok(Self::GpioGpio28),
-            62 => Ok(Self::GpioGpio29),
-            63 => Ok(Self::GpioGpio30),
-            64 => Ok(Self::GpioGpio31),
-            65 => Ok(Self::SpiDeviceGenericRxFull),
-            66 => Ok(Self::SpiDeviceGenericRxWatermark),
-            67 => Ok(Self::SpiDeviceGenericTxWatermark),
-            68 => Ok(Self::SpiDeviceGenericRxError),
-            69 => Ok(Self::SpiDeviceGenericRxOverflow),
-            70 => Ok(Self::SpiDeviceGenericTxUnderflow),
-            71 => Ok(Self::SpiDeviceUploadCmdfifoNotEmpty),
-            72 => Ok(Self::SpiDeviceUploadPayloadNotEmpty),
-            73 => Ok(Self::SpiDeviceUploadPayloadOverflow),
-            74 => Ok(Self::SpiDeviceReadbufWatermark),
-            75 => Ok(Self::SpiDeviceReadbufFlip),
-            76 => Ok(Self::SpiDeviceTpmHeaderNotEmpty),
-            77 => Ok(Self::I2c0FmtThreshold),
-            78 => Ok(Self::I2c0RxThreshold),
-            79 => Ok(Self::I2c0FmtOverflow),
-            80 => Ok(Self::I2c0RxOverflow),
-            81 => Ok(Self::I2c0Nak),
-            82 => Ok(Self::I2c0SclInterference),
-            83 => Ok(Self::I2c0SdaInterference),
-            84 => Ok(Self::I2c0StretchTimeout),
-            85 => Ok(Self::I2c0SdaUnstable),
-            86 => Ok(Self::I2c0CmdComplete),
-            87 => Ok(Self::I2c0TxStretch),
-            88 => Ok(Self::I2c0TxOverflow),
-            89 => Ok(Self::I2c0AcqFull),
-            90 => Ok(Self::I2c0UnexpStop),
-            91 => Ok(Self::I2c0HostTimeout),
-            92 => Ok(Self::I2c1FmtThreshold),
-            93 => Ok(Self::I2c1RxThreshold),
-            94 => Ok(Self::I2c1FmtOverflow),
-            95 => Ok(Self::I2c1RxOverflow),
-            96 => Ok(Self::I2c1Nak),
-            97 => Ok(Self::I2c1SclInterference),
-            98 => Ok(Self::I2c1SdaInterference),
-            99 => Ok(Self::I2c1StretchTimeout),
-            100 => Ok(Self::I2c1SdaUnstable),
-            101 => Ok(Self::I2c1CmdComplete),
-            102 => Ok(Self::I2c1TxStretch),
-            103 => Ok(Self::I2c1TxOverflow),
-            104 => Ok(Self::I2c1AcqFull),
-            105 => Ok(Self::I2c1UnexpStop),
-            106 => Ok(Self::I2c1HostTimeout),
-            107 => Ok(Self::I2c2FmtThreshold),
-            108 => Ok(Self::I2c2RxThreshold),
-            109 => Ok(Self::I2c2FmtOverflow),
-            110 => Ok(Self::I2c2RxOverflow),
-            111 => Ok(Self::I2c2Nak),
-            112 => Ok(Self::I2c2SclInterference),
-            113 => Ok(Self::I2c2SdaInterference),
-            114 => Ok(Self::I2c2StretchTimeout),
-            115 => Ok(Self::I2c2SdaUnstable),
-            116 => Ok(Self::I2c2CmdComplete),
-            117 => Ok(Self::I2c2TxStretch),
-            118 => Ok(Self::I2c2TxOverflow),
-            119 => Ok(Self::I2c2AcqFull),
-            120 => Ok(Self::I2c2UnexpStop),
-            121 => Ok(Self::I2c2HostTimeout),
-            122 => Ok(Self::PattgenDoneCh0),
-            123 => Ok(Self::PattgenDoneCh1),
-            124 => Ok(Self::RvTimerTimerExpiredHart0Timer0),
-            125 => Ok(Self::OtpCtrlOtpOperationDone),
-            126 => Ok(Self::OtpCtrlOtpError),
-            127 => Ok(Self::AlertHandlerClassa),
-            128 => Ok(Self::AlertHandlerClassb),
-            129 => Ok(Self::AlertHandlerClassc),
-            130 => Ok(Self::AlertHandlerClassd),
-            131 => Ok(Self::SpiHost0Error),
-            132 => Ok(Self::SpiHost0SpiEvent),
-            133 => Ok(Self::SpiHost1Error),
-            134 => Ok(Self::SpiHost1SpiEvent),
-            135 => Ok(Self::UsbdevPktReceived),
-            136 => Ok(Self::UsbdevPktSent),
-            137 => Ok(Self::UsbdevDisconnected),
-            138 => Ok(Self::UsbdevHostLost),
-            139 => Ok(Self::UsbdevLinkReset),
-            140 => Ok(Self::UsbdevLinkSuspend),
-            141 => Ok(Self::UsbdevLinkResume),
-            142 => Ok(Self::UsbdevAvEmpty),
-            143 => Ok(Self::UsbdevRxFull),
-            144 => Ok(Self::UsbdevAvOverflow),
-            145 => Ok(Self::UsbdevLinkInErr),
-            146 => Ok(Self::UsbdevRxCrcErr),
-            147 => Ok(Self::UsbdevRxPidErr),
-            148 => Ok(Self::UsbdevRxBitstuffErr),
-            149 => Ok(Self::UsbdevFrame),
-            150 => Ok(Self::UsbdevPowered),
-            151 => Ok(Self::UsbdevLinkOutErr),
-            152 => Ok(Self::PwrmgrAonWakeup),
-            153 => Ok(Self::SysrstCtrlAonEventDetected),
-            154 => Ok(Self::AdcCtrlAonMatchDone),
-            155 => Ok(Self::AonTimerAonWkupTimerExpired),
-            156 => Ok(Self::AonTimerAonWdogTimerBark),
-            157 => Ok(Self::SensorCtrlAonIoStatusChange),
-            158 => Ok(Self::SensorCtrlAonInitStatusChange),
-            159 => Ok(Self::FlashCtrlProgEmpty),
-            160 => Ok(Self::FlashCtrlProgLvl),
-            161 => Ok(Self::FlashCtrlRdFull),
-            162 => Ok(Self::FlashCtrlRdLvl),
-            163 => Ok(Self::FlashCtrlOpDone),
-            164 => Ok(Self::FlashCtrlCorrErr),
-            165 => Ok(Self::HmacHmacDone),
-            166 => Ok(Self::HmacFifoEmpty),
-            167 => Ok(Self::HmacHmacErr),
-            168 => Ok(Self::KmacKmacDone),
-            169 => Ok(Self::KmacFifoEmpty),
-            170 => Ok(Self::KmacKmacErr),
-            171 => Ok(Self::OtbnDone),
-            172 => Ok(Self::KeymgrOpDone),
-            173 => Ok(Self::CsrngCsCmdReqDone),
-            174 => Ok(Self::CsrngCsEntropyReq),
-            175 => Ok(Self::CsrngCsHwInstExc),
-            176 => Ok(Self::CsrngCsFatalErr),
-            177 => Ok(Self::EntropySrcEsEntropyValid),
-            178 => Ok(Self::EntropySrcEsHealthTestFailed),
-            179 => Ok(Self::EntropySrcEsObserveFifoReady),
-            180 => Ok(Self::EntropySrcEsFatalErr),
-            181 => Ok(Self::Edn0EdnCmdReqDone),
-            182 => Ok(Self::Edn0EdnFatalErr),
-            183 => Ok(Self::Edn1EdnCmdReqDone),
-            184 => Ok(Self::Edn1EdnFatalErr),
+            9 => Ok(Self::GpioGpio0),
+            10 => Ok(Self::GpioGpio1),
+            11 => Ok(Self::GpioGpio2),
+            12 => Ok(Self::GpioGpio3),
+            13 => Ok(Self::GpioGpio4),
+            14 => Ok(Self::GpioGpio5),
+            15 => Ok(Self::GpioGpio6),
+            16 => Ok(Self::GpioGpio7),
+            17 => Ok(Self::GpioGpio8),
+            18 => Ok(Self::GpioGpio9),
+            19 => Ok(Self::GpioGpio10),
+            20 => Ok(Self::GpioGpio11),
+            21 => Ok(Self::GpioGpio12),
+            22 => Ok(Self::GpioGpio13),
+            23 => Ok(Self::GpioGpio14),
+            24 => Ok(Self::GpioGpio15),
+            25 => Ok(Self::GpioGpio16),
+            26 => Ok(Self::GpioGpio17),
+            27 => Ok(Self::GpioGpio18),
+            28 => Ok(Self::GpioGpio19),
+            29 => Ok(Self::GpioGpio20),
+            30 => Ok(Self::GpioGpio21),
+            31 => Ok(Self::GpioGpio22),
+            32 => Ok(Self::GpioGpio23),
+            33 => Ok(Self::GpioGpio24),
+            34 => Ok(Self::GpioGpio25),
+            35 => Ok(Self::GpioGpio26),
+            36 => Ok(Self::GpioGpio27),
+            37 => Ok(Self::GpioGpio28),
+            38 => Ok(Self::GpioGpio29),
+            39 => Ok(Self::GpioGpio30),
+            40 => Ok(Self::GpioGpio31),
+            41 => Ok(Self::SpiDeviceGenericRxFull),
+            42 => Ok(Self::SpiDeviceGenericRxWatermark),
+            43 => Ok(Self::SpiDeviceGenericTxWatermark),
+            44 => Ok(Self::SpiDeviceGenericRxError),
+            45 => Ok(Self::SpiDeviceGenericRxOverflow),
+            46 => Ok(Self::SpiDeviceGenericTxUnderflow),
+            47 => Ok(Self::SpiDeviceUploadCmdfifoNotEmpty),
+            48 => Ok(Self::SpiDeviceUploadPayloadNotEmpty),
+            49 => Ok(Self::SpiDeviceUploadPayloadOverflow),
+            50 => Ok(Self::SpiDeviceReadbufWatermark),
+            51 => Ok(Self::SpiDeviceReadbufFlip),
+            52 => Ok(Self::SpiDeviceTpmHeaderNotEmpty),
+            53 => Ok(Self::I2c0FmtThreshold),
+            54 => Ok(Self::I2c0RxThreshold),
+            55 => Ok(Self::I2c0FmtOverflow),
+            56 => Ok(Self::I2c0RxOverflow),
+            57 => Ok(Self::I2c0Nak),
+            58 => Ok(Self::I2c0SclInterference),
+            59 => Ok(Self::I2c0SdaInterference),
+            60 => Ok(Self::I2c0StretchTimeout),
+            61 => Ok(Self::I2c0SdaUnstable),
+            62 => Ok(Self::I2c0CmdComplete),
+            63 => Ok(Self::I2c0TxStretch),
+            64 => Ok(Self::I2c0TxOverflow),
+            65 => Ok(Self::I2c0AcqFull),
+            66 => Ok(Self::I2c0UnexpStop),
+            67 => Ok(Self::I2c0HostTimeout),
+            68 => Ok(Self::PattgenDoneCh0),
+            69 => Ok(Self::PattgenDoneCh1),
+            70 => Ok(Self::RvTimerTimerExpiredHart0Timer0),
+            71 => Ok(Self::OtpCtrlOtpOperationDone),
+            72 => Ok(Self::OtpCtrlOtpError),
+            73 => Ok(Self::AlertHandlerClassa),
+            74 => Ok(Self::AlertHandlerClassb),
+            75 => Ok(Self::AlertHandlerClassc),
+            76 => Ok(Self::AlertHandlerClassd),
+            77 => Ok(Self::SpiHost0Error),
+            78 => Ok(Self::SpiHost0SpiEvent),
+            79 => Ok(Self::PwrmgrAonWakeup),
+            80 => Ok(Self::SysrstCtrlAonEventDetected),
+            81 => Ok(Self::AdcCtrlAonMatchDone),
+            82 => Ok(Self::AonTimerAonWkupTimerExpired),
+            83 => Ok(Self::AonTimerAonWdogTimerBark),
+            84 => Ok(Self::SensorCtrlAonIoStatusChange),
+            85 => Ok(Self::SensorCtrlAonInitStatusChange),
+            86 => Ok(Self::FlashCtrlProgEmpty),
+            87 => Ok(Self::FlashCtrlProgLvl),
+            88 => Ok(Self::FlashCtrlRdFull),
+            89 => Ok(Self::FlashCtrlRdLvl),
+            90 => Ok(Self::FlashCtrlOpDone),
+            91 => Ok(Self::FlashCtrlCorrErr),
             _ => Err(val),
         }
     }
@@ -1449,86 +901,54 @@ pub enum PlicTarget {
 pub enum AlertPeripheral {
     /// uart0
     Uart0 = 0,
-    /// uart1
-    Uart1 = 1,
-    /// uart2
-    Uart2 = 2,
-    /// uart3
-    Uart3 = 3,
     /// gpio
-    Gpio = 4,
+    Gpio = 1,
     /// spi_device
-    SpiDevice = 5,
+    SpiDevice = 2,
     /// i2c0
-    I2c0 = 6,
-    /// i2c1
-    I2c1 = 7,
-    /// i2c2
-    I2c2 = 8,
+    I2c0 = 3,
     /// pattgen
-    Pattgen = 9,
+    Pattgen = 4,
     /// rv_timer
-    RvTimer = 10,
+    RvTimer = 5,
     /// otp_ctrl
-    OtpCtrl = 11,
+    OtpCtrl = 6,
     /// lc_ctrl
-    LcCtrl = 12,
+    LcCtrl = 7,
     /// spi_host0
-    SpiHost0 = 13,
-    /// spi_host1
-    SpiHost1 = 14,
-    /// usbdev
-    Usbdev = 15,
+    SpiHost0 = 8,
     /// pwrmgr_aon
-    PwrmgrAon = 16,
+    PwrmgrAon = 9,
     /// rstmgr_aon
-    RstmgrAon = 17,
+    RstmgrAon = 10,
     /// clkmgr_aon
-    ClkmgrAon = 18,
+    ClkmgrAon = 11,
     /// sysrst_ctrl_aon
-    SysrstCtrlAon = 19,
+    SysrstCtrlAon = 12,
     /// adc_ctrl_aon
-    AdcCtrlAon = 20,
+    AdcCtrlAon = 13,
     /// pwm_aon
-    PwmAon = 21,
+    PwmAon = 14,
     /// pinmux_aon
-    PinmuxAon = 22,
+    PinmuxAon = 15,
     /// aon_timer_aon
-    AonTimerAon = 23,
+    AonTimerAon = 16,
     /// sensor_ctrl_aon
-    SensorCtrlAon = 24,
+    SensorCtrlAon = 17,
     /// sram_ctrl_ret_aon
-    SramCtrlRetAon = 25,
+    SramCtrlRetAon = 18,
     /// flash_ctrl
-    FlashCtrl = 26,
+    FlashCtrl = 19,
     /// rv_dm
-    RvDm = 27,
+    RvDm = 20,
     /// rv_plic
-    RvPlic = 28,
-    /// aes
-    Aes = 29,
-    /// hmac
-    Hmac = 30,
-    /// kmac
-    Kmac = 31,
-    /// otbn
-    Otbn = 32,
-    /// keymgr
-    Keymgr = 33,
-    /// csrng
-    Csrng = 34,
-    /// entropy_src
-    EntropySrc = 35,
-    /// edn0
-    Edn0 = 36,
-    /// edn1
-    Edn1 = 37,
+    RvPlic = 21,
     /// sram_ctrl_main
-    SramCtrlMain = 38,
+    SramCtrlMain = 22,
     /// rom_ctrl
-    RomCtrl = 39,
+    RomCtrl = 23,
     /// rv_core_ibex
-    RvCoreIbex = 40,
+    RvCoreIbex = 24,
 }
 
 /// Alert Handler Alert Source.
@@ -1540,134 +960,86 @@ pub enum AlertPeripheral {
 pub enum AlertId {
     /// uart0_fatal_fault
     Uart0FatalFault = 0,
-    /// uart1_fatal_fault
-    Uart1FatalFault = 1,
-    /// uart2_fatal_fault
-    Uart2FatalFault = 2,
-    /// uart3_fatal_fault
-    Uart3FatalFault = 3,
     /// gpio_fatal_fault
-    GpioFatalFault = 4,
+    GpioFatalFault = 1,
     /// spi_device_fatal_fault
-    SpiDeviceFatalFault = 5,
+    SpiDeviceFatalFault = 2,
     /// i2c0_fatal_fault
-    I2c0FatalFault = 6,
-    /// i2c1_fatal_fault
-    I2c1FatalFault = 7,
-    /// i2c2_fatal_fault
-    I2c2FatalFault = 8,
+    I2c0FatalFault = 3,
     /// pattgen_fatal_fault
-    PattgenFatalFault = 9,
+    PattgenFatalFault = 4,
     /// rv_timer_fatal_fault
-    RvTimerFatalFault = 10,
+    RvTimerFatalFault = 5,
     /// otp_ctrl_fatal_macro_error
-    OtpCtrlFatalMacroError = 11,
+    OtpCtrlFatalMacroError = 6,
     /// otp_ctrl_fatal_check_error
-    OtpCtrlFatalCheckError = 12,
+    OtpCtrlFatalCheckError = 7,
     /// otp_ctrl_fatal_bus_integ_error
-    OtpCtrlFatalBusIntegError = 13,
+    OtpCtrlFatalBusIntegError = 8,
     /// otp_ctrl_fatal_prim_otp_alert
-    OtpCtrlFatalPrimOtpAlert = 14,
+    OtpCtrlFatalPrimOtpAlert = 9,
     /// otp_ctrl_recov_prim_otp_alert
-    OtpCtrlRecovPrimOtpAlert = 15,
+    OtpCtrlRecovPrimOtpAlert = 10,
     /// lc_ctrl_fatal_prog_error
-    LcCtrlFatalProgError = 16,
+    LcCtrlFatalProgError = 11,
     /// lc_ctrl_fatal_state_error
-    LcCtrlFatalStateError = 17,
+    LcCtrlFatalStateError = 12,
     /// lc_ctrl_fatal_bus_integ_error
-    LcCtrlFatalBusIntegError = 18,
+    LcCtrlFatalBusIntegError = 13,
     /// spi_host0_fatal_fault
-    SpiHost0FatalFault = 19,
-    /// spi_host1_fatal_fault
-    SpiHost1FatalFault = 20,
-    /// usbdev_fatal_fault
-    UsbdevFatalFault = 21,
+    SpiHost0FatalFault = 14,
     /// pwrmgr_aon_fatal_fault
-    PwrmgrAonFatalFault = 22,
+    PwrmgrAonFatalFault = 15,
     /// rstmgr_aon_fatal_fault
-    RstmgrAonFatalFault = 23,
+    RstmgrAonFatalFault = 16,
     /// rstmgr_aon_fatal_cnsty_fault
-    RstmgrAonFatalCnstyFault = 24,
+    RstmgrAonFatalCnstyFault = 17,
     /// clkmgr_aon_recov_fault
-    ClkmgrAonRecovFault = 25,
+    ClkmgrAonRecovFault = 18,
     /// clkmgr_aon_fatal_fault
-    ClkmgrAonFatalFault = 26,
+    ClkmgrAonFatalFault = 19,
     /// sysrst_ctrl_aon_fatal_fault
-    SysrstCtrlAonFatalFault = 27,
+    SysrstCtrlAonFatalFault = 20,
     /// adc_ctrl_aon_fatal_fault
-    AdcCtrlAonFatalFault = 28,
+    AdcCtrlAonFatalFault = 21,
     /// pwm_aon_fatal_fault
-    PwmAonFatalFault = 29,
+    PwmAonFatalFault = 22,
     /// pinmux_aon_fatal_fault
-    PinmuxAonFatalFault = 30,
+    PinmuxAonFatalFault = 23,
     /// aon_timer_aon_fatal_fault
-    AonTimerAonFatalFault = 31,
+    AonTimerAonFatalFault = 24,
     /// sensor_ctrl_aon_recov_alert
-    SensorCtrlAonRecovAlert = 32,
+    SensorCtrlAonRecovAlert = 25,
     /// sensor_ctrl_aon_fatal_alert
-    SensorCtrlAonFatalAlert = 33,
+    SensorCtrlAonFatalAlert = 26,
     /// sram_ctrl_ret_aon_fatal_error
-    SramCtrlRetAonFatalError = 34,
+    SramCtrlRetAonFatalError = 27,
     /// flash_ctrl_recov_err
-    FlashCtrlRecovErr = 35,
+    FlashCtrlRecovErr = 28,
     /// flash_ctrl_fatal_std_err
-    FlashCtrlFatalStdErr = 36,
+    FlashCtrlFatalStdErr = 29,
     /// flash_ctrl_fatal_err
-    FlashCtrlFatalErr = 37,
+    FlashCtrlFatalErr = 30,
     /// flash_ctrl_fatal_prim_flash_alert
-    FlashCtrlFatalPrimFlashAlert = 38,
+    FlashCtrlFatalPrimFlashAlert = 31,
     /// flash_ctrl_recov_prim_flash_alert
-    FlashCtrlRecovPrimFlashAlert = 39,
+    FlashCtrlRecovPrimFlashAlert = 32,
     /// rv_dm_fatal_fault
-    RvDmFatalFault = 40,
+    RvDmFatalFault = 33,
     /// rv_plic_fatal_fault
-    RvPlicFatalFault = 41,
-    /// aes_recov_ctrl_update_err
-    AesRecovCtrlUpdateErr = 42,
-    /// aes_fatal_fault
-    AesFatalFault = 43,
-    /// hmac_fatal_fault
-    HmacFatalFault = 44,
-    /// kmac_recov_operation_err
-    KmacRecovOperationErr = 45,
-    /// kmac_fatal_fault_err
-    KmacFatalFaultErr = 46,
-    /// otbn_fatal
-    OtbnFatal = 47,
-    /// otbn_recov
-    OtbnRecov = 48,
-    /// keymgr_recov_operation_err
-    KeymgrRecovOperationErr = 49,
-    /// keymgr_fatal_fault_err
-    KeymgrFatalFaultErr = 50,
-    /// csrng_recov_alert
-    CsrngRecovAlert = 51,
-    /// csrng_fatal_alert
-    CsrngFatalAlert = 52,
-    /// entropy_src_recov_alert
-    EntropySrcRecovAlert = 53,
-    /// entropy_src_fatal_alert
-    EntropySrcFatalAlert = 54,
-    /// edn0_recov_alert
-    Edn0RecovAlert = 55,
-    /// edn0_fatal_alert
-    Edn0FatalAlert = 56,
-    /// edn1_recov_alert
-    Edn1RecovAlert = 57,
-    /// edn1_fatal_alert
-    Edn1FatalAlert = 58,
+    RvPlicFatalFault = 34,
     /// sram_ctrl_main_fatal_error
-    SramCtrlMainFatalError = 59,
+    SramCtrlMainFatalError = 35,
     /// rom_ctrl_fatal
-    RomCtrlFatal = 60,
+    RomCtrlFatal = 36,
     /// rv_core_ibex_fatal_sw_err
-    RvCoreIbexFatalSwErr = 61,
+    RvCoreIbexFatalSwErr = 37,
     /// rv_core_ibex_recov_sw_err
-    RvCoreIbexRecovSwErr = 62,
+    RvCoreIbexRecovSwErr = 38,
     /// rv_core_ibex_fatal_hw_err
-    RvCoreIbexFatalHwErr = 63,
+    RvCoreIbexFatalHwErr = 39,
     /// rv_core_ibex_recov_hw_err
-    RvCoreIbexRecovHwErr = 64,
+    RvCoreIbexRecovHwErr = 40,
 }
 
 impl TryFrom<u32> for AlertId {
@@ -1675,70 +1047,46 @@ impl TryFrom<u32> for AlertId {
     fn try_from(val: u32) -> Result<Self, Self::Error> {
         match val {
             0 => Ok(Self::Uart0FatalFault),
-            1 => Ok(Self::Uart1FatalFault),
-            2 => Ok(Self::Uart2FatalFault),
-            3 => Ok(Self::Uart3FatalFault),
-            4 => Ok(Self::GpioFatalFault),
-            5 => Ok(Self::SpiDeviceFatalFault),
-            6 => Ok(Self::I2c0FatalFault),
-            7 => Ok(Self::I2c1FatalFault),
-            8 => Ok(Self::I2c2FatalFault),
-            9 => Ok(Self::PattgenFatalFault),
-            10 => Ok(Self::RvTimerFatalFault),
-            11 => Ok(Self::OtpCtrlFatalMacroError),
-            12 => Ok(Self::OtpCtrlFatalCheckError),
-            13 => Ok(Self::OtpCtrlFatalBusIntegError),
-            14 => Ok(Self::OtpCtrlFatalPrimOtpAlert),
-            15 => Ok(Self::OtpCtrlRecovPrimOtpAlert),
-            16 => Ok(Self::LcCtrlFatalProgError),
-            17 => Ok(Self::LcCtrlFatalStateError),
-            18 => Ok(Self::LcCtrlFatalBusIntegError),
-            19 => Ok(Self::SpiHost0FatalFault),
-            20 => Ok(Self::SpiHost1FatalFault),
-            21 => Ok(Self::UsbdevFatalFault),
-            22 => Ok(Self::PwrmgrAonFatalFault),
-            23 => Ok(Self::RstmgrAonFatalFault),
-            24 => Ok(Self::RstmgrAonFatalCnstyFault),
-            25 => Ok(Self::ClkmgrAonRecovFault),
-            26 => Ok(Self::ClkmgrAonFatalFault),
-            27 => Ok(Self::SysrstCtrlAonFatalFault),
-            28 => Ok(Self::AdcCtrlAonFatalFault),
-            29 => Ok(Self::PwmAonFatalFault),
-            30 => Ok(Self::PinmuxAonFatalFault),
-            31 => Ok(Self::AonTimerAonFatalFault),
-            32 => Ok(Self::SensorCtrlAonRecovAlert),
-            33 => Ok(Self::SensorCtrlAonFatalAlert),
-            34 => Ok(Self::SramCtrlRetAonFatalError),
-            35 => Ok(Self::FlashCtrlRecovErr),
-            36 => Ok(Self::FlashCtrlFatalStdErr),
-            37 => Ok(Self::FlashCtrlFatalErr),
-            38 => Ok(Self::FlashCtrlFatalPrimFlashAlert),
-            39 => Ok(Self::FlashCtrlRecovPrimFlashAlert),
-            40 => Ok(Self::RvDmFatalFault),
-            41 => Ok(Self::RvPlicFatalFault),
-            42 => Ok(Self::AesRecovCtrlUpdateErr),
-            43 => Ok(Self::AesFatalFault),
-            44 => Ok(Self::HmacFatalFault),
-            45 => Ok(Self::KmacRecovOperationErr),
-            46 => Ok(Self::KmacFatalFaultErr),
-            47 => Ok(Self::OtbnFatal),
-            48 => Ok(Self::OtbnRecov),
-            49 => Ok(Self::KeymgrRecovOperationErr),
-            50 => Ok(Self::KeymgrFatalFaultErr),
-            51 => Ok(Self::CsrngRecovAlert),
-            52 => Ok(Self::CsrngFatalAlert),
-            53 => Ok(Self::EntropySrcRecovAlert),
-            54 => Ok(Self::EntropySrcFatalAlert),
-            55 => Ok(Self::Edn0RecovAlert),
-            56 => Ok(Self::Edn0FatalAlert),
-            57 => Ok(Self::Edn1RecovAlert),
-            58 => Ok(Self::Edn1FatalAlert),
-            59 => Ok(Self::SramCtrlMainFatalError),
-            60 => Ok(Self::RomCtrlFatal),
-            61 => Ok(Self::RvCoreIbexFatalSwErr),
-            62 => Ok(Self::RvCoreIbexRecovSwErr),
-            63 => Ok(Self::RvCoreIbexFatalHwErr),
-            64 => Ok(Self::RvCoreIbexRecovHwErr),
+            1 => Ok(Self::GpioFatalFault),
+            2 => Ok(Self::SpiDeviceFatalFault),
+            3 => Ok(Self::I2c0FatalFault),
+            4 => Ok(Self::PattgenFatalFault),
+            5 => Ok(Self::RvTimerFatalFault),
+            6 => Ok(Self::OtpCtrlFatalMacroError),
+            7 => Ok(Self::OtpCtrlFatalCheckError),
+            8 => Ok(Self::OtpCtrlFatalBusIntegError),
+            9 => Ok(Self::OtpCtrlFatalPrimOtpAlert),
+            10 => Ok(Self::OtpCtrlRecovPrimOtpAlert),
+            11 => Ok(Self::LcCtrlFatalProgError),
+            12 => Ok(Self::LcCtrlFatalStateError),
+            13 => Ok(Self::LcCtrlFatalBusIntegError),
+            14 => Ok(Self::SpiHost0FatalFault),
+            15 => Ok(Self::PwrmgrAonFatalFault),
+            16 => Ok(Self::RstmgrAonFatalFault),
+            17 => Ok(Self::RstmgrAonFatalCnstyFault),
+            18 => Ok(Self::ClkmgrAonRecovFault),
+            19 => Ok(Self::ClkmgrAonFatalFault),
+            20 => Ok(Self::SysrstCtrlAonFatalFault),
+            21 => Ok(Self::AdcCtrlAonFatalFault),
+            22 => Ok(Self::PwmAonFatalFault),
+            23 => Ok(Self::PinmuxAonFatalFault),
+            24 => Ok(Self::AonTimerAonFatalFault),
+            25 => Ok(Self::SensorCtrlAonRecovAlert),
+            26 => Ok(Self::SensorCtrlAonFatalAlert),
+            27 => Ok(Self::SramCtrlRetAonFatalError),
+            28 => Ok(Self::FlashCtrlRecovErr),
+            29 => Ok(Self::FlashCtrlFatalStdErr),
+            30 => Ok(Self::FlashCtrlFatalErr),
+            31 => Ok(Self::FlashCtrlFatalPrimFlashAlert),
+            32 => Ok(Self::FlashCtrlRecovPrimFlashAlert),
+            33 => Ok(Self::RvDmFatalFault),
+            34 => Ok(Self::RvPlicFatalFault),
+            35 => Ok(Self::SramCtrlMainFatalError),
+            36 => Ok(Self::RomCtrlFatal),
+            37 => Ok(Self::RvCoreIbexFatalSwErr),
+            38 => Ok(Self::RvCoreIbexRecovSwErr),
+            39 => Ok(Self::RvCoreIbexFatalHwErr),
+            40 => Ok(Self::RvCoreIbexRecovHwErr),
             _ => Err(val),
         }
     }
@@ -1748,7 +1096,7 @@ impl TryFrom<u32> for AlertId {
 ///
 /// This array is a mapping from `PlicIrqId` to
 /// `PlicPeripheral`.
-pub const PLIC_INTERRUPT_FOR_PERIPHERAL: [PlicPeripheral; 185] = [
+pub const PLIC_INTERRUPT_FOR_PERIPHERAL: [PlicPeripheral; 92] = [
     // None -> PlicPeripheral::Unknown
     PlicPeripheral::Unknown,
     // Uart0TxWatermark -> PlicPeripheral::Uart0
@@ -1767,54 +1115,6 @@ pub const PLIC_INTERRUPT_FOR_PERIPHERAL: [PlicPeripheral; 185] = [
     PlicPeripheral::Uart0,
     // Uart0RxParityErr -> PlicPeripheral::Uart0
     PlicPeripheral::Uart0,
-    // Uart1TxWatermark -> PlicPeripheral::Uart1
-    PlicPeripheral::Uart1,
-    // Uart1RxWatermark -> PlicPeripheral::Uart1
-    PlicPeripheral::Uart1,
-    // Uart1TxEmpty -> PlicPeripheral::Uart1
-    PlicPeripheral::Uart1,
-    // Uart1RxOverflow -> PlicPeripheral::Uart1
-    PlicPeripheral::Uart1,
-    // Uart1RxFrameErr -> PlicPeripheral::Uart1
-    PlicPeripheral::Uart1,
-    // Uart1RxBreakErr -> PlicPeripheral::Uart1
-    PlicPeripheral::Uart1,
-    // Uart1RxTimeout -> PlicPeripheral::Uart1
-    PlicPeripheral::Uart1,
-    // Uart1RxParityErr -> PlicPeripheral::Uart1
-    PlicPeripheral::Uart1,
-    // Uart2TxWatermark -> PlicPeripheral::Uart2
-    PlicPeripheral::Uart2,
-    // Uart2RxWatermark -> PlicPeripheral::Uart2
-    PlicPeripheral::Uart2,
-    // Uart2TxEmpty -> PlicPeripheral::Uart2
-    PlicPeripheral::Uart2,
-    // Uart2RxOverflow -> PlicPeripheral::Uart2
-    PlicPeripheral::Uart2,
-    // Uart2RxFrameErr -> PlicPeripheral::Uart2
-    PlicPeripheral::Uart2,
-    // Uart2RxBreakErr -> PlicPeripheral::Uart2
-    PlicPeripheral::Uart2,
-    // Uart2RxTimeout -> PlicPeripheral::Uart2
-    PlicPeripheral::Uart2,
-    // Uart2RxParityErr -> PlicPeripheral::Uart2
-    PlicPeripheral::Uart2,
-    // Uart3TxWatermark -> PlicPeripheral::Uart3
-    PlicPeripheral::Uart3,
-    // Uart3RxWatermark -> PlicPeripheral::Uart3
-    PlicPeripheral::Uart3,
-    // Uart3TxEmpty -> PlicPeripheral::Uart3
-    PlicPeripheral::Uart3,
-    // Uart3RxOverflow -> PlicPeripheral::Uart3
-    PlicPeripheral::Uart3,
-    // Uart3RxFrameErr -> PlicPeripheral::Uart3
-    PlicPeripheral::Uart3,
-    // Uart3RxBreakErr -> PlicPeripheral::Uart3
-    PlicPeripheral::Uart3,
-    // Uart3RxTimeout -> PlicPeripheral::Uart3
-    PlicPeripheral::Uart3,
-    // Uart3RxParityErr -> PlicPeripheral::Uart3
-    PlicPeripheral::Uart3,
     // GpioGpio0 -> PlicPeripheral::Gpio
     PlicPeripheral::Gpio,
     // GpioGpio1 -> PlicPeripheral::Gpio
@@ -1933,66 +1233,6 @@ pub const PLIC_INTERRUPT_FOR_PERIPHERAL: [PlicPeripheral; 185] = [
     PlicPeripheral::I2c0,
     // I2c0HostTimeout -> PlicPeripheral::I2c0
     PlicPeripheral::I2c0,
-    // I2c1FmtThreshold -> PlicPeripheral::I2c1
-    PlicPeripheral::I2c1,
-    // I2c1RxThreshold -> PlicPeripheral::I2c1
-    PlicPeripheral::I2c1,
-    // I2c1FmtOverflow -> PlicPeripheral::I2c1
-    PlicPeripheral::I2c1,
-    // I2c1RxOverflow -> PlicPeripheral::I2c1
-    PlicPeripheral::I2c1,
-    // I2c1Nak -> PlicPeripheral::I2c1
-    PlicPeripheral::I2c1,
-    // I2c1SclInterference -> PlicPeripheral::I2c1
-    PlicPeripheral::I2c1,
-    // I2c1SdaInterference -> PlicPeripheral::I2c1
-    PlicPeripheral::I2c1,
-    // I2c1StretchTimeout -> PlicPeripheral::I2c1
-    PlicPeripheral::I2c1,
-    // I2c1SdaUnstable -> PlicPeripheral::I2c1
-    PlicPeripheral::I2c1,
-    // I2c1CmdComplete -> PlicPeripheral::I2c1
-    PlicPeripheral::I2c1,
-    // I2c1TxStretch -> PlicPeripheral::I2c1
-    PlicPeripheral::I2c1,
-    // I2c1TxOverflow -> PlicPeripheral::I2c1
-    PlicPeripheral::I2c1,
-    // I2c1AcqFull -> PlicPeripheral::I2c1
-    PlicPeripheral::I2c1,
-    // I2c1UnexpStop -> PlicPeripheral::I2c1
-    PlicPeripheral::I2c1,
-    // I2c1HostTimeout -> PlicPeripheral::I2c1
-    PlicPeripheral::I2c1,
-    // I2c2FmtThreshold -> PlicPeripheral::I2c2
-    PlicPeripheral::I2c2,
-    // I2c2RxThreshold -> PlicPeripheral::I2c2
-    PlicPeripheral::I2c2,
-    // I2c2FmtOverflow -> PlicPeripheral::I2c2
-    PlicPeripheral::I2c2,
-    // I2c2RxOverflow -> PlicPeripheral::I2c2
-    PlicPeripheral::I2c2,
-    // I2c2Nak -> PlicPeripheral::I2c2
-    PlicPeripheral::I2c2,
-    // I2c2SclInterference -> PlicPeripheral::I2c2
-    PlicPeripheral::I2c2,
-    // I2c2SdaInterference -> PlicPeripheral::I2c2
-    PlicPeripheral::I2c2,
-    // I2c2StretchTimeout -> PlicPeripheral::I2c2
-    PlicPeripheral::I2c2,
-    // I2c2SdaUnstable -> PlicPeripheral::I2c2
-    PlicPeripheral::I2c2,
-    // I2c2CmdComplete -> PlicPeripheral::I2c2
-    PlicPeripheral::I2c2,
-    // I2c2TxStretch -> PlicPeripheral::I2c2
-    PlicPeripheral::I2c2,
-    // I2c2TxOverflow -> PlicPeripheral::I2c2
-    PlicPeripheral::I2c2,
-    // I2c2AcqFull -> PlicPeripheral::I2c2
-    PlicPeripheral::I2c2,
-    // I2c2UnexpStop -> PlicPeripheral::I2c2
-    PlicPeripheral::I2c2,
-    // I2c2HostTimeout -> PlicPeripheral::I2c2
-    PlicPeripheral::I2c2,
     // PattgenDoneCh0 -> PlicPeripheral::Pattgen
     PlicPeripheral::Pattgen,
     // PattgenDoneCh1 -> PlicPeripheral::Pattgen
@@ -2015,44 +1255,6 @@ pub const PLIC_INTERRUPT_FOR_PERIPHERAL: [PlicPeripheral; 185] = [
     PlicPeripheral::SpiHost0,
     // SpiHost0SpiEvent -> PlicPeripheral::SpiHost0
     PlicPeripheral::SpiHost0,
-    // SpiHost1Error -> PlicPeripheral::SpiHost1
-    PlicPeripheral::SpiHost1,
-    // SpiHost1SpiEvent -> PlicPeripheral::SpiHost1
-    PlicPeripheral::SpiHost1,
-    // UsbdevPktReceived -> PlicPeripheral::Usbdev
-    PlicPeripheral::Usbdev,
-    // UsbdevPktSent -> PlicPeripheral::Usbdev
-    PlicPeripheral::Usbdev,
-    // UsbdevDisconnected -> PlicPeripheral::Usbdev
-    PlicPeripheral::Usbdev,
-    // UsbdevHostLost -> PlicPeripheral::Usbdev
-    PlicPeripheral::Usbdev,
-    // UsbdevLinkReset -> PlicPeripheral::Usbdev
-    PlicPeripheral::Usbdev,
-    // UsbdevLinkSuspend -> PlicPeripheral::Usbdev
-    PlicPeripheral::Usbdev,
-    // UsbdevLinkResume -> PlicPeripheral::Usbdev
-    PlicPeripheral::Usbdev,
-    // UsbdevAvEmpty -> PlicPeripheral::Usbdev
-    PlicPeripheral::Usbdev,
-    // UsbdevRxFull -> PlicPeripheral::Usbdev
-    PlicPeripheral::Usbdev,
-    // UsbdevAvOverflow -> PlicPeripheral::Usbdev
-    PlicPeripheral::Usbdev,
-    // UsbdevLinkInErr -> PlicPeripheral::Usbdev
-    PlicPeripheral::Usbdev,
-    // UsbdevRxCrcErr -> PlicPeripheral::Usbdev
-    PlicPeripheral::Usbdev,
-    // UsbdevRxPidErr -> PlicPeripheral::Usbdev
-    PlicPeripheral::Usbdev,
-    // UsbdevRxBitstuffErr -> PlicPeripheral::Usbdev
-    PlicPeripheral::Usbdev,
-    // UsbdevFrame -> PlicPeripheral::Usbdev
-    PlicPeripheral::Usbdev,
-    // UsbdevPowered -> PlicPeripheral::Usbdev
-    PlicPeripheral::Usbdev,
-    // UsbdevLinkOutErr -> PlicPeripheral::Usbdev
-    PlicPeripheral::Usbdev,
     // PwrmgrAonWakeup -> PlicPeripheral::PwrmgrAon
     PlicPeripheral::PwrmgrAon,
     // SysrstCtrlAonEventDetected -> PlicPeripheral::SysrstCtrlAon
@@ -2079,71 +1281,21 @@ pub const PLIC_INTERRUPT_FOR_PERIPHERAL: [PlicPeripheral; 185] = [
     PlicPeripheral::FlashCtrl,
     // FlashCtrlCorrErr -> PlicPeripheral::FlashCtrl
     PlicPeripheral::FlashCtrl,
-    // HmacHmacDone -> PlicPeripheral::Hmac
-    PlicPeripheral::Hmac,
-    // HmacFifoEmpty -> PlicPeripheral::Hmac
-    PlicPeripheral::Hmac,
-    // HmacHmacErr -> PlicPeripheral::Hmac
-    PlicPeripheral::Hmac,
-    // KmacKmacDone -> PlicPeripheral::Kmac
-    PlicPeripheral::Kmac,
-    // KmacFifoEmpty -> PlicPeripheral::Kmac
-    PlicPeripheral::Kmac,
-    // KmacKmacErr -> PlicPeripheral::Kmac
-    PlicPeripheral::Kmac,
-    // OtbnDone -> PlicPeripheral::Otbn
-    PlicPeripheral::Otbn,
-    // KeymgrOpDone -> PlicPeripheral::Keymgr
-    PlicPeripheral::Keymgr,
-    // CsrngCsCmdReqDone -> PlicPeripheral::Csrng
-    PlicPeripheral::Csrng,
-    // CsrngCsEntropyReq -> PlicPeripheral::Csrng
-    PlicPeripheral::Csrng,
-    // CsrngCsHwInstExc -> PlicPeripheral::Csrng
-    PlicPeripheral::Csrng,
-    // CsrngCsFatalErr -> PlicPeripheral::Csrng
-    PlicPeripheral::Csrng,
-    // EntropySrcEsEntropyValid -> PlicPeripheral::EntropySrc
-    PlicPeripheral::EntropySrc,
-    // EntropySrcEsHealthTestFailed -> PlicPeripheral::EntropySrc
-    PlicPeripheral::EntropySrc,
-    // EntropySrcEsObserveFifoReady -> PlicPeripheral::EntropySrc
-    PlicPeripheral::EntropySrc,
-    // EntropySrcEsFatalErr -> PlicPeripheral::EntropySrc
-    PlicPeripheral::EntropySrc,
-    // Edn0EdnCmdReqDone -> PlicPeripheral::Edn0
-    PlicPeripheral::Edn0,
-    // Edn0EdnFatalErr -> PlicPeripheral::Edn0
-    PlicPeripheral::Edn0,
-    // Edn1EdnCmdReqDone -> PlicPeripheral::Edn1
-    PlicPeripheral::Edn1,
-    // Edn1EdnFatalErr -> PlicPeripheral::Edn1
-    PlicPeripheral::Edn1,
 ];
 
 /// Alert Handler Alert Source to Peripheral Map
 ///
 /// This array is a mapping from `AlertId` to
 /// `AlertPeripheral`.
-pub const ALERT_FOR_PERIPHERAL: [AlertPeripheral; 65] = [
+pub const ALERT_FOR_PERIPHERAL: [AlertPeripheral; 41] = [
     // Uart0FatalFault -> AlertPeripheral::Uart0
     AlertPeripheral::Uart0,
-    // Uart1FatalFault -> AlertPeripheral::Uart1
-    AlertPeripheral::Uart1,
-    // Uart2FatalFault -> AlertPeripheral::Uart2
-    AlertPeripheral::Uart2,
-    // Uart3FatalFault -> AlertPeripheral::Uart3
-    AlertPeripheral::Uart3,
     // GpioFatalFault -> AlertPeripheral::Gpio
     AlertPeripheral::Gpio,
     // SpiDeviceFatalFault -> AlertPeripheral::SpiDevice
     AlertPeripheral::SpiDevice,
     // I2c0FatalFault -> AlertPeripheral::I2c0
     AlertPeripheral::I2c0,
-    // I2c1FatalFault -> AlertPeripheral::I2c1
-    AlertPeripheral::I2c1,
-    // I2c2FatalFault -> AlertPeripheral::I2c2
-    AlertPeripheral::I2c2,
     // PattgenFatalFault -> AlertPeripheral::Pattgen
     AlertPeripheral::Pattgen,
     // RvTimerFatalFault -> AlertPeripheral::RvTimer
@@ -2166,10 +1318,6 @@ pub const ALERT_FOR_PERIPHERAL: [AlertPeripheral; 65] = [
     AlertPeripheral::LcCtrl,
     // SpiHost0FatalFault -> AlertPeripheral::SpiHost0
     AlertPeripheral::SpiHost0,
-    // SpiHost1FatalFault -> AlertPeripheral::SpiHost1
-    AlertPeripheral::SpiHost1,
-    // UsbdevFatalFault -> AlertPeripheral::Usbdev
-    AlertPeripheral::Usbdev,
     // PwrmgrAonFatalFault -> AlertPeripheral::PwrmgrAon
     AlertPeripheral::PwrmgrAon,
     // RstmgrAonFatalFault -> AlertPeripheral::RstmgrAon
@@ -2210,40 +1358,6 @@ pub const ALERT_FOR_PERIPHERAL: [AlertPeripheral; 65] = [
     AlertPeripheral::RvDm,
     // RvPlicFatalFault -> AlertPeripheral::RvPlic
     AlertPeripheral::RvPlic,
-    // AesRecovCtrlUpdateErr -> AlertPeripheral::Aes
-    AlertPeripheral::Aes,
-    // AesFatalFault -> AlertPeripheral::Aes
-    AlertPeripheral::Aes,
-    // HmacFatalFault -> AlertPeripheral::Hmac
-    AlertPeripheral::Hmac,
-    // KmacRecovOperationErr -> AlertPeripheral::Kmac
-    AlertPeripheral::Kmac,
-    // KmacFatalFaultErr -> AlertPeripheral::Kmac
-    AlertPeripheral::Kmac,
-    // OtbnFatal -> AlertPeripheral::Otbn
-    AlertPeripheral::Otbn,
-    // OtbnRecov -> AlertPeripheral::Otbn
-    AlertPeripheral::Otbn,
-    // KeymgrRecovOperationErr -> AlertPeripheral::Keymgr
-    AlertPeripheral::Keymgr,
-    // KeymgrFatalFaultErr -> AlertPeripheral::Keymgr
-    AlertPeripheral::Keymgr,
-    // CsrngRecovAlert -> AlertPeripheral::Csrng
-    AlertPeripheral::Csrng,
-    // CsrngFatalAlert -> AlertPeripheral::Csrng
-    AlertPeripheral::Csrng,
-    // EntropySrcRecovAlert -> AlertPeripheral::EntropySrc
-    AlertPeripheral::EntropySrc,
-    // EntropySrcFatalAlert -> AlertPeripheral::EntropySrc
-    AlertPeripheral::EntropySrc,
-    // Edn0RecovAlert -> AlertPeripheral::Edn0
-    AlertPeripheral::Edn0,
-    // Edn0FatalAlert -> AlertPeripheral::Edn0
-    AlertPeripheral::Edn0,
-    // Edn1RecovAlert -> AlertPeripheral::Edn1
-    AlertPeripheral::Edn1,
-    // Edn1FatalAlert -> AlertPeripheral::Edn1
-    AlertPeripheral::Edn1,
     // SramCtrlMainFatalError -> AlertPeripheral::SramCtrlMain
     AlertPeripheral::SramCtrlMain,
     // RomCtrlFatal -> AlertPeripheral::RomCtrl
@@ -2261,7 +1375,7 @@ pub const ALERT_FOR_PERIPHERAL: [AlertPeripheral; 65] = [
 // PERIPH_INSEL ranges from 0 to NUM_MIO_PADS + 2 -1}
 //  0 and 1 are tied to value 0 and 1
 pub const NUM_MIO_PADS: usize = 47;
-pub const NUM_DIO_PADS: usize = 16;
+pub const NUM_DIO_PADS: usize = 14;
 
 pub const PINMUX_MIO_PERIPH_INSEL_IDX_OFFSET: usize = 2;
 pub const PINMUX_PERIPH_OUTSEL_IDX_OFFSET: usize = 3;
@@ -2339,51 +1453,27 @@ pub enum PinmuxPeripheralIn {
     /// Peripheral Input 33
     I2c0Scl = 33,
     /// Peripheral Input 34
-    I2c1Sda = 34,
+    Uart0Rx = 34,
     /// Peripheral Input 35
-    I2c1Scl = 35,
+    SpiDeviceTpmCsb = 35,
     /// Peripheral Input 36
-    I2c2Sda = 36,
+    FlashCtrlTck = 36,
     /// Peripheral Input 37
-    I2c2Scl = 37,
+    FlashCtrlTms = 37,
     /// Peripheral Input 38
-    SpiHost1Sd0 = 38,
+    FlashCtrlTdi = 38,
     /// Peripheral Input 39
-    SpiHost1Sd1 = 39,
+    SysrstCtrlAonAcPresent = 39,
     /// Peripheral Input 40
-    SpiHost1Sd2 = 40,
+    SysrstCtrlAonKey0In = 40,
     /// Peripheral Input 41
-    SpiHost1Sd3 = 41,
+    SysrstCtrlAonKey1In = 41,
     /// Peripheral Input 42
-    Uart0Rx = 42,
+    SysrstCtrlAonKey2In = 42,
     /// Peripheral Input 43
-    Uart1Rx = 43,
+    SysrstCtrlAonPwrbIn = 43,
     /// Peripheral Input 44
-    Uart2Rx = 44,
-    /// Peripheral Input 45
-    Uart3Rx = 45,
-    /// Peripheral Input 46
-    SpiDeviceTpmCsb = 46,
-    /// Peripheral Input 47
-    FlashCtrlTck = 47,
-    /// Peripheral Input 48
-    FlashCtrlTms = 48,
-    /// Peripheral Input 49
-    FlashCtrlTdi = 49,
-    /// Peripheral Input 50
-    SysrstCtrlAonAcPresent = 50,
-    /// Peripheral Input 51
-    SysrstCtrlAonKey0In = 51,
-    /// Peripheral Input 52
-    SysrstCtrlAonKey1In = 52,
-    /// Peripheral Input 53
-    SysrstCtrlAonKey2In = 53,
-    /// Peripheral Input 54
-    SysrstCtrlAonPwrbIn = 54,
-    /// Peripheral Input 55
-    SysrstCtrlAonLidOpen = 55,
-    /// Peripheral Input 56
-    UsbdevSense = 56,
+    SysrstCtrlAonLidOpen = 44,
 }
 
 impl TryFrom<u32> for PinmuxPeripheralIn {
@@ -2424,29 +1514,17 @@ impl TryFrom<u32> for PinmuxPeripheralIn {
             31 => Ok(Self::GpioGpio31),
             32 => Ok(Self::I2c0Sda),
             33 => Ok(Self::I2c0Scl),
-            34 => Ok(Self::I2c1Sda),
-            35 => Ok(Self::I2c1Scl),
-            36 => Ok(Self::I2c2Sda),
-            37 => Ok(Self::I2c2Scl),
-            38 => Ok(Self::SpiHost1Sd0),
-            39 => Ok(Self::SpiHost1Sd1),
-            40 => Ok(Self::SpiHost1Sd2),
-            41 => Ok(Self::SpiHost1Sd3),
-            42 => Ok(Self::Uart0Rx),
-            43 => Ok(Self::Uart1Rx),
-            44 => Ok(Self::Uart2Rx),
-            45 => Ok(Self::Uart3Rx),
-            46 => Ok(Self::SpiDeviceTpmCsb),
-            47 => Ok(Self::FlashCtrlTck),
-            48 => Ok(Self::FlashCtrlTms),
-            49 => Ok(Self::FlashCtrlTdi),
-            50 => Ok(Self::SysrstCtrlAonAcPresent),
-            51 => Ok(Self::SysrstCtrlAonKey0In),
-            52 => Ok(Self::SysrstCtrlAonKey1In),
-            53 => Ok(Self::SysrstCtrlAonKey2In),
-            54 => Ok(Self::SysrstCtrlAonPwrbIn),
-            55 => Ok(Self::SysrstCtrlAonLidOpen),
-            56 => Ok(Self::UsbdevSense),
+            34 => Ok(Self::Uart0Rx),
+            35 => Ok(Self::SpiDeviceTpmCsb),
+            36 => Ok(Self::FlashCtrlTck),
+            37 => Ok(Self::FlashCtrlTms),
+            38 => Ok(Self::FlashCtrlTdi),
+            39 => Ok(Self::SysrstCtrlAonAcPresent),
+            40 => Ok(Self::SysrstCtrlAonKey0In),
+            41 => Ok(Self::SysrstCtrlAonKey1In),
+            42 => Ok(Self::SysrstCtrlAonKey2In),
+            43 => Ok(Self::SysrstCtrlAonPwrbIn),
+            44 => Ok(Self::SysrstCtrlAonLidOpen),
             _ => Err(val),
         }
     }
@@ -2849,87 +1927,61 @@ pub enum PinmuxOutsel {
     /// Peripheral Output 33
     I2c0Scl = 36,
     /// Peripheral Output 34
-    I2c1Sda = 37,
+    Uart0Tx = 37,
     /// Peripheral Output 35
-    I2c1Scl = 38,
+    PattgenPda0Tx = 38,
     /// Peripheral Output 36
-    I2c2Sda = 39,
+    PattgenPcl0Tx = 39,
     /// Peripheral Output 37
-    I2c2Scl = 40,
+    PattgenPda1Tx = 40,
     /// Peripheral Output 38
-    SpiHost1Sd0 = 41,
+    PattgenPcl1Tx = 41,
     /// Peripheral Output 39
-    SpiHost1Sd1 = 42,
+    FlashCtrlTdo = 42,
     /// Peripheral Output 40
-    SpiHost1Sd2 = 43,
+    SensorCtrlAonAstDebugOut0 = 43,
     /// Peripheral Output 41
-    SpiHost1Sd3 = 44,
+    SensorCtrlAonAstDebugOut1 = 44,
     /// Peripheral Output 42
-    Uart0Tx = 45,
+    SensorCtrlAonAstDebugOut2 = 45,
     /// Peripheral Output 43
-    Uart1Tx = 46,
+    SensorCtrlAonAstDebugOut3 = 46,
     /// Peripheral Output 44
-    Uart2Tx = 47,
+    SensorCtrlAonAstDebugOut4 = 47,
     /// Peripheral Output 45
-    Uart3Tx = 48,
+    SensorCtrlAonAstDebugOut5 = 48,
     /// Peripheral Output 46
-    PattgenPda0Tx = 49,
+    SensorCtrlAonAstDebugOut6 = 49,
     /// Peripheral Output 47
-    PattgenPcl0Tx = 50,
+    SensorCtrlAonAstDebugOut7 = 50,
     /// Peripheral Output 48
-    PattgenPda1Tx = 51,
+    SensorCtrlAonAstDebugOut8 = 51,
     /// Peripheral Output 49
-    PattgenPcl1Tx = 52,
+    PwmAonPwm0 = 52,
     /// Peripheral Output 50
-    SpiHost1Sck = 53,
+    PwmAonPwm1 = 53,
     /// Peripheral Output 51
-    SpiHost1Csb = 54,
+    PwmAonPwm2 = 54,
     /// Peripheral Output 52
-    FlashCtrlTdo = 55,
+    PwmAonPwm3 = 55,
     /// Peripheral Output 53
-    SensorCtrlAonAstDebugOut0 = 56,
+    PwmAonPwm4 = 56,
     /// Peripheral Output 54
-    SensorCtrlAonAstDebugOut1 = 57,
+    PwmAonPwm5 = 57,
     /// Peripheral Output 55
-    SensorCtrlAonAstDebugOut2 = 58,
+    OtpCtrlTest0 = 58,
     /// Peripheral Output 56
-    SensorCtrlAonAstDebugOut3 = 59,
+    SysrstCtrlAonBatDisable = 59,
     /// Peripheral Output 57
-    SensorCtrlAonAstDebugOut4 = 60,
+    SysrstCtrlAonKey0Out = 60,
     /// Peripheral Output 58
-    SensorCtrlAonAstDebugOut5 = 61,
+    SysrstCtrlAonKey1Out = 61,
     /// Peripheral Output 59
-    SensorCtrlAonAstDebugOut6 = 62,
+    SysrstCtrlAonKey2Out = 62,
     /// Peripheral Output 60
-    SensorCtrlAonAstDebugOut7 = 63,
+    SysrstCtrlAonPwrbOut = 63,
     /// Peripheral Output 61
-    SensorCtrlAonAstDebugOut8 = 64,
-    /// Peripheral Output 62
-    PwmAonPwm0 = 65,
-    /// Peripheral Output 63
-    PwmAonPwm1 = 66,
-    /// Peripheral Output 64
-    PwmAonPwm2 = 67,
-    /// Peripheral Output 65
-    PwmAonPwm3 = 68,
-    /// Peripheral Output 66
-    PwmAonPwm4 = 69,
-    /// Peripheral Output 67
-    PwmAonPwm5 = 70,
-    /// Peripheral Output 68
-    OtpCtrlTest0 = 71,
-    /// Peripheral Output 69
-    SysrstCtrlAonBatDisable = 72,
-    /// Peripheral Output 70
-    SysrstCtrlAonKey0Out = 73,
-    /// Peripheral Output 71
-    SysrstCtrlAonKey1Out = 74,
-    /// Peripheral Output 72
-    SysrstCtrlAonKey2Out = 75,
-    /// Peripheral Output 73
-    SysrstCtrlAonPwrbOut = 76,
-    /// Peripheral Output 74
-    SysrstCtrlAonZ3Wakeup = 77,
+    SysrstCtrlAonZ3Wakeup = 64,
 }
 
 impl TryFrom<u32> for PinmuxOutsel {
@@ -2973,47 +2025,34 @@ impl TryFrom<u32> for PinmuxOutsel {
             34 => Ok(Self::GpioGpio31),
             35 => Ok(Self::I2c0Sda),
             36 => Ok(Self::I2c0Scl),
-            37 => Ok(Self::I2c1Sda),
-            38 => Ok(Self::I2c1Scl),
-            39 => Ok(Self::I2c2Sda),
-            40 => Ok(Self::I2c2Scl),
-            41 => Ok(Self::SpiHost1Sd0),
-            42 => Ok(Self::SpiHost1Sd1),
-            43 => Ok(Self::SpiHost1Sd2),
-            44 => Ok(Self::SpiHost1Sd3),
-            45 => Ok(Self::Uart0Tx),
-            46 => Ok(Self::Uart1Tx),
-            47 => Ok(Self::Uart2Tx),
-            48 => Ok(Self::Uart3Tx),
-            49 => Ok(Self::PattgenPda0Tx),
-            50 => Ok(Self::PattgenPcl0Tx),
-            51 => Ok(Self::PattgenPda1Tx),
-            52 => Ok(Self::PattgenPcl1Tx),
-            53 => Ok(Self::SpiHost1Sck),
-            54 => Ok(Self::SpiHost1Csb),
-            55 => Ok(Self::FlashCtrlTdo),
-            56 => Ok(Self::SensorCtrlAonAstDebugOut0),
-            57 => Ok(Self::SensorCtrlAonAstDebugOut1),
-            58 => Ok(Self::SensorCtrlAonAstDebugOut2),
-            59 => Ok(Self::SensorCtrlAonAstDebugOut3),
-            60 => Ok(Self::SensorCtrlAonAstDebugOut4),
-            61 => Ok(Self::SensorCtrlAonAstDebugOut5),
-            62 => Ok(Self::SensorCtrlAonAstDebugOut6),
-            63 => Ok(Self::SensorCtrlAonAstDebugOut7),
-            64 => Ok(Self::SensorCtrlAonAstDebugOut8),
-            65 => Ok(Self::PwmAonPwm0),
-            66 => Ok(Self::PwmAonPwm1),
-            67 => Ok(Self::PwmAonPwm2),
-            68 => Ok(Self::PwmAonPwm3),
-            69 => Ok(Self::PwmAonPwm4),
-            70 => Ok(Self::PwmAonPwm5),
-            71 => Ok(Self::OtpCtrlTest0),
-            72 => Ok(Self::SysrstCtrlAonBatDisable),
-            73 => Ok(Self::SysrstCtrlAonKey0Out),
-            74 => Ok(Self::SysrstCtrlAonKey1Out),
-            75 => Ok(Self::SysrstCtrlAonKey2Out),
-            76 => Ok(Self::SysrstCtrlAonPwrbOut),
-            77 => Ok(Self::SysrstCtrlAonZ3Wakeup),
+            37 => Ok(Self::Uart0Tx),
+            38 => Ok(Self::PattgenPda0Tx),
+            39 => Ok(Self::PattgenPcl0Tx),
+            40 => Ok(Self::PattgenPda1Tx),
+            41 => Ok(Self::PattgenPcl1Tx),
+            42 => Ok(Self::FlashCtrlTdo),
+            43 => Ok(Self::SensorCtrlAonAstDebugOut0),
+            44 => Ok(Self::SensorCtrlAonAstDebugOut1),
+            45 => Ok(Self::SensorCtrlAonAstDebugOut2),
+            46 => Ok(Self::SensorCtrlAonAstDebugOut3),
+            47 => Ok(Self::SensorCtrlAonAstDebugOut4),
+            48 => Ok(Self::SensorCtrlAonAstDebugOut5),
+            49 => Ok(Self::SensorCtrlAonAstDebugOut6),
+            50 => Ok(Self::SensorCtrlAonAstDebugOut7),
+            51 => Ok(Self::SensorCtrlAonAstDebugOut8),
+            52 => Ok(Self::PwmAonPwm0),
+            53 => Ok(Self::PwmAonPwm1),
+            54 => Ok(Self::PwmAonPwm2),
+            55 => Ok(Self::PwmAonPwm3),
+            56 => Ok(Self::PwmAonPwm4),
+            57 => Ok(Self::PwmAonPwm5),
+            58 => Ok(Self::OtpCtrlTest0),
+            59 => Ok(Self::SysrstCtrlAonBatDisable),
+            60 => Ok(Self::SysrstCtrlAonKey0Out),
+            61 => Ok(Self::SysrstCtrlAonKey1Out),
+            62 => Ok(Self::SysrstCtrlAonKey2Out),
+            63 => Ok(Self::SysrstCtrlAonPwrbOut),
+            64 => Ok(Self::SysrstCtrlAonZ3Wakeup),
             _ => Err(val),
         }
     }
@@ -3023,44 +2062,40 @@ impl TryFrom<u32> for PinmuxOutsel {
 #[derive(Copy, Clone, PartialEq, Eq)]
 #[repr(u32)]
 pub enum DirectPads {
-    UsbdevUsbDp = 0,
-    UsbdevUsbDn = 1,
-    SpiHost0Sd0 = 2,
-    SpiHost0Sd1 = 3,
-    SpiHost0Sd2 = 4,
-    SpiHost0Sd3 = 5,
-    SpiDeviceSd0 = 6,
-    SpiDeviceSd1 = 7,
-    SpiDeviceSd2 = 8,
-    SpiDeviceSd3 = 9,
-    SysrstCtrlAonEcRstL = 10,
-    SysrstCtrlAonFlashWpL = 11,
-    SpiDeviceSck = 12,
-    SpiDeviceCsb = 13,
-    SpiHost0Sck = 14,
-    SpiHost0Csb = 15,
+    SpiHost0Sd0 = 0,
+    SpiHost0Sd1 = 1,
+    SpiHost0Sd2 = 2,
+    SpiHost0Sd3 = 3,
+    SpiDeviceSd0 = 4,
+    SpiDeviceSd1 = 5,
+    SpiDeviceSd2 = 6,
+    SpiDeviceSd3 = 7,
+    SysrstCtrlAonEcRstL = 8,
+    SysrstCtrlAonFlashWpL = 9,
+    SpiDeviceSck = 10,
+    SpiDeviceCsb = 11,
+    SpiHost0Sck = 12,
+    SpiHost0Csb = 13,
 }
 
 impl TryFrom<u32> for DirectPads {
     type Error = u32;
     fn try_from(val: u32) -> Result<Self, Self::Error> {
         match val {
-            0 => Ok(Self::UsbdevUsbDp),
-            1 => Ok(Self::UsbdevUsbDn),
-            2 => Ok(Self::SpiHost0Sd0),
-            3 => Ok(Self::SpiHost0Sd1),
-            4 => Ok(Self::SpiHost0Sd2),
-            5 => Ok(Self::SpiHost0Sd3),
-            6 => Ok(Self::SpiDeviceSd0),
-            7 => Ok(Self::SpiDeviceSd1),
-            8 => Ok(Self::SpiDeviceSd2),
-            9 => Ok(Self::SpiDeviceSd3),
-            10 => Ok(Self::SysrstCtrlAonEcRstL),
-            11 => Ok(Self::SysrstCtrlAonFlashWpL),
-            12 => Ok(Self::SpiDeviceSck),
-            13 => Ok(Self::SpiDeviceCsb),
-            14 => Ok(Self::SpiHost0Sck),
-            15 => Ok(Self::SpiHost0Csb),
+            0 => Ok(Self::SpiHost0Sd0),
+            1 => Ok(Self::SpiHost0Sd1),
+            2 => Ok(Self::SpiHost0Sd2),
+            3 => Ok(Self::SpiHost0Sd3),
+            4 => Ok(Self::SpiDeviceSd0),
+            5 => Ok(Self::SpiDeviceSd1),
+            6 => Ok(Self::SpiDeviceSd2),
+            7 => Ok(Self::SpiDeviceSd3),
+            8 => Ok(Self::SysrstCtrlAonEcRstL),
+            9 => Ok(Self::SysrstCtrlAonFlashWpL),
+            10 => Ok(Self::SpiDeviceSck),
+            11 => Ok(Self::SpiDeviceCsb),
+            12 => Ok(Self::SpiHost0Sck),
+            13 => Ok(Self::SpiHost0Csb),
             _ => Err(val),
         }
     }
@@ -3193,12 +2228,7 @@ pub enum PowerManagerWakeUps {
 pub enum ResetManagerSwResets {
     SpiDevice = 0,
     SpiHost0 = 1,
-    SpiHost1 = 2,
-    Usb = 3,
-    UsbAon = 4,
-    I2c0 = 5,
-    I2c1 = 6,
-    I2c2 = 7,
+    I2c0 = 2,
 }
 
 /// Power Manager Reset Request Signals
@@ -3221,25 +2251,6 @@ pub enum GateableClocks {
     IoDiv2Peri = 1,
     /// Clock clk_io_peri in group peri
     IoPeri = 2,
-    /// Clock clk_usb_peri in group peri
-    UsbPeri = 3,
-}
-
-/// Clock Manager Software-Hinted Clocks.
-///
-/// The Software has partial control over these clocks. It can ask them to stop,
-/// but the clock manager is in control of whether the clock actually is stopped.
-#[derive(Copy, Clone, PartialEq, Eq)]
-#[repr(u32)]
-pub enum HintableClocks {
-    /// Clock clk_main_aes in group trans
-    MainAes = 0,
-    /// Clock clk_main_hmac in group trans
-    MainHmac = 1,
-    /// Clock clk_main_kmac in group trans
-    MainKmac = 2,
-    /// Clock clk_main_otbn in group trans
-    MainOtbn = 3,
 }
 
 /// MMIO Region
