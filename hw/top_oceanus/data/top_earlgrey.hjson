@@ -47,7 +47,7 @@
     // ref: indicates the clock is used as a reference for measurement.
     srcs: [
       { name: "main", aon: "no",  freq: "300000000" },
-      { name: "adc",  aon: "no",  freq: "500000000"},
+      { name: "data_proc",  aon: "no",  freq: "500000000"},
       { name: "io",   aon: "no",  freq: "96000000" },
       { name: "aon",  aon: "yes", freq: "200000", ref: true}
     ],
@@ -89,6 +89,7 @@
     groups: [
       // the powerup group is used exclusively by clk/pwr/rstmgr/pinmux
       { name: "ast",     src:"ext", sw_cg: "no"                   },
+      { name: "data_proc", src:"ext", sw_cg: "no"                 },
       { name: "powerup", src:"top", sw_cg: "no"                   },
       { name: "infra",   src:"top", sw_cg: "no",                  },
       { name: "secure",  src:"top", sw_cg: "no"                   },
@@ -147,6 +148,7 @@
       { name: "lc_io",          gen: true,  type: "top", parent: "lc_src",  clk: "io"      },
       { name: "lc_io_div2",     gen: true,  type: "top", parent: "lc_src",  clk: "io_div2" },
       { name: "lc_io_div4",     gen: true,  type: "top", parent: "lc_src",  clk: "io_div4" },
+      { name: "data_proc",      gen: true,  type: "top", parent: "sys_src",  clk: "data_proc" },
       { name: "sys",            gen: true,  type: "top", parent: "sys_src", clk: "main"    },
       { name: "sys_io_div4",    gen: true,  type: "top", parent: "sys_src", clk: "io_div4" },
       { name: "spi_device",     gen: true,  type: "top", parent: "lc_src", clk: "io_div4", sw: true },
@@ -170,6 +172,21 @@
      //                These modules are also instantiated in the top level.
      //   reggen_only: Similar to reggen_top, but are not instantiated in the top level.
   module: [
+    { name: "data_proc",    // instance name
+      type: "uart",     // Must be matched to the ip name in `ip.hson` (_reg, _cfg permitted)
+                        // and `hw/ip/{type}`
+
+      // clock connections defines the port to top level clock connection
+      // the ip.hjson will declare the clock port names
+      // If none are defined at ip.hjson, clk_i is used by default
+      clock_srcs: {clk_i: "data_proc"},
+      clock_group: "data_proc",
+      // reset connections defines the port to top level reset connection
+      // the ip.hjson will declare the reset port names
+      // If none are defined at ip.hjson, rst_ni is used by default
+      reset_connections: {rst_ni: "data_proc"},
+      base_addr: "0x40000000",
+    },    
     { name: "uart0",    // instance name
       type: "uart",     // Must be matched to the ip name in `ip.hson` (_reg, _cfg permitted)
                         // and `hw/ip/{type}`
@@ -183,7 +200,7 @@
       // the ip.hjson will declare the reset port names
       // If none are defined at ip.hjson, rst_ni is used by default
       reset_connections: {rst_ni: "lc_io_div4"},
-      base_addr: "0x40000000",
+      base_addr: "0x40010000",
     },
     { name: "gpio",
       type: "gpio",
@@ -331,6 +348,10 @@
       type: "clkmgr",
       clock_srcs: {
         clk_i: "io_div4",
+        clk_data_proc_i: {
+          group: "data_proc",
+          clock: "data_proc"
+        },
         clk_main_i: {
           group: "ast",
           clock: "main"
@@ -351,7 +372,9 @@
                           rst_io_div2_ni: "lc_io_div2",
                           rst_io_div4_ni: "lc_io_div4",
                           rst_main_ni: "lc",
+                          rst_data_proc_ni: "data_proc",
                           rst_root_ni: "por_io_div4",
+                          rst_root_data_proc_ni: "por",
                           rst_root_io_ni: "por_io",
                           rst_root_io_div2_ni: "por_io_div2",
                           rst_root_io_div4_ni: "por_io_div4",
