@@ -763,8 +763,8 @@ def validate_clock(top, inst, clock_srcs, prefix=""):
 
     if len(top['clock_srcs']) != len(clock_signals):
         error += 1
-        log.error("%s %s mismatched number of clock ports and nets" %
-                  (prefix, name))
+        log.error("%s %s mismatched number of clock ports and nets, clk_src %d, clock_signal %d" %
+                  (prefix, name, len(top['clock_srcs']) , len(clock_signals)))
 
     missing_port = [
         port for port in top['clock_srcs'].keys()

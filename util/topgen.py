@@ -870,7 +870,7 @@ def _process_top(topcfg: Dict[str, object], args: argparse.Namespace,
             if ip_name in generated_list and not ip_desc_file.is_file():
                 if ip_name in ipgen_list:
                     log.info(
-                        "To-be-auto-generated Hjson %s does not yet exist. "
+                        "To-be-auto-generated Hjson %s does not yet exist.1 "
                         "Falling back to the default configuration of template "
                         "%s for initial validation." % (ip_desc_file, ip_name))
 
@@ -893,7 +893,7 @@ def _process_top(topcfg: Dict[str, object], args: argparse.Namespace,
                     template_hjson_file = ip_dir / "{}/data/{}.hjson".format(
                         ip_name, ip_name)
                     log.info(
-                        "To-be-auto-generated Hjson %s does not yet exist. "
+                        "To-be-auto-generated Hjson %s does not yet exist.2 "
                         "Falling back to Hjson description file %s shipped "
                         "with the IP template for initial validation." %
                         (ip_desc_file, template_hjson_file))

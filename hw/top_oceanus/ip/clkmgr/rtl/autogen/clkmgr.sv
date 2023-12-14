@@ -31,8 +31,8 @@
   // These are the source clocks for the system
   input clk_main_i,
   input rst_main_ni,
-  input clk_adc_i,
-  input rst_adc_ni,
+  input clk_data_proc_i,
+  input rst_data_proc_ni,
   input clk_io_i,
   input rst_io_ni,
   input clk_aon_i,
@@ -46,7 +46,7 @@
   // Resets for derived clock generation, root clock gating and related status
   input rst_root_ni,
   input rst_root_main_ni,
-  input rst_root_adc_ni,
+  input rst_root_data_proc_ni,
   input rst_root_io_ni,
   input rst_root_io_div2_ni,
   input rst_root_io_div4_ni,
@@ -335,6 +335,13 @@
 
   // clock gated indication for alert handler: these clocks are never gated.
   assign cg_en_o.io_powerup = MuBi4False;
+  prim_clock_buf u_clk_data_proc_powerup_buf (
+    .clk_i(clk_data_proc_i),
+    .clk_o(clocks_o.clk_data_proc_powerup)
+  );
+
+  // clock gated indication for alert handler: these clocks are never gated.
+  assign cg_en_o.data_proc_powerup = MuBi4False;
   prim_clock_buf u_clk_io_div2_powerup_buf (
     .clk_i(clk_io_div2_i),
     .clk_o(clocks_o.clk_io_div2_powerup)
@@ -370,9 +377,9 @@
   // clk_main family
   logic pwrmgr_main_en;
   assign pwrmgr_main_en = pwr_i.main_ip_clk_en;
-  // clk_adc family
-  logic pwrmgr_adc_en;
-  assign pwrmgr_adc_en = pwr_i.adc_ip_clk_en;
+  // clk_data_proc family
+  logic pwrmgr_data_proc_en;
+  assign pwrmgr_data_proc_en = pwr_i.data_proc_ip_clk_en;
   // clk_io family
   logic pwrmgr_io_en;
   logic pwrmgr_io_div2_en;
@@ -410,29 +417,29 @@
     .status_o(pwr_o.main_status)
   );
 
-  // clk_adc family
-  logic [0:0] adc_ens;
+  // clk_data_proc family
+  logic [0:0] data_proc_ens;
 
-  logic clk_adc_en;
-  logic clk_adc_root;
-  clkmgr_root_ctrl u_adc_root_ctrl (
-    .clk_i(clk_adc_i),
-    .rst_ni(rst_root_adc_ni),
+  logic clk_data_proc_en;
+  logic clk_data_proc_root;
+  clkmgr_root_ctrl u_data_proc_root_ctrl (
+    .clk_i(clk_data_proc_i),
+    .rst_ni(rst_root_data_proc_ni),
     .scanmode_i,
-    .async_en_i(pwrmgr_adc_en),
-    .en_o(clk_adc_en),
-    .clk_o(clk_adc_root)
+    .async_en_i(pwrmgr_data_proc_en),
+    .en_o(clk_data_proc_en),
+    .clk_o(clk_data_proc_root)
   );
-  assign adc_ens[0] = clk_adc_en;
+  assign data_proc_ens[0] = clk_data_proc_en;
 
   // create synchronized status
   clkmgr_clk_status #(
     .NumClocks(1)
-  ) u_adc_status (
+  ) u_data_proc_status (
     .clk_i,
     .rst_ni(rst_root_ni),
-    .ens_i(adc_ens),
-    .status_o(pwr_o.adc_status)
+    .ens_i(data_proc_ens),
+    .status_o(pwr_o.data_proc_status)
   );
 
   // clk_io family
