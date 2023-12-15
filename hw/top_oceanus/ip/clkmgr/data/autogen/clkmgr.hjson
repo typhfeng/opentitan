@@ -104,6 +104,9 @@
             measurements.
             '''
     }
+    { name: "CLKMGR.MEAS_CTRL.DATA_PROC",
+      desc: "Frequency and timeout measurements of DATA_PROC clock."
+    }
     { name: "CLKMGR.MEAS_CTRL.IO",
       desc: "Frequency and timeout measurements of IO clock."
     }
@@ -547,6 +550,60 @@
         },
       ]
     },
+    { name: "DATA_PROC_MEAS_CTRL_EN",
+      desc: '''
+        Enable for measurement control
+      ''',
+      regwen: "MEASURE_CTRL_REGWEN",
+      swaccess: "rw",
+      hwaccess: "hrw",
+      async: "clk_data_proc_i",
+      fields: [
+        {
+          bits: "3:0",
+          name: "EN",
+          desc: "Enable measurement for data_proc",
+          mubi: true,
+          resval: false,
+        },
+      ]
+      // Measurements can cause recoverable errors depending on the
+      // thresholds which randomized CSR tests will not predict correctly.
+      // To provide better CSR coverage we allow writing the threshold
+      // fields, but not enabling the counters.
+      tags: ["excl:CsrAllTests:CsrExclWrite"]
+    },
+
+    { name: "DATA_PROC_MEAS_CTRL_SHADOWED",
+      desc: '''
+        Configuration controls for data_proc measurement.
+
+        The threshold fields are made wider than required (by 1 bit) to ensure
+        there is room to adjust for measurement inaccuracies.
+      ''',
+      regwen: "MEASURE_CTRL_REGWEN",
+      swaccess: "rw",
+      hwaccess: "hro",
+      async: "clk_data_proc_i",
+      shadowed: "true",
+      update_err_alert: "recov_fault",
+      storage_err_alert: "fatal_fault",
+      fields: [
+        {
+          bits: "12:0",
+          name: "HI",
+          desc: "Max threshold for data_proc measurement",
+          resval: "2510"
+        },
+
+        {
+          bits: "25:13",
+          name: "LO",
+          desc: "Min threshold for data_proc measurement",
+          resval: "2490"
+        },
+      ]
+    },
     { name: "IO_MEAS_CTRL_EN",
       desc: '''
         Enable for measurement control
@@ -778,6 +835,14 @@
         },
         {
           bits: "1",
+          name: "DATA_PROC_MEASURE_ERR",
+          resval: 0,
+          desc: '''
+            data_proc has encountered a measurement error.
+          '''
+        },
+        {
+          bits: "2",
           name: "IO_MEASURE_ERR",
           resval: 0,
           desc: '''
@@ -785,7 +850,7 @@
           '''
         },
         {
-          bits: "2",
+          bits: "3",
           name: "IO_DIV2_MEASURE_ERR",
           resval: 0,
           desc: '''
@@ -793,7 +858,7 @@
           '''
         },
         {
-          bits: "3",
+          bits: "4",
           name: "IO_DIV4_MEASURE_ERR",
           resval: 0,
           desc: '''
@@ -801,7 +866,7 @@
           '''
         },
         {
-          bits: "4",
+          bits: "5",
           name: "MAIN_MEASURE_ERR",
           resval: 0,
           desc: '''
@@ -809,7 +874,15 @@
           '''
         },
         {
-          bits: "5",
+          bits: "6",
+          name: "DATA_PROC_TIMEOUT_ERR",
+          resval: 0,
+          desc: '''
+            data_proc has timed out.
+          '''
+        }
+        {
+          bits: "7",
           name: "IO_TIMEOUT_ERR",
           resval: 0,
           desc: '''
@@ -817,7 +890,7 @@
           '''
         }
         {
-          bits: "6",
+          bits: "8",
           name: "IO_DIV2_TIMEOUT_ERR",
           resval: 0,
           desc: '''
@@ -825,7 +898,7 @@
           '''
         }
         {
-          bits: "7",
+          bits: "9",
           name: "IO_DIV4_TIMEOUT_ERR",
           resval: 0,
           desc: '''
@@ -833,7 +906,7 @@
           '''
         }
         {
-          bits: "8",
+          bits: "10",
           name: "MAIN_TIMEOUT_ERR",
           resval: 0,
           desc: '''

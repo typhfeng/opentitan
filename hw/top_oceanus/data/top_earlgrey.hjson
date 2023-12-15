@@ -88,12 +88,13 @@
 
     groups: [
       // the powerup group is used exclusively by clk/pwr/rstmgr/pinmux
-      { name: "ast",     src:"ext", sw_cg: "no"                   },
-      { name: "powerup", src:"top", sw_cg: "no"                   },
-      { name: "infra",   src:"top", sw_cg: "no",                  },
-      { name: "secure",  src:"top", sw_cg: "no"                   },
-      { name: "peri",    src:"top", sw_cg: "yes",  unique: "no"   },
-      { name: "timers",  src:"top", sw_cg: "no"                   }
+      { name: "ast",        src:"ext", sw_cg: "no"                   },
+      { name: "powerup",    src:"top", sw_cg: "no"                   },
+      { name: "infra",      src:"top", sw_cg: "no",                  },
+      { name: "secure",     src:"top", sw_cg: "no"                   },
+      { name: "data_proc",  src:"top", sw_cg: "no"                   },
+      { name: "peri",       src:"top", sw_cg: "yes",  unique: "no"   },
+      { name: "timers",     src:"top", sw_cg: "no"                   }
     ],
   },
 
@@ -200,7 +201,7 @@
       // the ip.hjson will declare the reset port names
       // If none are defined at ip.hjson, rst_ni is used by default
       reset_connections: {rst_ni: "lc_io_div4"},
-      base_addr: "0x40010000",
+      base_addr: "0x44000000",
     },
     { name: "gpio",
       type: "gpio",

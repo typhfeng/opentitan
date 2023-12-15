@@ -10,6 +10,8 @@ module clkmgr_reg_top (
   input clk_i,
   input rst_ni,
   input rst_shadowed_ni,
+  input clk_data_proc_i,
+  input rst_data_proc_ni,
   input clk_io_i,
   input rst_io_ni,
   input clk_io_div2_i,
@@ -67,9 +69,9 @@ module clkmgr_reg_top (
 
   // also check for spurious write enables
   logic reg_we_err;
-  logic [19:0] reg_we_check;
+  logic [21:0] reg_we_check;
   prim_reg_we_check #(
-    .OneHotWidth(20)
+    .OneHotWidth(22)
   ) u_prim_reg_we_check (
     .clk_i(clk_i),
     .rst_ni(rst_ni),
@@ -169,6 +171,17 @@ module clkmgr_reg_top (
   logic measure_ctrl_regwen_we;
   logic measure_ctrl_regwen_qs;
   logic measure_ctrl_regwen_wd;
+  logic data_proc_meas_ctrl_en_we;
+  logic [3:0] data_proc_meas_ctrl_en_qs;
+  logic data_proc_meas_ctrl_en_busy;
+  logic data_proc_meas_ctrl_shadowed_re;
+  logic data_proc_meas_ctrl_shadowed_we;
+  logic [25:0] data_proc_meas_ctrl_shadowed_qs;
+  logic data_proc_meas_ctrl_shadowed_busy;
+  logic data_proc_meas_ctrl_shadowed_hi_storage_err;
+  logic data_proc_meas_ctrl_shadowed_hi_update_err;
+  logic data_proc_meas_ctrl_shadowed_lo_storage_err;
+  logic data_proc_meas_ctrl_shadowed_lo_update_err;
   logic io_meas_ctrl_en_we;
   logic [3:0] io_meas_ctrl_en_qs;
   logic io_meas_ctrl_en_busy;
@@ -216,6 +229,8 @@ module clkmgr_reg_top (
   logic recov_err_code_we;
   logic recov_err_code_shadow_update_err_qs;
   logic recov_err_code_shadow_update_err_wd;
+  logic recov_err_code_data_proc_measure_err_qs;
+  logic recov_err_code_data_proc_measure_err_wd;
   logic recov_err_code_io_measure_err_qs;
   logic recov_err_code_io_measure_err_wd;
   logic recov_err_code_io_div2_measure_err_qs;
@@ -224,6 +239,8 @@ module clkmgr_reg_top (
   logic recov_err_code_io_div4_measure_err_wd;
   logic recov_err_code_main_measure_err_qs;
   logic recov_err_code_main_measure_err_wd;
+  logic recov_err_code_data_proc_timeout_err_qs;
+  logic recov_err_code_data_proc_timeout_err_wd;
   logic recov_err_code_io_timeout_err_qs;
   logic recov_err_code_io_timeout_err_wd;
   logic recov_err_code_io_div2_timeout_err_qs;
@@ -237,6 +254,92 @@ module clkmgr_reg_top (
   logic fatal_err_code_shadow_storage_err_qs;
   // Define register CDC handling.
   // CDC handling is done on a per-reg instead of per-field boundary.
+
+  logic [3:0]  data_proc_data_proc_meas_ctrl_en_ds_int;
+  logic [3:0]  data_proc_data_proc_meas_ctrl_en_qs_int;
+  logic [3:0] data_proc_data_proc_meas_ctrl_en_ds;
+  logic data_proc_data_proc_meas_ctrl_en_qe;
+  logic [3:0] data_proc_data_proc_meas_ctrl_en_qs;
+  logic [3:0] data_proc_data_proc_meas_ctrl_en_wdata;
+  logic data_proc_data_proc_meas_ctrl_en_we;
+  logic unused_data_proc_data_proc_meas_ctrl_en_wdata;
+  logic data_proc_data_proc_meas_ctrl_en_regwen;
+
+  always_comb begin
+    data_proc_data_proc_meas_ctrl_en_qs = 4'h9;
+    data_proc_data_proc_meas_ctrl_en_ds = 4'h9;
+    data_proc_data_proc_meas_ctrl_en_ds = data_proc_data_proc_meas_ctrl_en_ds_int;
+    data_proc_data_proc_meas_ctrl_en_qs = data_proc_data_proc_meas_ctrl_en_qs_int;
+  end
+
+  prim_reg_cdc #(
+    .DataWidth(4),
+    .ResetVal(4'h9),
+    .BitMask(4'hf),
+    .DstWrReq(1)
+  ) u_data_proc_meas_ctrl_en_cdc (
+    .clk_src_i    (clk_i),
+    .rst_src_ni   (rst_ni),
+    .clk_dst_i    (clk_data_proc_i),
+    .rst_dst_ni   (rst_data_proc_ni),
+    .src_regwen_i (measure_ctrl_regwen_qs),
+    .src_we_i     (data_proc_meas_ctrl_en_we),
+    .src_re_i     ('0),
+    .src_wd_i     (reg_wdata[3:0]),
+    .src_busy_o   (data_proc_meas_ctrl_en_busy),
+    .src_qs_o     (data_proc_meas_ctrl_en_qs), // for software read back
+    .dst_update_i (data_proc_data_proc_meas_ctrl_en_qe),
+    .dst_ds_i     (data_proc_data_proc_meas_ctrl_en_ds),
+    .dst_qs_i     (data_proc_data_proc_meas_ctrl_en_qs),
+    .dst_we_o     (data_proc_data_proc_meas_ctrl_en_we),
+    .dst_re_o     (),
+    .dst_regwen_o (data_proc_data_proc_meas_ctrl_en_regwen),
+    .dst_wd_o     (data_proc_data_proc_meas_ctrl_en_wdata)
+  );
+  assign unused_data_proc_data_proc_meas_ctrl_en_wdata =
+      ^data_proc_data_proc_meas_ctrl_en_wdata;
+
+  logic [12:0]  data_proc_data_proc_meas_ctrl_shadowed_hi_qs_int;
+  logic [12:0]  data_proc_data_proc_meas_ctrl_shadowed_lo_qs_int;
+  logic [25:0] data_proc_data_proc_meas_ctrl_shadowed_qs;
+  logic [25:0] data_proc_data_proc_meas_ctrl_shadowed_wdata;
+  logic data_proc_data_proc_meas_ctrl_shadowed_we;
+  logic unused_data_proc_data_proc_meas_ctrl_shadowed_wdata;
+  logic data_proc_data_proc_meas_ctrl_shadowed_re;
+  logic data_proc_data_proc_meas_ctrl_shadowed_regwen;
+
+  always_comb begin
+    data_proc_data_proc_meas_ctrl_shadowed_qs = 26'h13749ce;
+    data_proc_data_proc_meas_ctrl_shadowed_qs[12:0] = data_proc_data_proc_meas_ctrl_shadowed_hi_qs_int;
+    data_proc_data_proc_meas_ctrl_shadowed_qs[25:13] = data_proc_data_proc_meas_ctrl_shadowed_lo_qs_int;
+  end
+
+  prim_reg_cdc #(
+    .DataWidth(26),
+    .ResetVal(26'h13749ce),
+    .BitMask(26'h3ffffff),
+    .DstWrReq(0)
+  ) u_data_proc_meas_ctrl_shadowed_cdc (
+    .clk_src_i    (clk_i),
+    .rst_src_ni   (rst_ni),
+    .clk_dst_i    (clk_data_proc_i),
+    .rst_dst_ni   (rst_data_proc_ni),
+    .src_regwen_i (measure_ctrl_regwen_qs),
+    .src_we_i     (data_proc_meas_ctrl_shadowed_we),
+    .src_re_i     (data_proc_meas_ctrl_shadowed_re),
+    .src_wd_i     (reg_wdata[25:0]),
+    .src_busy_o   (data_proc_meas_ctrl_shadowed_busy),
+    .src_qs_o     (data_proc_meas_ctrl_shadowed_qs), // for software read back
+    .dst_update_i ('0),
+    .dst_ds_i     ('0),
+    .dst_qs_i     (data_proc_data_proc_meas_ctrl_shadowed_qs),
+    .dst_we_o     (data_proc_data_proc_meas_ctrl_shadowed_we),
+    .dst_re_o     (data_proc_data_proc_meas_ctrl_shadowed_re),
+    .dst_regwen_o (data_proc_data_proc_meas_ctrl_shadowed_regwen),
+    .dst_wd_o     (data_proc_data_proc_meas_ctrl_shadowed_wdata)
+  );
+  assign unused_data_proc_data_proc_meas_ctrl_shadowed_wdata =
+      ^data_proc_data_proc_meas_ctrl_shadowed_wdata;
 
   logic [3:0]  io_io_meas_ctrl_en_ds_int;
   logic [3:0]  io_io_meas_ctrl_en_qs_int;
@@ -946,6 +1049,164 @@ module clkmgr_reg_top (
   );
 
 
+  // R[data_proc_meas_ctrl_en]: V(False)
+  logic [0:0] data_proc_meas_ctrl_en_flds_we;
+  assign data_proc_data_proc_meas_ctrl_en_qe = |data_proc_meas_ctrl_en_flds_we;
+  // Create REGWEN-gated WE signal
+  logic data_proc_data_proc_meas_ctrl_en_gated_we;
+  assign data_proc_data_proc_meas_ctrl_en_gated_we =
+    data_proc_data_proc_meas_ctrl_en_we & data_proc_data_proc_meas_ctrl_en_regwen;
+  prim_subreg #(
+    .DW      (4),
+    .SwAccess(prim_subreg_pkg::SwAccessRW),
+    .RESVAL  (4'h9),
+    .Mubi    (1'b1)
+  ) u_data_proc_meas_ctrl_en (
+    .clk_i   (clk_data_proc_i),
+    .rst_ni  (rst_data_proc_ni),
+
+    // from register interface
+    .we     (data_proc_data_proc_meas_ctrl_en_gated_we),
+    .wd     (data_proc_data_proc_meas_ctrl_en_wdata[3:0]),
+
+    // from internal hardware
+    .de     (hw2reg.data_proc_meas_ctrl_en.de),
+    .d      (hw2reg.data_proc_meas_ctrl_en.d),
+
+    // to internal hardware
+    .qe     (data_proc_meas_ctrl_en_flds_we[0]),
+    .q      (reg2hw.data_proc_meas_ctrl_en.q),
+    .ds     (data_proc_data_proc_meas_ctrl_en_ds_int),
+
+    // to register interface (read)
+    .qs     (data_proc_data_proc_meas_ctrl_en_qs_int)
+  );
+
+
+  // R[data_proc_meas_ctrl_shadowed]: V(False)
+  // Create REGWEN-gated WE signal
+  logic data_proc_data_proc_meas_ctrl_shadowed_gated_we;
+  assign data_proc_data_proc_meas_ctrl_shadowed_gated_we =
+    data_proc_data_proc_meas_ctrl_shadowed_we & data_proc_data_proc_meas_ctrl_shadowed_regwen;
+  //   F[hi]: 12:0
+  logic async_data_proc_meas_ctrl_shadowed_hi_err_update;
+  logic async_data_proc_meas_ctrl_shadowed_hi_err_storage;
+
+  // storage error is persistent and can be sampled at any time
+  prim_flop_2sync #(
+    .Width(1),
+    .ResetValue('0)
+  ) u_data_proc_meas_ctrl_shadowed_hi_err_storage_sync (
+    .clk_i,
+    .rst_ni,
+    .d_i(async_data_proc_meas_ctrl_shadowed_hi_err_storage),
+    .q_o(data_proc_meas_ctrl_shadowed_hi_storage_err)
+  );
+
+  // update error is transient and must be immediately captured
+  prim_pulse_sync u_data_proc_meas_ctrl_shadowed_hi_err_update_sync (
+    .clk_src_i(clk_data_proc_i),
+    .rst_src_ni(rst_data_proc_ni),
+    .src_pulse_i(async_data_proc_meas_ctrl_shadowed_hi_err_update),
+    .clk_dst_i(clk_i),
+    .rst_dst_ni(rst_ni),
+    .dst_pulse_o(data_proc_meas_ctrl_shadowed_hi_update_err)
+  );
+  prim_subreg_shadow #(
+    .DW      (13),
+    .SwAccess(prim_subreg_pkg::SwAccessRW),
+    .RESVAL  (13'h9ce),
+    .Mubi    (1'b0)
+  ) u_data_proc_meas_ctrl_shadowed_hi (
+    .clk_i   (clk_data_proc_i),
+    .rst_ni  (rst_data_proc_ni),
+    .rst_shadowed_ni (rst_shadowed_ni),
+
+    // from register interface
+    .re     (data_proc_data_proc_meas_ctrl_shadowed_re),
+    .we     (data_proc_data_proc_meas_ctrl_shadowed_gated_we),
+    .wd     (data_proc_data_proc_meas_ctrl_shadowed_wdata[12:0]),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.data_proc_meas_ctrl_shadowed.hi.q),
+    .ds     (),
+
+    // to register interface (read)
+    .qs     (data_proc_data_proc_meas_ctrl_shadowed_hi_qs_int),
+
+    // Shadow register phase. Relevant for hwext only.
+    .phase  (),
+
+    // Shadow register error conditions
+    .err_update  (async_data_proc_meas_ctrl_shadowed_hi_err_update),
+    .err_storage (async_data_proc_meas_ctrl_shadowed_hi_err_storage)
+  );
+
+  //   F[lo]: 25:13
+  logic async_data_proc_meas_ctrl_shadowed_lo_err_update;
+  logic async_data_proc_meas_ctrl_shadowed_lo_err_storage;
+
+  // storage error is persistent and can be sampled at any time
+  prim_flop_2sync #(
+    .Width(1),
+    .ResetValue('0)
+  ) u_data_proc_meas_ctrl_shadowed_lo_err_storage_sync (
+    .clk_i,
+    .rst_ni,
+    .d_i(async_data_proc_meas_ctrl_shadowed_lo_err_storage),
+    .q_o(data_proc_meas_ctrl_shadowed_lo_storage_err)
+  );
+
+  // update error is transient and must be immediately captured
+  prim_pulse_sync u_data_proc_meas_ctrl_shadowed_lo_err_update_sync (
+    .clk_src_i(clk_data_proc_i),
+    .rst_src_ni(rst_data_proc_ni),
+    .src_pulse_i(async_data_proc_meas_ctrl_shadowed_lo_err_update),
+    .clk_dst_i(clk_i),
+    .rst_dst_ni(rst_ni),
+    .dst_pulse_o(data_proc_meas_ctrl_shadowed_lo_update_err)
+  );
+  prim_subreg_shadow #(
+    .DW      (13),
+    .SwAccess(prim_subreg_pkg::SwAccessRW),
+    .RESVAL  (13'h9ba),
+    .Mubi    (1'b0)
+  ) u_data_proc_meas_ctrl_shadowed_lo (
+    .clk_i   (clk_data_proc_i),
+    .rst_ni  (rst_data_proc_ni),
+    .rst_shadowed_ni (rst_shadowed_ni),
+
+    // from register interface
+    .re     (data_proc_data_proc_meas_ctrl_shadowed_re),
+    .we     (data_proc_data_proc_meas_ctrl_shadowed_gated_we),
+    .wd     (data_proc_data_proc_meas_ctrl_shadowed_wdata[25:13]),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.data_proc_meas_ctrl_shadowed.lo.q),
+    .ds     (),
+
+    // to register interface (read)
+    .qs     (data_proc_data_proc_meas_ctrl_shadowed_lo_qs_int),
+
+    // Shadow register phase. Relevant for hwext only.
+    .phase  (),
+
+    // Shadow register error conditions
+    .err_update  (async_data_proc_meas_ctrl_shadowed_lo_err_update),
+    .err_storage (async_data_proc_meas_ctrl_shadowed_lo_err_storage)
+  );
+
+
   // R[io_meas_ctrl_en]: V(False)
   logic [0:0] io_meas_ctrl_en_flds_we;
   assign io_io_meas_ctrl_en_qe = |io_meas_ctrl_en_flds_we;
@@ -1605,7 +1866,34 @@ module clkmgr_reg_top (
     .qs     (recov_err_code_shadow_update_err_qs)
   );
 
-  //   F[io_measure_err]: 1:1
+  //   F[data_proc_measure_err]: 1:1
+  prim_subreg #(
+    .DW      (1),
+    .SwAccess(prim_subreg_pkg::SwAccessW1C),
+    .RESVAL  (1'h0),
+    .Mubi    (1'b0)
+  ) u_recov_err_code_data_proc_measure_err (
+    .clk_i   (clk_i),
+    .rst_ni  (rst_ni),
+
+    // from register interface
+    .we     (recov_err_code_we),
+    .wd     (recov_err_code_data_proc_measure_err_wd),
+
+    // from internal hardware
+    .de     (hw2reg.recov_err_code.data_proc_measure_err.de),
+    .d      (hw2reg.recov_err_code.data_proc_measure_err.d),
+
+    // to internal hardware
+    .qe     (),
+    .q      (),
+    .ds     (),
+
+    // to register interface (read)
+    .qs     (recov_err_code_data_proc_measure_err_qs)
+  );
+
+  //   F[io_measure_err]: 2:2
   prim_subreg #(
     .DW      (1),
     .SwAccess(prim_subreg_pkg::SwAccessW1C),
@@ -1632,7 +1920,7 @@ module clkmgr_reg_top (
     .qs     (recov_err_code_io_measure_err_qs)
   );
 
-  //   F[io_div2_measure_err]: 2:2
+  //   F[io_div2_measure_err]: 3:3
   prim_subreg #(
     .DW      (1),
     .SwAccess(prim_subreg_pkg::SwAccessW1C),
@@ -1659,7 +1947,7 @@ module clkmgr_reg_top (
     .qs     (recov_err_code_io_div2_measure_err_qs)
   );
 
-  //   F[io_div4_measure_err]: 3:3
+  //   F[io_div4_measure_err]: 4:4
   prim_subreg #(
     .DW      (1),
     .SwAccess(prim_subreg_pkg::SwAccessW1C),
@@ -1686,7 +1974,7 @@ module clkmgr_reg_top (
     .qs     (recov_err_code_io_div4_measure_err_qs)
   );
 
-  //   F[main_measure_err]: 4:4
+  //   F[main_measure_err]: 5:5
   prim_subreg #(
     .DW      (1),
     .SwAccess(prim_subreg_pkg::SwAccessW1C),
@@ -1713,7 +2001,34 @@ module clkmgr_reg_top (
     .qs     (recov_err_code_main_measure_err_qs)
   );
 
-  //   F[io_timeout_err]: 5:5
+  //   F[data_proc_timeout_err]: 6:6
+  prim_subreg #(
+    .DW      (1),
+    .SwAccess(prim_subreg_pkg::SwAccessW1C),
+    .RESVAL  (1'h0),
+    .Mubi    (1'b0)
+  ) u_recov_err_code_data_proc_timeout_err (
+    .clk_i   (clk_i),
+    .rst_ni  (rst_ni),
+
+    // from register interface
+    .we     (recov_err_code_we),
+    .wd     (recov_err_code_data_proc_timeout_err_wd),
+
+    // from internal hardware
+    .de     (hw2reg.recov_err_code.data_proc_timeout_err.de),
+    .d      (hw2reg.recov_err_code.data_proc_timeout_err.d),
+
+    // to internal hardware
+    .qe     (),
+    .q      (),
+    .ds     (),
+
+    // to register interface (read)
+    .qs     (recov_err_code_data_proc_timeout_err_qs)
+  );
+
+  //   F[io_timeout_err]: 7:7
   prim_subreg #(
     .DW      (1),
     .SwAccess(prim_subreg_pkg::SwAccessW1C),
@@ -1740,7 +2055,7 @@ module clkmgr_reg_top (
     .qs     (recov_err_code_io_timeout_err_qs)
   );
 
-  //   F[io_div2_timeout_err]: 6:6
+  //   F[io_div2_timeout_err]: 8:8
   prim_subreg #(
     .DW      (1),
     .SwAccess(prim_subreg_pkg::SwAccessW1C),
@@ -1767,7 +2082,7 @@ module clkmgr_reg_top (
     .qs     (recov_err_code_io_div2_timeout_err_qs)
   );
 
-  //   F[io_div4_timeout_err]: 7:7
+  //   F[io_div4_timeout_err]: 9:9
   prim_subreg #(
     .DW      (1),
     .SwAccess(prim_subreg_pkg::SwAccessW1C),
@@ -1794,7 +2109,7 @@ module clkmgr_reg_top (
     .qs     (recov_err_code_io_div4_timeout_err_qs)
   );
 
-  //   F[main_timeout_err]: 8:8
+  //   F[main_timeout_err]: 10:10
   prim_subreg #(
     .DW      (1),
     .SwAccess(prim_subreg_pkg::SwAccessW1C),
@@ -1906,7 +2221,7 @@ module clkmgr_reg_top (
 
 
 
-  logic [19:0] addr_hit;
+  logic [21:0] addr_hit;
   always_comb begin
     addr_hit = '0;
     addr_hit[ 0] = (reg_addr == CLKMGR_ALERT_TEST_OFFSET);
@@ -1919,16 +2234,18 @@ module clkmgr_reg_top (
     addr_hit[ 7] = (reg_addr == CLKMGR_CLK_HINTS_OFFSET);
     addr_hit[ 8] = (reg_addr == CLKMGR_CLK_HINTS_STATUS_OFFSET);
     addr_hit[ 9] = (reg_addr == CLKMGR_MEASURE_CTRL_REGWEN_OFFSET);
-    addr_hit[10] = (reg_addr == CLKMGR_IO_MEAS_CTRL_EN_OFFSET);
-    addr_hit[11] = (reg_addr == CLKMGR_IO_MEAS_CTRL_SHADOWED_OFFSET);
-    addr_hit[12] = (reg_addr == CLKMGR_IO_DIV2_MEAS_CTRL_EN_OFFSET);
-    addr_hit[13] = (reg_addr == CLKMGR_IO_DIV2_MEAS_CTRL_SHADOWED_OFFSET);
-    addr_hit[14] = (reg_addr == CLKMGR_IO_DIV4_MEAS_CTRL_EN_OFFSET);
-    addr_hit[15] = (reg_addr == CLKMGR_IO_DIV4_MEAS_CTRL_SHADOWED_OFFSET);
-    addr_hit[16] = (reg_addr == CLKMGR_MAIN_MEAS_CTRL_EN_OFFSET);
-    addr_hit[17] = (reg_addr == CLKMGR_MAIN_MEAS_CTRL_SHADOWED_OFFSET);
-    addr_hit[18] = (reg_addr == CLKMGR_RECOV_ERR_CODE_OFFSET);
-    addr_hit[19] = (reg_addr == CLKMGR_FATAL_ERR_CODE_OFFSET);
+    addr_hit[10] = (reg_addr == CLKMGR_DATA_PROC_MEAS_CTRL_EN_OFFSET);
+    addr_hit[11] = (reg_addr == CLKMGR_DATA_PROC_MEAS_CTRL_SHADOWED_OFFSET);
+    addr_hit[12] = (reg_addr == CLKMGR_IO_MEAS_CTRL_EN_OFFSET);
+    addr_hit[13] = (reg_addr == CLKMGR_IO_MEAS_CTRL_SHADOWED_OFFSET);
+    addr_hit[14] = (reg_addr == CLKMGR_IO_DIV2_MEAS_CTRL_EN_OFFSET);
+    addr_hit[15] = (reg_addr == CLKMGR_IO_DIV2_MEAS_CTRL_SHADOWED_OFFSET);
+    addr_hit[16] = (reg_addr == CLKMGR_IO_DIV4_MEAS_CTRL_EN_OFFSET);
+    addr_hit[17] = (reg_addr == CLKMGR_IO_DIV4_MEAS_CTRL_SHADOWED_OFFSET);
+    addr_hit[18] = (reg_addr == CLKMGR_MAIN_MEAS_CTRL_EN_OFFSET);
+    addr_hit[19] = (reg_addr == CLKMGR_MAIN_MEAS_CTRL_SHADOWED_OFFSET);
+    addr_hit[20] = (reg_addr == CLKMGR_RECOV_ERR_CODE_OFFSET);
+    addr_hit[21] = (reg_addr == CLKMGR_FATAL_ERR_CODE_OFFSET);
   end
 
   assign addrmiss = (reg_re || reg_we) ? ~|addr_hit : 1'b0 ;
@@ -1955,7 +2272,9 @@ module clkmgr_reg_top (
                (addr_hit[16] & (|(CLKMGR_PERMIT[16] & ~reg_be))) |
                (addr_hit[17] & (|(CLKMGR_PERMIT[17] & ~reg_be))) |
                (addr_hit[18] & (|(CLKMGR_PERMIT[18] & ~reg_be))) |
-               (addr_hit[19] & (|(CLKMGR_PERMIT[19] & ~reg_be)))));
+               (addr_hit[19] & (|(CLKMGR_PERMIT[19] & ~reg_be))) |
+               (addr_hit[20] & (|(CLKMGR_PERMIT[20] & ~reg_be))) |
+               (addr_hit[21] & (|(CLKMGR_PERMIT[21] & ~reg_be)))));
   end
 
   // Generate write-enables
@@ -1992,49 +2311,59 @@ module clkmgr_reg_top (
   assign measure_ctrl_regwen_we = addr_hit[9] & reg_we & !reg_error;
 
   assign measure_ctrl_regwen_wd = reg_wdata[0];
-  assign io_meas_ctrl_en_we = addr_hit[10] & reg_we & !reg_error;
+  assign data_proc_meas_ctrl_en_we = addr_hit[10] & reg_we & !reg_error;
 
-  assign io_meas_ctrl_shadowed_re = addr_hit[11] & reg_re & !reg_error;
-  assign io_meas_ctrl_shadowed_we = addr_hit[11] & reg_we & !reg_error;
-
-
-  assign io_div2_meas_ctrl_en_we = addr_hit[12] & reg_we & !reg_error;
-
-  assign io_div2_meas_ctrl_shadowed_re = addr_hit[13] & reg_re & !reg_error;
-  assign io_div2_meas_ctrl_shadowed_we = addr_hit[13] & reg_we & !reg_error;
+  assign data_proc_meas_ctrl_shadowed_re = addr_hit[11] & reg_re & !reg_error;
+  assign data_proc_meas_ctrl_shadowed_we = addr_hit[11] & reg_we & !reg_error;
 
 
-  assign io_div4_meas_ctrl_en_we = addr_hit[14] & reg_we & !reg_error;
+  assign io_meas_ctrl_en_we = addr_hit[12] & reg_we & !reg_error;
 
-  assign io_div4_meas_ctrl_shadowed_re = addr_hit[15] & reg_re & !reg_error;
-  assign io_div4_meas_ctrl_shadowed_we = addr_hit[15] & reg_we & !reg_error;
-
-
-  assign main_meas_ctrl_en_we = addr_hit[16] & reg_we & !reg_error;
-
-  assign main_meas_ctrl_shadowed_re = addr_hit[17] & reg_re & !reg_error;
-  assign main_meas_ctrl_shadowed_we = addr_hit[17] & reg_we & !reg_error;
+  assign io_meas_ctrl_shadowed_re = addr_hit[13] & reg_re & !reg_error;
+  assign io_meas_ctrl_shadowed_we = addr_hit[13] & reg_we & !reg_error;
 
 
-  assign recov_err_code_we = addr_hit[18] & reg_we & !reg_error;
+  assign io_div2_meas_ctrl_en_we = addr_hit[14] & reg_we & !reg_error;
+
+  assign io_div2_meas_ctrl_shadowed_re = addr_hit[15] & reg_re & !reg_error;
+  assign io_div2_meas_ctrl_shadowed_we = addr_hit[15] & reg_we & !reg_error;
+
+
+  assign io_div4_meas_ctrl_en_we = addr_hit[16] & reg_we & !reg_error;
+
+  assign io_div4_meas_ctrl_shadowed_re = addr_hit[17] & reg_re & !reg_error;
+  assign io_div4_meas_ctrl_shadowed_we = addr_hit[17] & reg_we & !reg_error;
+
+
+  assign main_meas_ctrl_en_we = addr_hit[18] & reg_we & !reg_error;
+
+  assign main_meas_ctrl_shadowed_re = addr_hit[19] & reg_re & !reg_error;
+  assign main_meas_ctrl_shadowed_we = addr_hit[19] & reg_we & !reg_error;
+
+
+  assign recov_err_code_we = addr_hit[20] & reg_we & !reg_error;
 
   assign recov_err_code_shadow_update_err_wd = reg_wdata[0];
 
-  assign recov_err_code_io_measure_err_wd = reg_wdata[1];
+  assign recov_err_code_data_proc_measure_err_wd = reg_wdata[1];
 
-  assign recov_err_code_io_div2_measure_err_wd = reg_wdata[2];
+  assign recov_err_code_io_measure_err_wd = reg_wdata[2];
 
-  assign recov_err_code_io_div4_measure_err_wd = reg_wdata[3];
+  assign recov_err_code_io_div2_measure_err_wd = reg_wdata[3];
 
-  assign recov_err_code_main_measure_err_wd = reg_wdata[4];
+  assign recov_err_code_io_div4_measure_err_wd = reg_wdata[4];
 
-  assign recov_err_code_io_timeout_err_wd = reg_wdata[5];
+  assign recov_err_code_main_measure_err_wd = reg_wdata[5];
 
-  assign recov_err_code_io_div2_timeout_err_wd = reg_wdata[6];
+  assign recov_err_code_data_proc_timeout_err_wd = reg_wdata[6];
 
-  assign recov_err_code_io_div4_timeout_err_wd = reg_wdata[7];
+  assign recov_err_code_io_timeout_err_wd = reg_wdata[7];
 
-  assign recov_err_code_main_timeout_err_wd = reg_wdata[8];
+  assign recov_err_code_io_div2_timeout_err_wd = reg_wdata[8];
+
+  assign recov_err_code_io_div4_timeout_err_wd = reg_wdata[9];
+
+  assign recov_err_code_main_timeout_err_wd = reg_wdata[10];
 
   // Assign write-enables to checker logic vector.
   always_comb begin
@@ -2049,16 +2378,18 @@ module clkmgr_reg_top (
     reg_we_check[7] = clk_hints_we;
     reg_we_check[8] = 1'b0;
     reg_we_check[9] = measure_ctrl_regwen_we;
-    reg_we_check[10] = io_meas_ctrl_en_we;
-    reg_we_check[11] = io_meas_ctrl_shadowed_we;
-    reg_we_check[12] = io_div2_meas_ctrl_en_we;
-    reg_we_check[13] = io_div2_meas_ctrl_shadowed_we;
-    reg_we_check[14] = io_div4_meas_ctrl_en_we;
-    reg_we_check[15] = io_div4_meas_ctrl_shadowed_we;
-    reg_we_check[16] = main_meas_ctrl_en_we;
-    reg_we_check[17] = main_meas_ctrl_shadowed_we;
-    reg_we_check[18] = recov_err_code_we;
-    reg_we_check[19] = 1'b0;
+    reg_we_check[10] = data_proc_meas_ctrl_en_we;
+    reg_we_check[11] = data_proc_meas_ctrl_shadowed_we;
+    reg_we_check[12] = io_meas_ctrl_en_we;
+    reg_we_check[13] = io_meas_ctrl_shadowed_we;
+    reg_we_check[14] = io_div2_meas_ctrl_en_we;
+    reg_we_check[15] = io_div2_meas_ctrl_shadowed_we;
+    reg_we_check[16] = io_div4_meas_ctrl_en_we;
+    reg_we_check[17] = io_div4_meas_ctrl_shadowed_we;
+    reg_we_check[18] = main_meas_ctrl_en_we;
+    reg_we_check[19] = main_meas_ctrl_shadowed_we;
+    reg_we_check[20] = recov_err_code_we;
+    reg_we_check[21] = 1'b0;
   end
 
   // Read data return
@@ -2110,42 +2441,50 @@ module clkmgr_reg_top (
       end
 
       addr_hit[10]: begin
-        reg_rdata_next = DW'(io_meas_ctrl_en_qs);
+        reg_rdata_next = DW'(data_proc_meas_ctrl_en_qs);
       end
       addr_hit[11]: begin
-        reg_rdata_next = DW'(io_meas_ctrl_shadowed_qs);
+        reg_rdata_next = DW'(data_proc_meas_ctrl_shadowed_qs);
       end
       addr_hit[12]: begin
-        reg_rdata_next = DW'(io_div2_meas_ctrl_en_qs);
+        reg_rdata_next = DW'(io_meas_ctrl_en_qs);
       end
       addr_hit[13]: begin
-        reg_rdata_next = DW'(io_div2_meas_ctrl_shadowed_qs);
+        reg_rdata_next = DW'(io_meas_ctrl_shadowed_qs);
       end
       addr_hit[14]: begin
-        reg_rdata_next = DW'(io_div4_meas_ctrl_en_qs);
+        reg_rdata_next = DW'(io_div2_meas_ctrl_en_qs);
       end
       addr_hit[15]: begin
-        reg_rdata_next = DW'(io_div4_meas_ctrl_shadowed_qs);
+        reg_rdata_next = DW'(io_div2_meas_ctrl_shadowed_qs);
       end
       addr_hit[16]: begin
-        reg_rdata_next = DW'(main_meas_ctrl_en_qs);
+        reg_rdata_next = DW'(io_div4_meas_ctrl_en_qs);
       end
       addr_hit[17]: begin
-        reg_rdata_next = DW'(main_meas_ctrl_shadowed_qs);
+        reg_rdata_next = DW'(io_div4_meas_ctrl_shadowed_qs);
       end
       addr_hit[18]: begin
+        reg_rdata_next = DW'(main_meas_ctrl_en_qs);
+      end
+      addr_hit[19]: begin
+        reg_rdata_next = DW'(main_meas_ctrl_shadowed_qs);
+      end
+      addr_hit[20]: begin
         reg_rdata_next[0] = recov_err_code_shadow_update_err_qs;
-        reg_rdata_next[1] = recov_err_code_io_measure_err_qs;
-        reg_rdata_next[2] = recov_err_code_io_div2_measure_err_qs;
-        reg_rdata_next[3] = recov_err_code_io_div4_measure_err_qs;
-        reg_rdata_next[4] = recov_err_code_main_measure_err_qs;
-        reg_rdata_next[5] = recov_err_code_io_timeout_err_qs;
-        reg_rdata_next[6] = recov_err_code_io_div2_timeout_err_qs;
-        reg_rdata_next[7] = recov_err_code_io_div4_timeout_err_qs;
-        reg_rdata_next[8] = recov_err_code_main_timeout_err_qs;
+        reg_rdata_next[1] = recov_err_code_data_proc_measure_err_qs;
+        reg_rdata_next[2] = recov_err_code_io_measure_err_qs;
+        reg_rdata_next[3] = recov_err_code_io_div2_measure_err_qs;
+        reg_rdata_next[4] = recov_err_code_io_div4_measure_err_qs;
+        reg_rdata_next[5] = recov_err_code_main_measure_err_qs;
+        reg_rdata_next[6] = recov_err_code_data_proc_timeout_err_qs;
+        reg_rdata_next[7] = recov_err_code_io_timeout_err_qs;
+        reg_rdata_next[8] = recov_err_code_io_div2_timeout_err_qs;
+        reg_rdata_next[9] = recov_err_code_io_div4_timeout_err_qs;
+        reg_rdata_next[10] = recov_err_code_main_timeout_err_qs;
       end
 
-      addr_hit[19]: begin
+      addr_hit[21]: begin
         reg_rdata_next[0] = fatal_err_code_reg_intg_qs;
         reg_rdata_next[1] = fatal_err_code_idle_cnt_qs;
         reg_rdata_next[2] = fatal_err_code_shadow_storage_err_qs;
@@ -2182,6 +2521,8 @@ module clkmgr_reg_top (
 
   // Collect up storage and update errors
   assign shadowed_storage_err_o = |{
+    data_proc_meas_ctrl_shadowed_hi_storage_err,
+    data_proc_meas_ctrl_shadowed_lo_storage_err,
     io_meas_ctrl_shadowed_hi_storage_err,
     io_meas_ctrl_shadowed_lo_storage_err,
     io_div2_meas_ctrl_shadowed_hi_storage_err,
@@ -2192,6 +2533,8 @@ module clkmgr_reg_top (
     main_meas_ctrl_shadowed_lo_storage_err
   };
   assign shadowed_update_err_o = |{
+    data_proc_meas_ctrl_shadowed_hi_update_err,
+    data_proc_meas_ctrl_shadowed_lo_update_err,
     io_meas_ctrl_shadowed_hi_update_err,
     io_meas_ctrl_shadowed_lo_update_err,
     io_div2_meas_ctrl_shadowed_hi_update_err,
@@ -2209,27 +2552,33 @@ module clkmgr_reg_top (
     reg_busy_sel = '0;
     unique case (1'b1)
       addr_hit[10]: begin
-        reg_busy_sel = io_meas_ctrl_en_busy;
+        reg_busy_sel = data_proc_meas_ctrl_en_busy;
       end
       addr_hit[11]: begin
-        reg_busy_sel = io_meas_ctrl_shadowed_busy;
+        reg_busy_sel = data_proc_meas_ctrl_shadowed_busy;
       end
       addr_hit[12]: begin
-        reg_busy_sel = io_div2_meas_ctrl_en_busy;
+        reg_busy_sel = io_meas_ctrl_en_busy;
       end
       addr_hit[13]: begin
-        reg_busy_sel = io_div2_meas_ctrl_shadowed_busy;
+        reg_busy_sel = io_meas_ctrl_shadowed_busy;
       end
       addr_hit[14]: begin
-        reg_busy_sel = io_div4_meas_ctrl_en_busy;
+        reg_busy_sel = io_div2_meas_ctrl_en_busy;
       end
       addr_hit[15]: begin
-        reg_busy_sel = io_div4_meas_ctrl_shadowed_busy;
+        reg_busy_sel = io_div2_meas_ctrl_shadowed_busy;
       end
       addr_hit[16]: begin
-        reg_busy_sel = main_meas_ctrl_en_busy;
+        reg_busy_sel = io_div4_meas_ctrl_en_busy;
       end
       addr_hit[17]: begin
+        reg_busy_sel = io_div4_meas_ctrl_shadowed_busy;
+      end
+      addr_hit[18]: begin
+        reg_busy_sel = main_meas_ctrl_en_busy;
+      end
+      addr_hit[19]: begin
         reg_busy_sel = main_meas_ctrl_shadowed_busy;
       end
       default: begin

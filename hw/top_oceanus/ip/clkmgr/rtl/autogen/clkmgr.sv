@@ -204,6 +204,8 @@
     .clk_i,
     .rst_ni,
     .rst_shadowed_ni,
+    .clk_data_proc_i,
+    .rst_data_proc_ni,
     .clk_io_i,
     .rst_io_ni,
     .clk_io_div2_i,
@@ -237,6 +239,8 @@
 
   logic recov_alert;
   assign recov_alert =
+    hw2reg.recov_err_code.data_proc_measure_err.de |
+    hw2reg.recov_err_code.data_proc_timeout_err.de |
     hw2reg.recov_err_code.io_measure_err.de |
     hw2reg.recov_err_code.io_timeout_err.de |
     hw2reg.recov_err_code.io_div2_measure_err.de |
@@ -498,6 +502,7 @@
 
   typedef enum logic [2:0] {
     BaseIdx,
+    ClkDataProcIdx,
     ClkIoIdx,
     ClkIoDiv2Idx,
     ClkIoDiv4Idx,
@@ -527,6 +532,33 @@
       hw2reg.measure_ctrl_regwen.d = 1'b1;
     end
   end
+
+  clkmgr_meas_chk #(
+    .Cnt(5000),
+    .RefCnt(1)
+  ) u_data_proc_meas (
+    .clk_i,
+    .rst_ni,
+    .clk_src_i(clk_data_proc_i),
+    .rst_src_ni(rst_data_proc_ni),
+    .clk_ref_i(clk_aon_i),
+    .rst_ref_ni(rst_aon_ni),
+    // signals on source domain
+    .src_en_i(clk_data_proc_en & mubi4_test_true_loose(mubi4_t'(reg2hw.data_proc_meas_ctrl_en))),
+    .src_max_cnt_i(reg2hw.data_proc_meas_ctrl_shadowed.hi.q),
+    .src_min_cnt_i(reg2hw.data_proc_meas_ctrl_shadowed.lo.q),
+    .src_cfg_meas_en_i(mubi4_t'(reg2hw.data_proc_meas_ctrl_en.q)),
+    .src_cfg_meas_en_valid_o(hw2reg.data_proc_meas_ctrl_en.de),
+    .src_cfg_meas_en_o(hw2reg.data_proc_meas_ctrl_en.d),
+    // signals on local clock domain
+    .calib_rdy_i(calib_rdy[ClkDataProcIdx]),
+    .meas_err_o(hw2reg.recov_err_code.data_proc_measure_err.de),
+    .timeout_err_o(hw2reg.recov_err_code.data_proc_timeout_err.de)
+  );
+
+  assign hw2reg.recov_err_code.data_proc_measure_err.d = 1'b1;
+  assign hw2reg.recov_err_code.data_proc_timeout_err.d = 1'b1;
+
 
   clkmgr_meas_chk #(
     .Cnt(960),
@@ -693,6 +725,17 @@
     .rst_ni(rst_main_ni),
     .mubi_i(((clk_main_en) ? MuBi4False : MuBi4True)),
     .mubi_o(cg_en_o.main_secure)
+  );
+  assign clocks_o.clk_data_proc_data_proc = clk_data_proc_root;
+
+  // clock gated indication for alert handler
+  prim_mubi4_sender #(
+    .ResetValue(MuBi4True)
+  ) u_prim_mubi4_sender_clk_data_proc_data_proc (
+    .clk_i(clk_data_proc_i),
+    .rst_ni(rst_data_proc_ni),
+    .mubi_i(((clk_data_proc_en) ? MuBi4False : MuBi4True)),
+    .mubi_o(cg_en_o.data_proc_data_proc)
   );
   assign clocks_o.clk_io_div4_timers = clk_io_div4_root;
 

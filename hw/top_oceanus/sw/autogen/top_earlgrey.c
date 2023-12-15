@@ -1,18 +1,26 @@
-// Copyright lowRISC contributors.
-// Licensed under the Apache License, Version 2.0, see LICENSE for details.
-// SPDX-License-Identifier: Apache-2.0
-
-#include "sw\autogen\top_earlgrey.h"
-
-/**
- * PLIC Interrupt Source to Peripheral Map
- *
- * This array is a mapping from `top_earlgrey_plic_irq_id_t` to
- * `top_earlgrey_plic_peripheral_t`.
- */
+// Copyright lowRISC contributors.
+// Licensed under the Apache License, Version 2.0, see LICENSE for details.
+// SPDX-License-Identifier: Apache-2.0
+
+#include "sw/autogen/top_earlgrey.h"
+
+/**
+ * PLIC Interrupt Source to Peripheral Map
+ *
+ * This array is a mapping from `top_earlgrey_plic_irq_id_t` to
+ * `top_earlgrey_plic_peripheral_t`.
+ */
 const top_earlgrey_plic_peripheral_t
-    top_earlgrey_plic_interrupt_for_peripheral[92] = {
+    top_earlgrey_plic_interrupt_for_peripheral[100] = {
   [kTopEarlgreyPlicIrqIdNone] = kTopEarlgreyPlicPeripheralUnknown,
+  [kTopEarlgreyPlicIrqIdDataProcTxWatermark] = kTopEarlgreyPlicPeripheralDataProc,
+  [kTopEarlgreyPlicIrqIdDataProcRxWatermark] = kTopEarlgreyPlicPeripheralDataProc,
+  [kTopEarlgreyPlicIrqIdDataProcTxEmpty] = kTopEarlgreyPlicPeripheralDataProc,
+  [kTopEarlgreyPlicIrqIdDataProcRxOverflow] = kTopEarlgreyPlicPeripheralDataProc,
+  [kTopEarlgreyPlicIrqIdDataProcRxFrameErr] = kTopEarlgreyPlicPeripheralDataProc,
+  [kTopEarlgreyPlicIrqIdDataProcRxBreakErr] = kTopEarlgreyPlicPeripheralDataProc,
+  [kTopEarlgreyPlicIrqIdDataProcRxTimeout] = kTopEarlgreyPlicPeripheralDataProc,
+  [kTopEarlgreyPlicIrqIdDataProcRxParityErr] = kTopEarlgreyPlicPeripheralDataProc,
   [kTopEarlgreyPlicIrqIdUart0TxWatermark] = kTopEarlgreyPlicPeripheralUart0,
   [kTopEarlgreyPlicIrqIdUart0RxWatermark] = kTopEarlgreyPlicPeripheralUart0,
   [kTopEarlgreyPlicIrqIdUart0TxEmpty] = kTopEarlgreyPlicPeripheralUart0,
@@ -105,16 +113,17 @@ const top_earlgrey_plic_peripheral_t
   [kTopEarlgreyPlicIrqIdFlashCtrlOpDone] = kTopEarlgreyPlicPeripheralFlashCtrl,
   [kTopEarlgreyPlicIrqIdFlashCtrlCorrErr] = kTopEarlgreyPlicPeripheralFlashCtrl,
 };
-
-
-/**
- * Alert Handler Alert Source to Peripheral Map
- *
- * This array is a mapping from `top_earlgrey_alert_id_t` to
- * `top_earlgrey_alert_peripheral_t`.
- */
+
+
+/**
+ * Alert Handler Alert Source to Peripheral Map
+ *
+ * This array is a mapping from `top_earlgrey_alert_id_t` to
+ * `top_earlgrey_alert_peripheral_t`.
+ */
 const top_earlgrey_alert_peripheral_t
-    top_earlgrey_alert_for_peripheral[41] = {
+    top_earlgrey_alert_for_peripheral[42] = {
+  [kTopEarlgreyAlertIdDataProcFatalFault] = kTopEarlgreyAlertPeripheralDataProc,
   [kTopEarlgreyAlertIdUart0FatalFault] = kTopEarlgreyAlertPeripheralUart0,
   [kTopEarlgreyAlertIdGpioFatalFault] = kTopEarlgreyAlertPeripheralGpio,
   [kTopEarlgreyAlertIdSpiDeviceFatalFault] = kTopEarlgreyAlertPeripheralSpiDevice,

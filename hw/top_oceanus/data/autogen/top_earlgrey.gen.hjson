@@ -39,6 +39,12 @@
         ref: false
       }
       {
+        name: data_proc
+        aon: no
+        freq: "500000000"
+        ref: false
+      }
+      {
         name: io
         aon: no
         freq: "96000000"
@@ -95,6 +101,7 @@
           clk_aon_powerup: aon
           clk_main_powerup: main
           clk_io_powerup: io
+          clk_data_proc_powerup: data_proc
           clk_io_div2_powerup: io_div2
         }
       }
@@ -120,6 +127,16 @@
           clk_io_div4_secure: io_div4
           clk_main_secure: main
           clk_aon_secure: aon
+        }
+      }
+      {
+        name: data_proc
+        src: top
+        sw_cg: no
+        unique: no
+        clocks:
+        {
+          clk_data_proc_data_proc: data_proc
         }
       }
       {
@@ -322,6 +339,21 @@
         clock: io_div4
       }
       {
+        name: data_proc
+        gen: true
+        type: top
+        domains:
+        [
+          "0"
+          Aon
+        ]
+        shadowed: false
+        sw: false
+        path: rstmgr_aon_resets.rst_data_proc_n
+        parent: sys_src
+        clock: data_proc
+      }
+      {
         name: sys
         gen: true
         type: top
@@ -397,6 +429,50 @@
   module:
   [
     {
+      name: data_proc
+      type: uart
+      clock_srcs:
+      {
+        clk_i: data_proc
+      }
+      clock_group: data_proc
+      reset_connections:
+      {
+        rst_ni:
+        {
+          name: data_proc
+          domain: "0"
+        }
+      }
+      clock_connections:
+      {
+        clk_i: clkmgr_aon_clocks.clk_data_proc_data_proc
+      }
+      domain:
+      [
+        "0"
+      ]
+      param_decl: {}
+      param_list: []
+      inter_signal_list:
+      [
+        {
+          name: tl
+          struct: tl
+          package: tlul_pkg
+          type: req_rsp
+          act: rsp
+          width: 1
+          inst_name: data_proc
+          index: -1
+        }
+      ]
+      base_addrs:
+      {
+        null: 0x40000000
+      }
+    }
+    {
       name: uart0
       type: uart
       clock_srcs:
@@ -440,7 +516,7 @@
       ]
       base_addrs:
       {
-        null: 0x40000000
+        null: 0x44000000
       }
     }
     {
@@ -2236,6 +2312,7 @@
         clk_aon_i: aon
         clk_main_i: main
         clk_io_i: io
+        clk_data_proc_i: data_proc
         clk_io_div2_i: io_div2
         clk_io_div4_i: io_div4
       }
@@ -2266,6 +2343,7 @@
         clk_aon_i: clkmgr_aon_clocks.clk_aon_powerup
         clk_main_i: clkmgr_aon_clocks.clk_main_powerup
         clk_io_i: clkmgr_aon_clocks.clk_io_powerup
+        clk_data_proc_i: clkmgr_aon_clocks.clk_data_proc_powerup
         clk_io_div2_i: clkmgr_aon_clocks.clk_io_div2_powerup
         clk_io_div4_i: clkmgr_aon_clocks.clk_io_div4_powerup
       }
@@ -2424,6 +2502,11 @@
       clock_srcs:
       {
         clk_i: io_div4
+        clk_data_proc_i:
+        {
+          group: data_proc
+          clock: data_proc
+        }
         clk_main_i:
         {
           group: ast
@@ -2473,9 +2556,19 @@
           name: lc
           domain: Aon
         }
+        rst_data_proc_ni:
+        {
+          name: data_proc
+          domain: Aon
+        }
         rst_root_ni:
         {
           name: por_io_div4
+          domain: Aon
+        }
+        rst_root_data_proc_ni:
+        {
+          name: data_proc
           domain: Aon
         }
         rst_root_io_ni:
@@ -2507,6 +2600,7 @@
       clock_connections:
       {
         clk_i: clkmgr_aon_clocks.clk_io_div4_powerup
+        clk_data_proc_i: clkmgr_aon_clocks.clk_data_proc_data_proc
         clk_main_i: clk_main_i
         clk_io_i: clk_io_i
         clk_aon_i: clk_aon_i
@@ -6260,12 +6354,16 @@
           addr_range:
           [
             {
-              base_addr: 0x40000000
-              size_byte: 0x200000
+              base_addr: 0x40040000
+              size_byte: 0x100100
             }
             {
               base_addr: 0x40400000
               size_byte: 0x300000
+            }
+            {
+              base_addr: 0x44000000
+              size_byte: 0x40
             }
           ]
         }
@@ -6696,7 +6794,7 @@
           addr_range:
           [
             {
-              base_addr: 0x40000000
+              base_addr: 0x44000000
               size_byte: 0x40
             }
           ]
@@ -9539,6 +9637,7 @@
   }
   interrupt_module:
   [
+    data_proc
     uart0
     gpio
     spi_device
@@ -9557,6 +9656,54 @@
   ]
   interrupt:
   [
+    {
+      name: data_proc_tx_watermark
+      width: 1
+      type: interrupt
+      module_name: data_proc
+    }
+    {
+      name: data_proc_rx_watermark
+      width: 1
+      type: interrupt
+      module_name: data_proc
+    }
+    {
+      name: data_proc_tx_empty
+      width: 1
+      type: interrupt
+      module_name: data_proc
+    }
+    {
+      name: data_proc_rx_overflow
+      width: 1
+      type: interrupt
+      module_name: data_proc
+    }
+    {
+      name: data_proc_rx_frame_err
+      width: 1
+      type: interrupt
+      module_name: data_proc
+    }
+    {
+      name: data_proc_rx_break_err
+      width: 1
+      type: interrupt
+      module_name: data_proc
+    }
+    {
+      name: data_proc_rx_timeout
+      width: 1
+      type: interrupt
+      module_name: data_proc
+    }
+    {
+      name: data_proc_rx_parity_err
+      width: 1
+      type: interrupt
+      module_name: data_proc
+    }
     {
       name: uart0_tx_watermark
       width: 1
@@ -9920,6 +10067,7 @@
   ]
   alert_module:
   [
+    data_proc
     uart0
     gpio
     spi_device
@@ -9949,13 +10097,22 @@
   alert:
   [
     {
+      name: data_proc_fatal_fault
+      width: 1
+      type: alert
+      async: "1"
+      module_name: data_proc
+      lpg_name: data_proc_data_proc_0
+      lpg_idx: 0
+    }
+    {
       name: uart0_fatal_fault
       width: 1
       type: alert
       async: "1"
       module_name: uart0
       lpg_name: peri_lc_io_div4_0
-      lpg_idx: 0
+      lpg_idx: 1
     }
     {
       name: gpio_fatal_fault
@@ -9964,7 +10121,7 @@
       async: "1"
       module_name: gpio
       lpg_name: peri_lc_io_div4_0
-      lpg_idx: 0
+      lpg_idx: 1
     }
     {
       name: spi_device_fatal_fault
@@ -9973,7 +10130,7 @@
       async: "1"
       module_name: spi_device
       lpg_name: peri_spi_device_0
-      lpg_idx: 1
+      lpg_idx: 2
     }
     {
       name: i2c0_fatal_fault
@@ -9982,7 +10139,7 @@
       async: "1"
       module_name: i2c0
       lpg_name: peri_i2c0_0
-      lpg_idx: 2
+      lpg_idx: 3
     }
     {
       name: pattgen_fatal_fault
@@ -9991,7 +10148,7 @@
       async: "1"
       module_name: pattgen
       lpg_name: peri_lc_io_div4_0
-      lpg_idx: 0
+      lpg_idx: 1
     }
     {
       name: rv_timer_fatal_fault
@@ -10000,7 +10157,7 @@
       async: "1"
       module_name: rv_timer
       lpg_name: timers_lc_io_div4_0
-      lpg_idx: 3
+      lpg_idx: 4
     }
     {
       name: otp_ctrl_fatal_macro_error
@@ -10009,7 +10166,7 @@
       async: "1"
       module_name: otp_ctrl
       lpg_name: secure_lc_io_div4_0
-      lpg_idx: 4
+      lpg_idx: 5
     }
     {
       name: otp_ctrl_fatal_check_error
@@ -10018,7 +10175,7 @@
       async: "1"
       module_name: otp_ctrl
       lpg_name: secure_lc_io_div4_0
-      lpg_idx: 4
+      lpg_idx: 5
     }
     {
       name: otp_ctrl_fatal_bus_integ_error
@@ -10027,7 +10184,7 @@
       async: "1"
       module_name: otp_ctrl
       lpg_name: secure_lc_io_div4_0
-      lpg_idx: 4
+      lpg_idx: 5
     }
     {
       name: otp_ctrl_fatal_prim_otp_alert
@@ -10036,7 +10193,7 @@
       async: "1"
       module_name: otp_ctrl
       lpg_name: secure_lc_io_div4_0
-      lpg_idx: 4
+      lpg_idx: 5
     }
     {
       name: otp_ctrl_recov_prim_otp_alert
@@ -10045,7 +10202,7 @@
       async: "1"
       module_name: otp_ctrl
       lpg_name: secure_lc_io_div4_0
-      lpg_idx: 4
+      lpg_idx: 5
     }
     {
       name: lc_ctrl_fatal_prog_error
@@ -10054,7 +10211,7 @@
       async: "1"
       module_name: lc_ctrl
       lpg_name: secure_lc_io_div4_0
-      lpg_idx: 4
+      lpg_idx: 5
     }
     {
       name: lc_ctrl_fatal_state_error
@@ -10063,7 +10220,7 @@
       async: "1"
       module_name: lc_ctrl
       lpg_name: secure_lc_io_div4_0
-      lpg_idx: 4
+      lpg_idx: 5
     }
     {
       name: lc_ctrl_fatal_bus_integ_error
@@ -10072,7 +10229,7 @@
       async: "1"
       module_name: lc_ctrl
       lpg_name: secure_lc_io_div4_0
-      lpg_idx: 4
+      lpg_idx: 5
     }
     {
       name: spi_host0_fatal_fault
@@ -10081,7 +10238,7 @@
       async: "1"
       module_name: spi_host0
       lpg_name: peri_spi_host0_0
-      lpg_idx: 5
+      lpg_idx: 6
     }
     {
       name: pwrmgr_aon_fatal_fault
@@ -10090,7 +10247,7 @@
       async: "1"
       module_name: pwrmgr_aon
       lpg_name: powerup_por_io_div4_Aon
-      lpg_idx: 6
+      lpg_idx: 7
     }
     {
       name: rstmgr_aon_fatal_fault
@@ -10099,7 +10256,7 @@
       async: "1"
       module_name: rstmgr_aon
       lpg_name: powerup_lc_io_div4_Aon
-      lpg_idx: 7
+      lpg_idx: 8
     }
     {
       name: rstmgr_aon_fatal_cnsty_fault
@@ -10108,7 +10265,7 @@
       async: "1"
       module_name: rstmgr_aon
       lpg_name: powerup_lc_io_div4_Aon
-      lpg_idx: 7
+      lpg_idx: 8
     }
     {
       name: clkmgr_aon_recov_fault
@@ -10117,7 +10274,7 @@
       async: "1"
       module_name: clkmgr_aon
       lpg_name: powerup_lc_io_div4_Aon
-      lpg_idx: 7
+      lpg_idx: 8
     }
     {
       name: clkmgr_aon_fatal_fault
@@ -10126,7 +10283,7 @@
       async: "1"
       module_name: clkmgr_aon
       lpg_name: powerup_lc_io_div4_Aon
-      lpg_idx: 7
+      lpg_idx: 8
     }
     {
       name: sysrst_ctrl_aon_fatal_fault
@@ -10135,7 +10292,7 @@
       async: "1"
       module_name: sysrst_ctrl_aon
       lpg_name: secure_lc_io_div4_Aon
-      lpg_idx: 8
+      lpg_idx: 9
     }
     {
       name: adc_ctrl_aon_fatal_fault
@@ -10144,7 +10301,7 @@
       async: "1"
       module_name: adc_ctrl_aon
       lpg_name: peri_lc_io_div4_Aon
-      lpg_idx: 9
+      lpg_idx: 10
     }
     {
       name: pwm_aon_fatal_fault
@@ -10153,7 +10310,7 @@
       async: "1"
       module_name: pwm_aon
       lpg_name: peri_lc_io_div4_Aon
-      lpg_idx: 9
+      lpg_idx: 10
     }
     {
       name: pinmux_aon_fatal_fault
@@ -10162,7 +10319,7 @@
       async: "1"
       module_name: pinmux_aon
       lpg_name: powerup_lc_io_div4_Aon
-      lpg_idx: 7
+      lpg_idx: 8
     }
     {
       name: aon_timer_aon_fatal_fault
@@ -10171,7 +10328,7 @@
       async: "1"
       module_name: aon_timer_aon
       lpg_name: timers_lc_io_div4_Aon
-      lpg_idx: 10
+      lpg_idx: 11
     }
     {
       name: sensor_ctrl_aon_recov_alert
@@ -10180,7 +10337,7 @@
       async: "1"
       module_name: sensor_ctrl_aon
       lpg_name: secure_lc_io_div4_Aon
-      lpg_idx: 8
+      lpg_idx: 9
     }
     {
       name: sensor_ctrl_aon_fatal_alert
@@ -10189,7 +10346,7 @@
       async: "1"
       module_name: sensor_ctrl_aon
       lpg_name: secure_lc_io_div4_Aon
-      lpg_idx: 8
+      lpg_idx: 9
     }
     {
       name: sram_ctrl_ret_aon_fatal_error
@@ -10198,7 +10355,7 @@
       async: "1"
       module_name: sram_ctrl_ret_aon
       lpg_name: infra_lc_io_div4_Aon
-      lpg_idx: 12
+      lpg_idx: 13
     }
     {
       name: flash_ctrl_recov_err
@@ -10207,7 +10364,7 @@
       async: "1"
       module_name: flash_ctrl
       lpg_name: infra_lc_0
-      lpg_idx: 13
+      lpg_idx: 14
     }
     {
       name: flash_ctrl_fatal_std_err
@@ -10216,7 +10373,7 @@
       async: "1"
       module_name: flash_ctrl
       lpg_name: infra_lc_0
-      lpg_idx: 13
+      lpg_idx: 14
     }
     {
       name: flash_ctrl_fatal_err
@@ -10225,7 +10382,7 @@
       async: "1"
       module_name: flash_ctrl
       lpg_name: infra_lc_0
-      lpg_idx: 13
+      lpg_idx: 14
     }
     {
       name: flash_ctrl_fatal_prim_flash_alert
@@ -10234,7 +10391,7 @@
       async: "1"
       module_name: flash_ctrl
       lpg_name: infra_lc_0
-      lpg_idx: 13
+      lpg_idx: 14
     }
     {
       name: flash_ctrl_recov_prim_flash_alert
@@ -10243,7 +10400,7 @@
       async: "1"
       module_name: flash_ctrl
       lpg_name: infra_lc_0
-      lpg_idx: 13
+      lpg_idx: 14
     }
     {
       name: rv_dm_fatal_fault
@@ -10252,7 +10409,7 @@
       async: "1"
       module_name: rv_dm
       lpg_name: infra_sys_0
-      lpg_idx: 14
+      lpg_idx: 15
     }
     {
       name: rv_plic_fatal_fault
@@ -10261,7 +10418,7 @@
       async: "1"
       module_name: rv_plic
       lpg_name: secure_lc_0
-      lpg_idx: 15
+      lpg_idx: 16
     }
     {
       name: sram_ctrl_main_fatal_error
@@ -10270,7 +10427,7 @@
       async: "1"
       module_name: sram_ctrl_main
       lpg_name: infra_lc_0
-      lpg_idx: 13
+      lpg_idx: 14
     }
     {
       name: rom_ctrl_fatal
@@ -10279,7 +10436,7 @@
       async: "1"
       module_name: rom_ctrl
       lpg_name: infra_lc_0
-      lpg_idx: 13
+      lpg_idx: 14
     }
     {
       name: rv_core_ibex_fatal_sw_err
@@ -10288,7 +10445,7 @@
       async: "1"
       module_name: rv_core_ibex
       lpg_name: infra_lc_0
-      lpg_idx: 13
+      lpg_idx: 14
     }
     {
       name: rv_core_ibex_recov_sw_err
@@ -10297,7 +10454,7 @@
       async: "1"
       module_name: rv_core_ibex
       lpg_name: infra_lc_0
-      lpg_idx: 13
+      lpg_idx: 14
     }
     {
       name: rv_core_ibex_fatal_hw_err
@@ -10306,7 +10463,7 @@
       async: "1"
       module_name: rv_core_ibex
       lpg_name: infra_lc_0
-      lpg_idx: 13
+      lpg_idx: 14
     }
     {
       name: rv_core_ibex_recov_hw_err
@@ -10315,12 +10472,32 @@
       async: "1"
       module_name: rv_core_ibex
       lpg_name: infra_lc_0
-      lpg_idx: 13
+      lpg_idx: 14
     }
   ]
   exported_rsts: {}
   alert_lpgs:
   [
+    {
+      name: data_proc_data_proc_0
+      clock_group:
+      {
+        name: data_proc
+        src: top
+        sw_cg: no
+        unique: no
+        clocks:
+        {
+          clk_data_proc_data_proc: data_proc
+        }
+      }
+      clock_connection: clkmgr_aon_clocks.clk_data_proc_data_proc
+      reset_connection:
+      {
+        name: data_proc
+        domain: "0"
+      }
+    }
     {
       name: peri_lc_io_div4_0
       clock_group:
@@ -10470,6 +10647,7 @@
           clk_aon_powerup: aon
           clk_main_powerup: main
           clk_io_powerup: io
+          clk_data_proc_powerup: data_proc
           clk_io_div2_powerup: io_div2
         }
       }
@@ -10494,6 +10672,7 @@
           clk_aon_powerup: aon
           clk_main_powerup: main
           clk_io_powerup: io
+          clk_data_proc_powerup: data_proc
           clk_io_div2_powerup: io_div2
         }
       }
@@ -10685,6 +10864,16 @@
   {
     signals:
     [
+      {
+        name: tl
+        struct: tl
+        package: tlul_pkg
+        type: req_rsp
+        act: rsp
+        width: 1
+        inst_name: data_proc
+        index: -1
+      }
       {
         name: tl
         struct: tl
