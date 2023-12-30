@@ -17,6 +17,13 @@ fi
 tl="$1"
 
 case "$tl" in
+    oceanus)
+        fileset=fileset_top
+        fusesoc_core=lowrisc:dv:chip_verilator_sim
+        vname=Vchip_sim_tb
+        verilator_options="--threads 4"
+        make_options="-j 4"
+        ;;
     earlgrey)
         fileset=fileset_top
         fusesoc_core=lowrisc:dv:chip_verilator_sim
