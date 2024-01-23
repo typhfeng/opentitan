@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/*
+
+Arduino® Light Theme - Stefania Mellai <s.mellai@arduino.cc>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #FFFFFF;
+}
+
+.hljs,
+.hljs-subst {
+  color: #434f54;
+}
+
+.hljs-keyword,
+.hljs-attribute,
+.hljs-selector-tag,
+.hljs-doctag,
+.hljs-name {
+  color: #00979D;
+}
+
+.hljs-built_in,
+.hljs-literal,
+.hljs-bullet,
+.hljs-code,
+.hljs-addition {
+  color: #D35400;
+}
+
+.hljs-regexp,
+.hljs-symbol,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-link,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: #00979D;
+}
+
+.hljs-type,
+.hljs-string,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-quote,
+.hljs-template-tag,
+.hljs-deletion {
+  color: #005C5F;
+}
+
+.hljs-title,
+.hljs-section {
+  color: #880000;
+  font-weight: bold;
+}
+
+.hljs-comment {
+  color: rgba(149,165,166,.8);
+}
+
+.hljs-meta-keyword {
+  color: #728E00;
+}
+
+.hljs-meta {
+  color: #434f54;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+.hljs-function {
+  color: #728E00;
+}
+
+.hljs-number {
+  color: #8A7B52;  
+}
+
+</style>
+
+<style>
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family:   "HelveticaNeue-Light", sans-serif, "宋体","Segoe WPC", "Segoe UI", "SFUIText-Light","Droid Sans Fallback";
+	font-size: 18px;
+	padding: 0 12px;
+	line-height: 1.6;
+	word-wrap: break-word;
+	color: #333333;
+}
+
+.content-wrapper{
+	max-width: 860px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: #4080D0;
+	text-decoration: none;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom: 1px solid #eee;
+}
+
+
+h2{
+	padding-bottom: .3em;
+    font-size: 2em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+
+h3{
+	font-size: 1.75em;
+    line-height: 1.225;
+}
+
+h1, h2, h3 {
+	font-weight: bold;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	font-size: inherit;
+	line-height: auto;
+}
+
+a:hover {
+	color: #4080D0;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left: 5px solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+.mac code {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+/** Theming */
+
+.vscode-light,
+.vscode-light pre code {
+	color: rgb(30, 30, 30);
+}
+
+.vscode-dark,
+.vscode-dark pre code {
+	color: #DDD;
+}
+
+.vscode-high-contrast,
+.vscode-high-contrast pre code {
+	color: white;
+}
+
+.vscode-light code {
+	color: #A31515;
+}
+
+.vscode-dark code {
+	color: #D7BA7D;
+}
+
+.vscode-light pre:not(.hljs),
+.vscode-light code > div {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre:not(.hljs),
+.vscode-dark code > div {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre:not(.hljs),
+.vscode-high-contrast code > div {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vscode-light blockquote,
+.vscode-dark blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.vscode-high-contrast blockquote {
+	background: transparent;
+	border-color: #fff;
+}
+</style>
+
+<style>
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+.table-of-contents li{
+	list-style-type: initial;
+}
+</style>
+
+<style>
+@font-face{font-family:KaTeX_AMS;font-style:normal;font-weight:400;src:url(fonts/KaTeX_AMS-Regular.woff2) format("woff2"),url(fonts/KaTeX_AMS-Regular.woff) format("woff"),url(fonts/KaTeX_AMS-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Caligraphic;font-style:normal;font-weight:700;src:url(fonts/KaTeX_Caligraphic-Bold.woff2) format("woff2"),url(fonts/KaTeX_Caligraphic-Bold.woff) format("woff"),url(fonts/KaTeX_Caligraphic-Bold.ttf) format("truetype")}@font-face{font-family:KaTeX_Caligraphic;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Caligraphic-Regular.woff2) format("woff2"),url(fonts/KaTeX_Caligraphic-Regular.woff) format("woff"),url(fonts/KaTeX_Caligraphic-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Fraktur;font-style:normal;font-weight:700;src:url(fonts/KaTeX_Fraktur-Bold.woff2) format("woff2"),url(fonts/KaTeX_Fraktur-Bold.woff) format("woff"),url(fonts/KaTeX_Fraktur-Bold.ttf) format("truetype")}@font-face{font-family:KaTeX_Fraktur;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Fraktur-Regular.woff2) format("woff2"),url(fonts/KaTeX_Fraktur-Regular.woff) format("woff"),url(fonts/KaTeX_Fraktur-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Main;font-style:normal;font-weight:700;src:url(fonts/KaTeX_Main-Bold.woff2) format("woff2"),url(fonts/KaTeX_Main-Bold.woff) format("woff"),url(fonts/KaTeX_Main-Bold.ttf) format("truetype")}@font-face{font-family:KaTeX_Main;font-style:italic;font-weight:700;src:url(fonts/KaTeX_Main-BoldItalic.woff2) format("woff2"),url(fonts/KaTeX_Main-BoldItalic.woff) format("woff"),url(fonts/KaTeX_Main-BoldItalic.ttf) format("truetype")}@font-face{font-family:KaTeX_Main;font-style:italic;font-weight:400;src:url(fonts/KaTeX_Main-Italic.woff2) format("woff2"),url(fonts/KaTeX_Main-Italic.woff) format("woff"),url(fonts/KaTeX_Main-Italic.ttf) format("truetype")}@font-face{font-family:KaTeX_Main;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Main-Regular.woff2) format("woff2"),url(fonts/KaTeX_Main-Regular.woff) format("woff"),url(fonts/KaTeX_Main-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Math;font-style:italic;font-weight:700;src:url(fonts/KaTeX_Math-BoldItalic.woff2) format("woff2"),url(fonts/KaTeX_Math-BoldItalic.woff) format("woff"),url(fonts/KaTeX_Math-BoldItalic.ttf) format("truetype")}@font-face{font-family:KaTeX_Math;font-style:italic;font-weight:400;src:url(fonts/KaTeX_Math-Italic.woff2) format("woff2"),url(fonts/KaTeX_Math-Italic.woff) format("woff"),url(fonts/KaTeX_Math-Italic.ttf) format("truetype")}@font-face{font-family:"KaTeX_SansSerif";font-style:normal;font-weight:700;src:url(fonts/KaTeX_SansSerif-Bold.woff2) format("woff2"),url(fonts/KaTeX_SansSerif-Bold.woff) format("woff"),url(fonts/KaTeX_SansSerif-Bold.ttf) format("truetype")}@font-face{font-family:"KaTeX_SansSerif";font-style:italic;font-weight:400;src:url(fonts/KaTeX_SansSerif-Italic.woff2) format("woff2"),url(fonts/KaTeX_SansSerif-Italic.woff) format("woff"),url(fonts/KaTeX_SansSerif-Italic.ttf) format("truetype")}@font-face{font-family:"KaTeX_SansSerif";font-style:normal;font-weight:400;src:url(fonts/KaTeX_SansSerif-Regular.woff2) format("woff2"),url(fonts/KaTeX_SansSerif-Regular.woff) format("woff"),url(fonts/KaTeX_SansSerif-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Script;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Script-Regular.woff2) format("woff2"),url(fonts/KaTeX_Script-Regular.woff) format("woff"),url(fonts/KaTeX_Script-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Size1;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Size1-Regular.woff2) format("woff2"),url(fonts/KaTeX_Size1-Regular.woff) format("woff"),url(fonts/KaTeX_Size1-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Size2;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Size2-Regular.woff2) format("woff2"),url(fonts/KaTeX_Size2-Regular.woff) format("woff"),url(fonts/KaTeX_Size2-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Size3;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Size3-Regular.woff2) format("woff2"),url(fonts/KaTeX_Size3-Regular.woff) format("woff"),url(fonts/KaTeX_Size3-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Size4;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Size4-Regular.woff2) format("woff2"),url(fonts/KaTeX_Size4-Regular.woff) format("woff"),url(fonts/KaTeX_Size4-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Typewriter;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Typewriter-Regular.woff2) format("woff2"),url(fonts/KaTeX_Typewriter-Regular.woff) format("woff"),url(fonts/KaTeX_Typewriter-Regular.ttf) format("truetype")}.katex{text-rendering:auto;font:normal 1.21em KaTeX_Main,Times New Roman,serif;line-height:1.2;text-indent:0}.katex *{-ms-high-contrast-adjust:none!important;border-color:currentColor}.katex .katex-version:after{content:"0.16.2"}.katex .katex-mathml{clip:rect(1px,1px,1px,1px);border:0;height:1px;overflow:hidden;padding:0;position:absolute;width:1px}.katex .katex-html>.newline{display:block}.katex .base{position:relative;white-space:nowrap;width:-webkit-min-content;width:-moz-min-content;width:min-content}.katex .base,.katex .strut{display:inline-block}.katex .textbf{font-weight:700}.katex .textit{font-style:italic}.katex .textrm{font-family:KaTeX_Main}.katex .textsf{font-family:KaTeX_SansSerif}.katex .texttt{font-family:KaTeX_Typewriter}.katex .mathnormal{font-family:KaTeX_Math;font-style:italic}.katex .mathit{font-family:KaTeX_Main;font-style:italic}.katex .mathrm{font-style:normal}.katex .mathbf{font-family:KaTeX_Main;font-weight:700}.katex .boldsymbol{font-family:KaTeX_Math;font-style:italic;font-weight:700}.katex .amsrm,.katex .mathbb,.katex .textbb{font-family:KaTeX_AMS}.katex .mathcal{font-family:KaTeX_Caligraphic}.katex .mathfrak,.katex .textfrak{font-family:KaTeX_Fraktur}.katex .mathtt{font-family:KaTeX_Typewriter}.katex .mathscr,.katex .textscr{font-family:KaTeX_Script}.katex .mathsf,.katex .textsf{font-family:KaTeX_SansSerif}.katex .mathboldsf,.katex .textboldsf{font-family:KaTeX_SansSerif;font-weight:700}.katex .mathitsf,.katex .textitsf{font-family:KaTeX_SansSerif;font-style:italic}.katex .mainrm{font-family:KaTeX_Main;font-style:normal}.katex .vlist-t{border-collapse:collapse;display:inline-table;table-layout:fixed}.katex .vlist-r{display:table-row}.katex .vlist{display:table-cell;position:relative;vertical-align:bottom}.katex .vlist>span{display:block;height:0;position:relative}.katex .vlist>span>span{display:inline-block}.katex .vlist>span>.pstrut{overflow:hidden;width:0}.katex .vlist-t2{margin-right:-2px}.katex .vlist-s{display:table-cell;font-size:1px;min-width:2px;vertical-align:bottom;width:2px}.katex .vbox{align-items:baseline;display:inline-flex;flex-direction:column}.katex .hbox{width:100%}.katex .hbox,.katex .thinbox{display:inline-flex;flex-direction:row}.katex .thinbox{max-width:0;width:0}.katex .msupsub{text-align:left}.katex .mfrac>span>span{text-align:center}.katex .mfrac .frac-line{border-bottom-style:solid;display:inline-block;width:100%}.katex .hdashline,.katex .hline,.katex .mfrac .frac-line,.katex .overline .overline-line,.katex .rule,.katex .underline .underline-line{min-height:1px}.katex .mspace{display:inline-block}.katex .clap,.katex .llap,.katex .rlap{position:relative;width:0}.katex .clap>.inner,.katex .llap>.inner,.katex .rlap>.inner{position:absolute}.katex .clap>.fix,.katex .llap>.fix,.katex .rlap>.fix{display:inline-block}.katex .llap>.inner{right:0}.katex .clap>.inner,.katex .rlap>.inner{left:0}.katex .clap>.inner>span{margin-left:-50%;margin-right:50%}.katex .rule{border:0 solid;display:inline-block;position:relative}.katex .hline,.katex .overline .overline-line,.katex .underline .underline-line{border-bottom-style:solid;display:inline-block;width:100%}.katex .hdashline{border-bottom-style:dashed;display:inline-block;width:100%}.katex .sqrt>.root{margin-left:.27777778em;margin-right:-.55555556em}.katex .fontsize-ensurer.reset-size1.size1,.katex .sizing.reset-size1.size1{font-size:1em}.katex .fontsize-ensurer.reset-size1.size2,.katex .sizing.reset-size1.size2{font-size:1.2em}.katex .fontsize-ensurer.reset-size1.size3,.katex .sizing.reset-size1.size3{font-size:1.4em}.katex .fontsize-ensurer.reset-size1.size4,.katex .sizing.reset-size1.size4{font-size:1.6em}.katex .fontsize-ensurer.reset-size1.size5,.katex .sizing.reset-size1.size5{font-size:1.8em}.katex .fontsize-ensurer.reset-size1.size6,.katex .sizing.reset-size1.size6{font-size:2em}.katex .fontsize-ensurer.reset-size1.size7,.katex .sizing.reset-size1.size7{font-size:2.4em}.katex .fontsize-ensurer.reset-size1.size8,.katex .sizing.reset-size1.size8{font-size:2.88em}.katex .fontsize-ensurer.reset-size1.size9,.katex .sizing.reset-size1.size9{font-size:3.456em}.katex .fontsize-ensurer.reset-size1.size10,.katex .sizing.reset-size1.size10{font-size:4.148em}.katex .fontsize-ensurer.reset-size1.size11,.katex .sizing.reset-size1.size11{font-size:4.976em}.katex .fontsize-ensurer.reset-size2.size1,.katex .sizing.reset-size2.size1{font-size:.83333333em}.katex .fontsize-ensurer.reset-size2.size2,.katex .sizing.reset-size2.size2{font-size:1em}.katex .fontsize-ensurer.reset-size2.size3,.katex .sizing.reset-size2.size3{font-size:1.16666667em}.katex .fontsize-ensurer.reset-size2.size4,.katex .sizing.reset-size2.size4{font-size:1.33333333em}.katex .fontsize-ensurer.reset-size2.size5,.katex .sizing.reset-size2.size5{font-size:1.5em}.katex .fontsize-ensurer.reset-size2.size6,.katex .sizing.reset-size2.size6{font-size:1.66666667em}.katex .fontsize-ensurer.reset-size2.size7,.katex .sizing.reset-size2.size7{font-size:2em}.katex .fontsize-ensurer.reset-size2.size8,.katex .sizing.reset-size2.size8{font-size:2.4em}.katex .fontsize-ensurer.reset-size2.size9,.katex .sizing.reset-size2.size9{font-size:2.88em}.katex .fontsize-ensurer.reset-size2.size10,.katex .sizing.reset-size2.size10{font-size:3.45666667em}.katex .fontsize-ensurer.reset-size2.size11,.katex .sizing.reset-size2.size11{font-size:4.14666667em}.katex .fontsize-ensurer.reset-size3.size1,.katex .sizing.reset-size3.size1{font-size:.71428571em}.katex .fontsize-ensurer.reset-size3.size2,.katex .sizing.reset-size3.size2{font-size:.85714286em}.katex .fontsize-ensurer.reset-size3.size3,.katex .sizing.reset-size3.size3{font-size:1em}.katex .fontsize-ensurer.reset-size3.size4,.katex .sizing.reset-size3.size4{font-size:1.14285714em}.katex .fontsize-ensurer.reset-size3.size5,.katex .sizing.reset-size3.size5{font-size:1.28571429em}.katex .fontsize-ensurer.reset-size3.size6,.katex .sizing.reset-size3.size6{font-size:1.42857143em}.katex .fontsize-ensurer.reset-size3.size7,.katex .sizing.reset-size3.size7{font-size:1.71428571em}.katex .fontsize-ensurer.reset-size3.size8,.katex .sizing.reset-size3.size8{font-size:2.05714286em}.katex .fontsize-ensurer.reset-size3.size9,.katex .sizing.reset-size3.size9{font-size:2.46857143em}.katex .fontsize-ensurer.reset-size3.size10,.katex .sizing.reset-size3.size10{font-size:2.96285714em}.katex .fontsize-ensurer.reset-size3.size11,.katex .sizing.reset-size3.size11{font-size:3.55428571em}.katex .fontsize-ensurer.reset-size4.size1,.katex .sizing.reset-size4.size1{font-size:.625em}.katex .fontsize-ensurer.reset-size4.size2,.katex .sizing.reset-size4.size2{font-size:.75em}.katex .fontsize-ensurer.reset-size4.size3,.katex .sizing.reset-size4.size3{font-size:.875em}.katex .fontsize-ensurer.reset-size4.size4,.katex .sizing.reset-size4.size4{font-size:1em}.katex .fontsize-ensurer.reset-size4.size5,.katex .sizing.reset-size4.size5{font-size:1.125em}.katex .fontsize-ensurer.reset-size4.size6,.katex .sizing.reset-size4.size6{font-size:1.25em}.katex .fontsize-ensurer.reset-size4.size7,.katex .sizing.reset-size4.size7{font-size:1.5em}.katex .fontsize-ensurer.reset-size4.size8,.katex .sizing.reset-size4.size8{font-size:1.8em}.katex .fontsize-ensurer.reset-size4.size9,.katex .sizing.reset-size4.size9{font-size:2.16em}.katex .fontsize-ensurer.reset-size4.size10,.katex .sizing.reset-size4.size10{font-size:2.5925em}.katex .fontsize-ensurer.reset-size4.size11,.katex .sizing.reset-size4.size11{font-size:3.11em}.katex .fontsize-ensurer.reset-size5.size1,.katex .sizing.reset-size5.size1{font-size:.55555556em}.katex .fontsize-ensurer.reset-size5.size2,.katex .sizing.reset-size5.size2{font-size:.66666667em}.katex .fontsize-ensurer.reset-size5.size3,.katex .sizing.reset-size5.size3{font-size:.77777778em}.katex .fontsize-ensurer.reset-size5.size4,.katex .sizing.reset-size5.size4{font-size:.88888889em}.katex .fontsize-ensurer.reset-size5.size5,.katex .sizing.reset-size5.size5{font-size:1em}.katex .fontsize-ensurer.reset-size5.size6,.katex .sizing.reset-size5.size6{font-size:1.11111111em}.katex .fontsize-ensurer.reset-size5.size7,.katex .sizing.reset-size5.size7{font-size:1.33333333em}.katex .fontsize-ensurer.reset-size5.size8,.katex .sizing.reset-size5.size8{font-size:1.6em}.katex .fontsize-ensurer.reset-size5.size9,.katex .sizing.reset-size5.size9{font-size:1.92em}.katex .fontsize-ensurer.reset-size5.size10,.katex .sizing.reset-size5.size10{font-size:2.30444444em}.katex .fontsize-ensurer.reset-size5.size11,.katex .sizing.reset-size5.size11{font-size:2.76444444em}.katex .fontsize-ensurer.reset-size6.size1,.katex .sizing.reset-size6.size1{font-size:.5em}.katex .fontsize-ensurer.reset-size6.size2,.katex .sizing.reset-size6.size2{font-size:.6em}.katex .fontsize-ensurer.reset-size6.size3,.katex .sizing.reset-size6.size3{font-size:.7em}.katex .fontsize-ensurer.reset-size6.size4,.katex .sizing.reset-size6.size4{font-size:.8em}.katex .fontsize-ensurer.reset-size6.size5,.katex .sizing.reset-size6.size5{font-size:.9em}.katex .fontsize-ensurer.reset-size6.size6,.katex .sizing.reset-size6.size6{font-size:1em}.katex .fontsize-ensurer.reset-size6.size7,.katex .sizing.reset-size6.size7{font-size:1.2em}.katex .fontsize-ensurer.reset-size6.size8,.katex .sizing.reset-size6.size8{font-size:1.44em}.katex .fontsize-ensurer.reset-size6.size9,.katex .sizing.reset-size6.size9{font-size:1.728em}.katex .fontsize-ensurer.reset-size6.size10,.katex .sizing.reset-size6.size10{font-size:2.074em}.katex .fontsize-ensurer.reset-size6.size11,.katex .sizing.reset-size6.size11{font-size:2.488em}.katex .fontsize-ensurer.reset-size7.size1,.katex .sizing.reset-size7.size1{font-size:.41666667em}.katex .fontsize-ensurer.reset-size7.size2,.katex .sizing.reset-size7.size2{font-size:.5em}.katex .fontsize-ensurer.reset-size7.size3,.katex .sizing.reset-size7.size3{font-size:.58333333em}.katex .fontsize-ensurer.reset-size7.size4,.katex .sizing.reset-size7.size4{font-size:.66666667em}.katex .fontsize-ensurer.reset-size7.size5,.katex .sizing.reset-size7.size5{font-size:.75em}.katex .fontsize-ensurer.reset-size7.size6,.katex .sizing.reset-size7.size6{font-size:.83333333em}.katex .fontsize-ensurer.reset-size7.size7,.katex .sizing.reset-size7.size7{font-size:1em}.katex .fontsize-ensurer.reset-size7.size8,.katex .sizing.reset-size7.size8{font-size:1.2em}.katex .fontsize-ensurer.reset-size7.size9,.katex .sizing.reset-size7.size9{font-size:1.44em}.katex .fontsize-ensurer.reset-size7.size10,.katex .sizing.reset-size7.size10{font-size:1.72833333em}.katex .fontsize-ensurer.reset-size7.size11,.katex .sizing.reset-size7.size11{font-size:2.07333333em}.katex .fontsize-ensurer.reset-size8.size1,.katex .sizing.reset-size8.size1{font-size:.34722222em}.katex .fontsize-ensurer.reset-size8.size2,.katex .sizing.reset-size8.size2{font-size:.41666667em}.katex .fontsize-ensurer.reset-size8.size3,.katex .sizing.reset-size8.size3{font-size:.48611111em}.katex .fontsize-ensurer.reset-size8.size4,.katex .sizing.reset-size8.size4{font-size:.55555556em}.katex .fontsize-ensurer.reset-size8.size5,.katex .sizing.reset-size8.size5{font-size:.625em}.katex .fontsize-ensurer.reset-size8.size6,.katex .sizing.reset-size8.size6{font-size:.69444444em}.katex .fontsize-ensurer.reset-size8.size7,.katex .sizing.reset-size8.size7{font-size:.83333333em}.katex .fontsize-ensurer.reset-size8.size8,.katex .sizing.reset-size8.size8{font-size:1em}.katex .fontsize-ensurer.reset-size8.size9,.katex .sizing.reset-size8.size9{font-size:1.2em}.katex .fontsize-ensurer.reset-size8.size10,.katex .sizing.reset-size8.size10{font-size:1.44027778em}.katex .fontsize-ensurer.reset-size8.size11,.katex .sizing.reset-size8.size11{font-size:1.72777778em}.katex .fontsize-ensurer.reset-size9.size1,.katex .sizing.reset-size9.size1{font-size:.28935185em}.katex .fontsize-ensurer.reset-size9.size2,.katex .sizing.reset-size9.size2{font-size:.34722222em}.katex .fontsize-ensurer.reset-size9.size3,.katex .sizing.reset-size9.size3{font-size:.40509259em}.katex .fontsize-ensurer.reset-size9.size4,.katex .sizing.reset-size9.size4{font-size:.46296296em}.katex .fontsize-ensurer.reset-size9.size5,.katex .sizing.reset-size9.size5{font-size:.52083333em}.katex .fontsize-ensurer.reset-size9.size6,.katex .sizing.reset-size9.size6{font-size:.5787037em}.katex .fontsize-ensurer.reset-size9.size7,.katex .sizing.reset-size9.size7{font-size:.69444444em}.katex .fontsize-ensurer.reset-size9.size8,.katex .sizing.reset-size9.size8{font-size:.83333333em}.katex .fontsize-ensurer.reset-size9.size9,.katex .sizing.reset-size9.size9{font-size:1em}.katex .fontsize-ensurer.reset-size9.size10,.katex .sizing.reset-size9.size10{font-size:1.20023148em}.katex .fontsize-ensurer.reset-size9.size11,.katex .sizing.reset-size9.size11{font-size:1.43981481em}.katex .fontsize-ensurer.reset-size10.size1,.katex .sizing.reset-size10.size1{font-size:.24108004em}.katex .fontsize-ensurer.reset-size10.size2,.katex .sizing.reset-size10.size2{font-size:.28929605em}.katex .fontsize-ensurer.reset-size10.size3,.katex .sizing.reset-size10.size3{font-size:.33751205em}.katex .fontsize-ensurer.reset-size10.size4,.katex .sizing.reset-size10.size4{font-size:.38572806em}.katex .fontsize-ensurer.reset-size10.size5,.katex .sizing.reset-size10.size5{font-size:.43394407em}.katex .fontsize-ensurer.reset-size10.size6,.katex .sizing.reset-size10.size6{font-size:.48216008em}.katex .fontsize-ensurer.reset-size10.size7,.katex .sizing.reset-size10.size7{font-size:.57859209em}.katex .fontsize-ensurer.reset-size10.size8,.katex .sizing.reset-size10.size8{font-size:.69431051em}.katex .fontsize-ensurer.reset-size10.size9,.katex .sizing.reset-size10.size9{font-size:.83317261em}.katex .fontsize-ensurer.reset-size10.size10,.katex .sizing.reset-size10.size10{font-size:1em}.katex .fontsize-ensurer.reset-size10.size11,.katex .sizing.reset-size10.size11{font-size:1.19961427em}.katex .fontsize-ensurer.reset-size11.size1,.katex .sizing.reset-size11.size1{font-size:.20096463em}.katex .fontsize-ensurer.reset-size11.size2,.katex .sizing.reset-size11.size2{font-size:.24115756em}.katex .fontsize-ensurer.reset-size11.size3,.katex .sizing.reset-size11.size3{font-size:.28135048em}.katex .fontsize-ensurer.reset-size11.size4,.katex .sizing.reset-size11.size4{font-size:.32154341em}.katex .fontsize-ensurer.reset-size11.size5,.katex .sizing.reset-size11.size5{font-size:.36173633em}.katex .fontsize-ensurer.reset-size11.size6,.katex .sizing.reset-size11.size6{font-size:.40192926em}.katex .fontsize-ensurer.reset-size11.size7,.katex .sizing.reset-size11.size7{font-size:.48231511em}.katex .fontsize-ensurer.reset-size11.size8,.katex .sizing.reset-size11.size8{font-size:.57877814em}.katex .fontsize-ensurer.reset-size11.size9,.katex .sizing.reset-size11.size9{font-size:.69453376em}.katex .fontsize-ensurer.reset-size11.size10,.katex .sizing.reset-size11.size10{font-size:.83360129em}.katex .fontsize-ensurer.reset-size11.size11,.katex .sizing.reset-size11.size11{font-size:1em}.katex .delimsizing.size1{font-family:KaTeX_Size1}.katex .delimsizing.size2{font-family:KaTeX_Size2}.katex .delimsizing.size3{font-family:KaTeX_Size3}.katex .delimsizing.size4{font-family:KaTeX_Size4}.katex .delimsizing.mult .delim-size1>span{font-family:KaTeX_Size1}.katex .delimsizing.mult .delim-size4>span{font-family:KaTeX_Size4}.katex .nulldelimiter{display:inline-block;width:.12em}.katex .delimcenter,.katex .op-symbol{position:relative}.katex .op-symbol.small-op{font-family:KaTeX_Size1}.katex .op-symbol.large-op{font-family:KaTeX_Size2}.katex .accent>.vlist-t,.katex .op-limits>.vlist-t{text-align:center}.katex .accent .accent-body{position:relative}.katex .accent .accent-body:not(.accent-full){width:0}.katex .overlay{display:block}.katex .mtable .vertical-separator{display:inline-block;min-width:1px}.katex .mtable .arraycolsep{display:inline-block}.katex .mtable .col-align-c>.vlist-t{text-align:center}.katex .mtable .col-align-l>.vlist-t{text-align:left}.katex .mtable .col-align-r>.vlist-t{text-align:right}.katex .svg-align{text-align:left}.katex svg{fill:currentColor;stroke:currentColor;fill-rule:nonzero;fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;display:block;height:inherit;position:absolute;width:100%}.katex svg path{stroke:none}.katex img{border-style:none;max-height:none;max-width:none;min-height:0;min-width:0}.katex .stretchy{display:block;overflow:hidden;position:relative;width:100%}.katex .stretchy:after,.katex .stretchy:before{content:""}.katex .hide-tail{overflow:hidden;position:relative;width:100%}.katex .halfarrow-left{left:0;overflow:hidden;position:absolute;width:50.2%}.katex .halfarrow-right{overflow:hidden;position:absolute;right:0;width:50.2%}.katex .brace-left{left:0;overflow:hidden;position:absolute;width:25.1%}.katex .brace-center{left:25%;overflow:hidden;position:absolute;width:50%}.katex .brace-right{overflow:hidden;position:absolute;right:0;width:25.1%}.katex .x-arrow-pad{padding:0 .5em}.katex .cd-arrow-pad{padding:0 .55556em 0 .27778em}.katex .mover,.katex .munder,.katex .x-arrow{text-align:center}.katex .boxpad{padding:0 .3em}.katex .fbox,.katex .fcolorbox{border:.04em solid;box-sizing:border-box}.katex .cancel-pad{padding:0 .2em}.katex .cancel-lap{margin-left:-.2em;margin-right:-.2em}.katex .sout{border-bottom-style:solid;border-bottom-width:.08em}.katex .angl{border-right:.049em solid;border-top:.049em solid;box-sizing:border-box;margin-right:.03889em}.katex .anglpad{padding:0 .03889em}.katex .eqn-num:before{content:"(" counter(katexEqnNo) ")";counter-increment:katexEqnNo}.katex .mml-eqn-num:before{content:"(" counter(mmlEqnNo) ")";counter-increment:mmlEqnNo}.katex .mtr-glue{width:50%}.katex .cd-vert-arrow{display:inline-block;position:relative}.katex .cd-label-left{display:inline-block;position:absolute;right:calc(50% + .3em);text-align:left}.katex .cd-label-right{display:inline-block;left:calc(50% + .3em);position:absolute;text-align:right}.katex-display{display:block;margin:1em 0;text-align:center}.katex-display>.katex{display:block;text-align:center;white-space:nowrap}.katex-display>.katex>.katex-html{display:block;position:relative}.katex-display>.katex>.katex-html>.tag{position:absolute;right:0}.katex-display.leqno>.katex>.katex-html>.tag{left:0;right:auto}.katex-display.fleqn>.katex{padding-left:2em;text-align:left}body{counter-reset:katexEqnNo mmlEqnNo}
+
+</style>
+
+</head>
+<body>
+    <div class="content-wrapper">
+        <h1 id="opentitan-earl-grey-chip-specification" tabindex="-1">OpenTitan Earl Grey Chip Specification</h1>
+<p>This document describes the OpenTitan Earl Grey chip functionality in detail.
+For an overview, refer to the <a href="../datasheet.md">OpenTitan Earl Grey Chip Datasheet</a>.</p>
+<h1 id="theory-of-operations" tabindex="-1">Theory of Operations</h1>
+<p>The netlist <code>chip_earlgrey_asic</code> contains the features listed above and is intended for ASIC synthesis, whereas the netlist <code>chip_earlgrey_cw310</code> provides an emulation environment for the <code>cw310</code> FPGA board.
+The code for Ibex is developed in its own <a href="https://github.com/lowrisc/ibex">lowRISC repo</a>, and is <a href="../../../../doc/contributing/hw/vendor.md"><em>vendored in</em></a> to this repository.
+Surrounding Ibex is a suite of <em>Comportable</em> peripherals that follow the <a href="../../../../doc/contributing/hw/comportability/README.md">Comportability Guidelines</a> for lowRISC peripheral IP.
+Each of these IP has its own specification.
+See the table produced in the <a href="../../../README.md">hardware documentation page</a> for links to those specifications.</p>
+<h2 id="design-details" tabindex="-1">Design Details</h2>
+<p>This section provides some details for the processor and the peripherals.
+See their representative specifications for more information.
+This section also contains a brief overview of some of the features of the final product.</p>
+<h3 id="clocking-and-reset" tabindex="-1">Clocking and Reset</h3>
+<p>Clocks and resets are supplied from the Analog Sensor Top, referred to as <a href="../../ip/ast/README.md">ast</a>) from this point onwards in the document.</p>
+<p><code>ast</code> supplies a number of clocks into <code>top_earlgrey</code>.</p>
+<ul>
+<li>sys: main jittery system clock used for higher performance blocks and security (processor, memory and crypto blocks).</li>
+<li>io: a fixed clock used for peripheral blocks such as timers and I/O functionality, such as SPI or I2C.</li>
+<li>usb: a fixed clock used specifically for usb operations.</li>
+<li>aon: an always on, low frequency clock used for power management and low speed timers.</li>
+</ul>
+<p>These clocks are then divided down and distributed to the rest of the system.
+See <a href="../../../ip/clkmgr/README.md">clock manager</a>) for more details.</p>
+<p><code>ast</code> also supplies a number of power-okay signals to <code>top_earlgrey</code>, and these are used as asynchronous root resets.</p>
+<ul>
+<li>vcaon_pok: The always on domain of the system is ready.</li>
+<li>vcmain_pok: The main operating domain of the system is ready.</li>
+</ul>
+<p>When one of these power-okay signals drop, the corresponding domain in <code>top_earlgrey</code> is reset.
+Please refer to <a href="../../../ip/rstmgr/README.md">reset manager</a>) for more details.
+Resets throughout the design are asynchronous active low as per the Comportability specification.</p>
+<p>Once reset, the reset vector begins in ROM, whose job is to validate code in the embedded flash before jumping to it.
+Valid code is assumed to have been instantiated into the flash, if not, the ROM shuts down the device unless prompted to bootstrap.</p>
+<p>There are multiple avenues to load valid code into the flash:</p>
+<ol>
+<li>JTAG initiated flash programming.</li>
+<li>ROM bootstrap</li>
+</ol>
+<h4 id="ast-clocking-and-reset-relationship" tabindex="-1">AST Clocking and Reset Relationship</h4>
+<p>While the ast supplies clocks and resets to the <code>top_earlgrey</code>, it also contains additional functions that interact with the design.
+These include the <code>RNG</code>, <code>ADC</code>, jittery clock controls and an assortment of other sensors.
+The operating clocks and resets for these interfaces are supplied by the device in order to ensure correct synchronous operations.
+The clock mapping is shown below:</p>
+<table>
+<thead>
+<tr>
+<th>AST Port</th>
+<th><code>top_earlgrey</code> Clock</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>clk_ast_adc_i</td>
+<td>aon</td>
+</tr>
+<tr>
+<td>clk_ast_alert_i</td>
+<td>io_div4</td>
+</tr>
+<tr>
+<td>clk_ast_es_i</td>
+<td>sys</td>
+</tr>
+<tr>
+<td>clk_ast_rng_i</td>
+<td>sys</td>
+</tr>
+<tr>
+<td>clk_ast_tlul_i</td>
+<td>io_div4</td>
+</tr>
+<tr>
+<td>clk_ast_usb_i</td>
+<td>usb</td>
+</tr>
+</tbody>
+</table>
+<p>The reset clock domain is identical to the table above, and the power domain mapping is shown below</p>
+<table>
+<thead>
+<tr>
+<th>AST Port</th>
+<th><code>top_earlgrey</code> Power Domain</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rst_ast_adc_i</td>
+<td>always-on</td>
+</tr>
+<tr>
+<td>rst_ast_alert_i</td>
+<td>main</td>
+</tr>
+<tr>
+<td>rst_ast_es_i</td>
+<td>main</td>
+</tr>
+<tr>
+<td>rst_ast_rng_i</td>
+<td>main</td>
+</tr>
+<tr>
+<td>rst_ast_tlul_i</td>
+<td>main</td>
+</tr>
+<tr>
+<td>rst_ast_usb_i</td>
+<td>main</td>
+</tr>
+</tbody>
+</table>
+<h3 id="system-reset-handling-and-flash" tabindex="-1">System Reset Handling and Flash</h3>
+<p>Since <code>top_earlgrey</code> contains flash, it is important to examine the memory's relationship with resets.</p>
+<p>For flash, resets that occur during a stateful operation (program or erase) must be carefully handled to ensure the flash memory is not damaged.
+There are three reset scenarios:</p>
+<ul>
+<li>Reset due to external supply lowering.</li>
+<li>Reset due to internal peripheral request.</li>
+<li>Reset due to lower power entry and exit.</li>
+</ul>
+<h4 id="reset-due-to-external-supply" tabindex="-1">Reset due to External Supply</h4>
+<p>Device resets due to supply dropping below a specific threshold are commonly known as &quot;brown-out&quot;.
+When this occurs, the flash memory must go through specialized sequencing to ensure the cells are not damaged.
+This process is handled exclusively between ast and the flash.
+Please see the <a href="../../ip/ast/README.md#main-vcc-power-detection-and-flash-protection">relevant section</a> for more details.</p>
+<h4 id="reset-due-to-internal-request" tabindex="-1">Reset due to Internal Request</h4>
+<p>When the device receives an internal request to reset (for example <a href="../../../ip/aon_timer/README.md#aon-watchdog-timer">aon_timer</a>), device power is kept on and the flash is directly reset.
+It is assumed that the flash device, when powered, will be able to correctly handle such a sequence and properly protect itself.</p>
+<h4 id="reset-due-to-low-power-entry" tabindex="-1">Reset due to Low Power Entry</h4>
+<p>When the device receives a low power entry request while flash activity is ongoing, the <a href="../../ip_autogen/pwrmgr/README.md#abort-handling">pwrmgr</a>) is responsible for ensuring the entry request is aborted.</p>
+<h3 id="main-processor-(core_ibex)" tabindex="-1">Main processor (<code>core_ibex</code>)</h3>
+<p>The main processor (<code>core_ibex</code>) is a small and efficient, 32-bit, in-order RISC-V core with a 2-stage pipeline that implements the RV32IMC instruction set architecture.
+It was initially developed as part of the <a href="https://www.pulp-platform.org">PULP platform</a> under the name &quot;Zero-riscy&quot; <a href="https://doi.org/10.1109/PATMOS.2017.8106976">[1]</a>, and has been contributed to <a href="https://www.lowrisc.org">lowRISC</a> who maintains it and develops it further.
+See the <a href="https://ibex-core.readthedocs.io/en/latest/">core_ibex specification</a> for more details of the core.
+In addition to the standard RISC-V functionality, Ibex implements M (machine) and U (user) mode per the RISC-V standard.
+Attached to the Ibex core are a debug module (DM) and interrupt module (PLIC).</p>
+<h4 id="jtag-%2F-debug-module" tabindex="-1">JTAG / Debug module</h4>
+<p>One feature available for Earl Grey processor core is debug access.
+By interfacing with JTAG pins, logic in the debug module allows the core to enter debug mode (per RISC-V 0.13 debug spec), and gives the design the ability to inject code either into the device - by emulating an instruction - or into memory.
+Full details can be found in the <a href="../../../ip/rv_dm/README.md">rv_dm specification</a>.</p>
+<h4 id="interrupt-controller" tabindex="-1">Interrupt Controller</h4>
+<p>Adjacent to the Ibex core is an interrupt controller that implements the RISC-V PLIC standard.
+This accepts a vector of interrupt sources within the device, and assigns leveling and priority to them before sending to the core for handling.
+See the details in the <a href="../../ip_autogen/rv_plic/README.md">rv_plic specification</a>.</p>
+<h4 id="performance" tabindex="-1">Performance</h4>
+<p>Ibex currently achieves a <a href="https://www.eembc.org/coremark/">CoreMark</a> per MHz of 2.36 on the earlgrey verilator system.
+Performance improvements are ongoing, including the following items being considered:</p>
+<ol>
+<li>Adding a new ALU to calculate branch targets to remove a cycle of latency on taken conditional branches (currently the single ALU is used to compute the branch condition then the branch target the cycle following if the branch is taken).</li>
+<li>A 3rd pipeline stage to perform register writeback, this will remove a cycle of latency from all loads and stores and prevent a pipeline stall where a response to a load or store is available the cycle after the request.</li>
+<li>Implement a single-cycle multiplier.</li>
+<li>Produce an imprecise exception on an error response to a store allowing Ibex to continue executing past a store without waiting for the response.</li>
+</ol>
+<p>The method for including these features, e.g. whether they will be configurable options or not, is still being discussed.</p>
+<p>The Ibex documentation has more details on the current pipeline operation, including stall behaviour for each instruction in the <a href="https://ibex-core.readthedocs.io/en/latest/03_reference/pipeline_details.html">Pipeline Details</a> section.</p>
+<p>The CoreMark performance achieved relies in part on single-cycle access to instruction memory.
+An instruction cache is planned to help maintain this performance when using flash memory that will likely not have single-cycle access times.</p>
+<p>CoreMark was compiled with GCC 9.2.0 with flags: <code>-march=rv32imc -mabi=ilp32 -mcmodel=medany -mtune=sifive-3-series -O3 -falign-functions=16 -funroll-all-loops -finline-functions -falign-jumps=4 -mstrict-align</code></p>
+<h3 id="memory" tabindex="-1">Memory</h3>
+<p>The device contains three memory address spaces for instruction and data.</p>
+<p>Instruction ROM (32kB) is the target for the Ibex processor after release of external reset.
+The ROM contains hard-coded instructions whose purpose is to do a minimal subset of platform checking before checking the next stage of code.
+The next stage - a boot loader stored in embedded flash memory - is the first piece of code that is not hard-coded into the silicon of the device, and thus must be signature checked.
+The ROM executes this signature check by implementing a RSA-check algorithm on the full contents of the boot loader.
+The details of this check will come at a later date.
+For verification execute-time reasons, this RSA check will be overridable in the FPGA and verification platforms (details TBD).
+This is part of the <em>Secure Boot Process</em> that will be detailed in a security section in the future.</p>
+<p>Earl Grey contains 1024kB of embedded-flash (e-flash) memory for code storage.
+This is intended to house the boot loader mentioned above, as well as the operating system and application that layers on top.
+At this time there is no operating system provided; applications are simple proof of concept code to show that the chip can do with a bare-metal framework.</p>
+<p>Embedded-flash is the intended technology for a silicon design implementing the full OpenTitan device.
+It has interesting and challenging parameters that are unique to the technology that the silicon is implemented in.
+Earl Grey, as an FPGA proof of concept, will model these parameters in its emulation of the memory in order to prepare for the replacement with the silicon flash macros that will come.
+This includes the read-speeds, the page-sized erase and program interfaces, the two-bank update scheme, and the non-volatile nature of the memory.
+Since by definition these details can't be finalized until a silicon technology node is chosen, these can only be emulated in the FPGA environment.
+We will choose parameters that are considered roughly equivalent of the state of the art embedded-flash macros on the market today.</p>
+<p>Details on how e-flash memory is used by software will be detailed in future Secure Boot Process and Software sections over time.</p>
+<p>The intent is for the contents of the embedded flash code to survive FPGA reset as it would as a NVM in silicon.
+Loading of the FPGA with initial content, or updating with new content, is described in other software specifications.
+The SPI device peripheral is provided as a method to bulk-load e-flash memory.
+The processor debug port (via JTAG) is also available for code loading.
+See those specifications for more details.</p>
+<p>Also included is a 128kB of SRAM available for data storage (stack, heap, etc.) by the Ibex processor.
+It is also available for code storage, though that is not its intended purpose.</p>
+<p>The base address of the ROM, Flash, and SRAM are given in the address map section later in this document.</p>
+<h3 id="secure-boot" tabindex="-1">Secure boot</h3>
+<p>Earlgrey follows the <a href="../../../../doc/security/specs/secure_boot/README.md">Secure Boot</a> specification. The <code>ROM</code> has 3 key slots
+which are allocated as follows:</p>
+<table>
+<thead>
+<tr>
+<th>Slot</th>
+<th>Role</th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>test</td>
+<td><code>test 0</code></td>
+</tr>
+<tr>
+<td>1</td>
+<td>test</td>
+<td><code>test 1</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>dev</td>
+<td><code>dev 0</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>dev</td>
+<td><code>dev 1</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>prod</td>
+<td><code>prod 0</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td>prod</td>
+<td><code>prod 1</code></td>
+</tr>
+<tr>
+<td>6</td>
+<td>prod</td>
+<td><code>prod 2</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="peripherals" tabindex="-1">Peripherals</h3>
+<p>Earl Grey contains a suite of &quot;peripherals&quot;, or subservient execution units connected to the Ibex processor by means of a bus interconnect.
+Each of these peripherals follows an interface scheme dictated in the <a href="../../../../doc/contributing/hw/comportability/README.md">Comportability Specification.</a>.
+That specification details how the processor communicates with the peripheral (via TLUL interconnect); how the peripheral communicates with the chip IO (via fixed or multiplexable IO); how the peripheral communicates with the processor (interrupts); and how the peripheral communicates security events (via alerts).
+See that specification for generic details on this scheme.</p>
+<h4 id="chip-io-peripherals" tabindex="-1">Chip IO Peripherals</h4>
+<h5 id="pin-multiplexor-module-(pinmux)" tabindex="-1">Pin Multiplexor Module (<code>pinmux</code>)</h5>
+<p>The pin multiplexor's purpose is to route between peripherals and the available multiplexable IO of the chip.
+At this time, the pin multiplexor is provided, but it is not used to its full potential.
+In addition, the multiplexor device manages control or pad attributes like drive strength, technology (OD, OS, etc), pull up, pull down, etc., of the chip's external IO.
+It is notable that there are many differences between an FPGA implementation of Earl Grey and an ASIC version when it comes to pins and pads.
+Some pad attributes with analog characteristics like drive strength, slew rate and Open Drain technology are not supported on all platforms.</p>
+<p>The pin multiplexor is a peripheral on the TLUL bus, with collections of registers that provide software configurability.
+See the <a href="../../../ip/pinmux/README.md">pinmux specification</a> for how to connect peripheral IO to chip IO and for information on pad control features.</p>
+<h5 id="uart" tabindex="-1">UART</h5>
+<p>The chip contains one UART peripheral that implement single-lane duplex UART functionality.
+The outputs and inputs can be configured to any chip IO via the <a href="../../../ip/pinmux/README.md">pinmux</a>.</p>
+<p>See the <a href="../../../ip/uart/README.md">UART specification</a> for more details on this peripheral.</p>
+<h5 id="gpio" tabindex="-1">GPIO</h5>
+<p>The chip contains one GPIO peripheral that creates 32 bits of bidirectional communication with the outside world via the pinmux.
+Via pinmux any of the 32 pins of GPIO can be connected to any of the 32 MIO chip pins, in any direction.
+See the <a href="../../../ip/gpio/README.md">GPIO specification</a> for more details on this peripheral.
+See the <a href="../../../ip/pinmux/README.md">pinmux specification</a> for how to connect peripheral IO to chip IO.</p>
+<h5 id="spi-device" tabindex="-1">SPI device</h5>
+<p>The SPI device implements multiple modes:</p>
+<ul>
+<li>Firmware mode</li>
+<li>TPM mode</li>
+<li>Flash mode</li>
+<li>Passthrough mode</li>
+</ul>
+<p>Firmware Mode is a generic data transfer mode.
+It can be used by software to construct a simple firmware upgrade mechanism for in-field devices.</p>
+<p>TPM mode supports SPI transfers in compliance with the TPM PC Client Platform.
+The interface is single data lane and supports built-in data back pressuring.</p>
+<p>Flash mode supports serial flash emulation.
+Typical commands such as read status, address mode, read data and program data are either natively supported or can be emulated.</p>
+<p>Passthrough mode supports serial flash passthrough from an upstream SPI host to a downstream serial flash device.</p>
+<p>See the <a href="../../../ip/spi_device/README.md">SPI device specification</a> for more details.</p>
+<h5 id="usb-device" tabindex="-1">USB device</h5>
+<p>The chip contains a single module that supports USB device mode at full speed.
+In addition to normal functionality, USB suspend / resume is supported alongside the chip's low power modes.</p>
+<p>See the <a href="../../../ip/usbdev/README.md">USB device specification</a> for more details.</p>
+<h5 id="i2c-host" tabindex="-1">I2C host</h5>
+<p>In order to be able to command I2C devices on systems where Earl Grey will be included, I2C host functionality will be required.
+This will include standard, full, and fast mode, up to 1Mbaud.
+More details of the I2C host module will come in a later specification update.
+The pins of the I2C host will be available to connect to any of the multiplexable IO (MIO) of the Earl Grey device.
+More than one I2C host module might be instantiated in the top level.</p>
+<h4 id="security-peripherals" tabindex="-1">Security Peripherals</h4>
+<h5 id="aes" tabindex="-1">AES</h5>
+<p><a href="https://nvlpubs.nist.gov/nistpubs/fips/nist.fips.197.pdf">AES</a> is the primary <a href="https://en.wikipedia.org/wiki/Symmetric-key_algorithm">symmetric encryption</a> and decryption mechanism used in OpenTitan protocols.
+AES runs with key sizes of 128b, 192b, or 256b.
+The module can select encryption or decryption of data that arrives in 16 byte quantities to be encrypted or decrypted using different block cipher modes of operation.
+It supports <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#ECB">ECB mode</a>, <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#CBC">CBC mode</a>, <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#CFB">CFB mode</a>, <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#OFB">OFB mode</a> and <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#CTR">CTR mode</a>.</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#GCM">GCM mode</a> is not implemented in hardware, but can be constructed using AES in counter mode.
+The integrity tag calculation can be implemented in Ibex and accelerated via bitmanip instructions.</p>
+<p>Details on how to write key and data material into the peripheral, how to initiate encryption and decryption, and how to read out results, are available in the <a href="../../../ip/aes/README.md">AES specification</a>.</p>
+<h5 id="sha-256%2Fhmac" tabindex="-1">SHA-256/HMAC</h5>
+<p>SHA-256 is the primary
+<a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function">hashing algorithm</a> used in OpenTitan protocols.
+SHA-256 is a member of the <a href="https://en.wikipedia.org/wiki/SHA-2">SHA-2</a> family of hashing algorithms, where the digest (or hash output) is of 256b length, regardless of the data size of the input to be hashed.
+The data is sent into the SHA peripheral after declaring the beginning of a hash request (effectively zeroing out the internal state to initial conditions), 32b at a time.
+Once all data has been sent, the user can indicate the completion of the hash request (with optional partial-word final write).
+The peripheral produces the hash result available for register read by the user.
+All data transfer is processor-available, i.e. data is passed into the module via register writes.</p>
+<p><a href="https://en.wikipedia.org/wiki/HMAC">HMAC</a> is a message authentication protocol layered on top of a hashing function (in this case SHA-256), mixing in a secret key for cryptographic purposes.
+HMAC is a particular application of appending the secret key in a prescribed manner, twice, around the hashing (via SHA-256) of the message.</p>
+<p>Details on how to write key and data material into the peripheral, how to initiate hashing / authentication, and how to read out results, are available in the <a href="../../../ip/hmac/README.md">SHA/HMAC specification</a>.</p>
+<h5 id="alert-handler" tabindex="-1">Alert Handler</h5>
+<p>Alerts, as defined in the <a href="../../../../doc/contributing/hw/comportability/README.md">Comportability Specification</a>, are defined as security-sensitive interrupts that need to be handled in a timely manner to respond to a security threat.
+Unlike standard interrupts, they are not solely handled by software.
+Alerts trigger a first-stage request to be handled by software in the standard mode as interrupts, but trigger a second-stage response by the alert handler if software is not able to respond.
+This ensures that the underlying concern is guaranteed to be addressed if the processor is busy, wedged, or itself under attack.</p>
+<p>Each peripheral has an option to present a list of individual alerts, representing individual threats that require handling.
+These alerts are sent in a particular encoding method to the alert handler module, itself a peripheral on the system bus.
+See the details of the alert handler specification for more information.</p>
+<h5 id="trng-entropy-source" tabindex="-1">TRNG entropy source</h5>
+<p>Randomness is a critical part of any security chip.
+It provides variations in execution that can keep attackers from predicting when the best time is to attack.
+It provides secret material used for identity and cryptographic purposes.
+It can be seeded into algorithmic computation to obscure sensitive data values.
+In short, it is a source of critical functionality that must be designed to be truly random, but also free from attack itself.</p>
+<p>Most <a href="https://en.wikipedia.org/wiki/Hardware_random_number_generator">TRNG</a>s (True Random Number Generators) are analog designs, taking advantage of some physical event or process that is non-deterministic.
+Example designs rely on metastability, electronic noise, timing variations, thermal noise, quantum variation, etc.
+These are then filtered and sent into a pool of entropy that the device can sample at any time, for whatever purposes are needed.
+The creation, filtering, storage, protection, and dissemination of the randomness are all deep topics of intense research in their own right.</p>
+<p>The primary interface to the entropy pool is a read request of available random bits.
+The TRNG interface can indicate how many bits are available, and then software can read from this pool, if available.
+Reading of entropy that is not available should immediately trigger an interrupt or an alert.</p>
+<p>Since silicon is required to contain an analog design tied to the final chosen silicon technology process, our FPGA implementation can only approximate the results.
+We however fully specify the software interface to the TRNG in a digital wrapper.
+In FPGA we emulate the randomness with something akin to a <a href="https://en.wikipedia.org/wiki/Pseudorandom_binary_sequence">PRBS</a>.</p>
+<h4 id="other-peripherals" tabindex="-1">Other peripherals</h4>
+<h5 id="timer(s)" tabindex="-1">Timer(s)</h5>
+<p>Timers are critical for operating systems to ensure guaranteed performance for users.
+To some level they are even required by the RISC-V specification.
+At this time, one timer is provided, a 64b free running timer with a guaranteed (within a certain percentage) frequency.
+A second one acting as a watchdog timer that can be used to backstop the processor in the case of it being unresponsive (usually due to development code that is wedged, rather than for instance due to security attack) will be provided in the future.
+The goal is for both of these to be satisfied with the same timer module.</p>
+<p>The specification for the timer can be found <a href="../../../ip/rv_timer/README.md">here</a>.</p>
+<h5 id="flash-controller" tabindex="-1">Flash Controller</h5>
+<p>The final peripheral discussed in this release of the netlist is an emulated flash controller.
+As mentioned in the memory section, up to 1024kB of emulated embedded flash is available for code and data storage.
+The primary read path for this data is in the standard memory address space.
+Writes to that address space are ignored, however, since one can not write to flash in a standard way.
+Instead, to write to flash, software must interact with the flash controller.</p>
+<p>Flash functionality include three primary commands: read, erase, and program.
+Read, as mentioned above, is standard, and uses the chip memory address space.
+Erase is done at a page level, where the page size is parameterizable in the flash controller.
+Upon receiving an erase request, the flash controller wipes all contents of that page, rendering the data in all <code>1</code>s state (<code>0xFFFFFFFF</code> per word).
+Afterwards, software can program individual words to any value.
+It is notable that software can continue to attempt to program words even before another erase, but it is not physically possible to return a flash bit back to a <code>'1'</code> state without another erase.
+So future content is in effect an AND of the current content and the written value.</p>
+<pre class='hljs'><code><div>next_value = AND(current_value, write_word)
+</div></code></pre>
+<p>Erase and program are slow.
+A typical erase time is measured in milliseconds, program times in microseconds.
+The flash controller peripheral in this release approximates those expected times.</p>
+<p>Security is also a concern, since secret data can be stored in the flash.
+Some memory protection is provided by the flash controller.
+For more details see the <a href="../../../ip/flash_ctrl/README.md">flash controller module specification</a>.</p>
+<h3 id="interconnection" tabindex="-1">Interconnection</h3>
+<p>Interconnecting the processor and peripheral and memory units is a bus network built upon the TileLink-Uncached-Light protocol.
+See the <a href="../../../ip/tlul/README.md">OpenTitan bus specification</a> for more details.</p>
+<h4 id="topology" tabindex="-1">Topology</h4>
+<p><code>top_earlgrey</code> has a two-level hierarchy for its bus network.
+Close to the CPU is the high-speed cluster, with low access latency.
+Farther from the CPU, through a low-speed bridge, is the low-speed cluster, with higher access latency.</p>
+<h4 id="performance-1" tabindex="-1">Performance</h4>
+<p>The following table describes the typical number of CPU cycles from a transaction's launch to its completion for a device in the specified cluster.
+Note that these values assume there is no bus contention.</p>
+<table>
+<thead>
+<tr>
+<th>Cluster</th>
+<th>CPU Access Latency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>High speed</td>
+<td>2 CPU cycles</td>
+</tr>
+<tr>
+<td>Low speed</td>
+<td>18-20 CPU cycles</td>
+</tr>
+</tbody>
+</table>
+<h2 id="memory-map" tabindex="-1">Memory Map</h2>
+<p>The base addresses of the memory and peripherals are given in the table below.</p>
+<p>The choice of memory, or lack thereof at location 0x0 confers two exclusive benefits:</p>
+<ul>
+<li>If there are no memories at location 0x0, then null pointers will immediately error and be noticed by software (the xbar will fail to decode and route)</li>
+<li>If SRAM is placed at 0, accesses to data located within 2KB of 0x0 can be accomplished with a single instruction and thus reduce code size.</li>
+</ul>
+<p>For the purpose of <code>top_earlgrey</code>, the first option has been chosen to benefit software development and testing</p>
+<!-- BEGIN CMDGEN util/design/gen-top-docs.py -t hw/top_earlgrey/data/autogen/top_earlgrey.gen.hjson -g mmap -->
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Byte Address</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">uart0</td>
+<td style="text-align:left">uart</td>
+<td style="text-align:left">0x40000000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">uart1</td>
+<td style="text-align:left">uart</td>
+<td style="text-align:left">0x40010000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">uart2</td>
+<td style="text-align:left">uart</td>
+<td style="text-align:left">0x40020000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">uart3</td>
+<td style="text-align:left">uart</td>
+<td style="text-align:left">0x40030000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">gpio</td>
+<td style="text-align:left">gpio</td>
+<td style="text-align:left">0x40040000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">spi_device</td>
+<td style="text-align:left">spi_device</td>
+<td style="text-align:left">0x40050000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">i2c0</td>
+<td style="text-align:left">i2c</td>
+<td style="text-align:left">0x40080000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">i2c1</td>
+<td style="text-align:left">i2c</td>
+<td style="text-align:left">0x40090000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">i2c2</td>
+<td style="text-align:left">i2c</td>
+<td style="text-align:left">0x400A0000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">pattgen</td>
+<td style="text-align:left">pattgen</td>
+<td style="text-align:left">0x400E0000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">rv_timer</td>
+<td style="text-align:left">rv_timer</td>
+<td style="text-align:left">0x40100000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">otp_ctrl</td>
+<td style="text-align:left">otp_ctrl</td>
+<td style="text-align:left">0x40130000 (core)</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">0x40132000 (prim)</td>
+</tr>
+<tr>
+<td style="text-align:left">lc_ctrl</td>
+<td style="text-align:left">lc_ctrl</td>
+<td style="text-align:left">0x40140000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">alert_handler</td>
+<td style="text-align:left">alert_handler</td>
+<td style="text-align:left">0x40150000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">spi_host0</td>
+<td style="text-align:left">spi_host</td>
+<td style="text-align:left">0x40300000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">spi_host1</td>
+<td style="text-align:left">spi_host</td>
+<td style="text-align:left">0x40310000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">usbdev</td>
+<td style="text-align:left">usbdev</td>
+<td style="text-align:left">0x40320000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">pwrmgr_aon</td>
+<td style="text-align:left">pwrmgr</td>
+<td style="text-align:left">0x40400000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">rstmgr_aon</td>
+<td style="text-align:left">rstmgr</td>
+<td style="text-align:left">0x40410000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">clkmgr_aon</td>
+<td style="text-align:left">clkmgr</td>
+<td style="text-align:left">0x40420000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">sysrst_ctrl_aon</td>
+<td style="text-align:left">sysrst_ctrl</td>
+<td style="text-align:left">0x40430000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">adc_ctrl_aon</td>
+<td style="text-align:left">adc_ctrl</td>
+<td style="text-align:left">0x40440000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">pwm_aon</td>
+<td style="text-align:left">pwm</td>
+<td style="text-align:left">0x40450000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">pinmux_aon</td>
+<td style="text-align:left">pinmux</td>
+<td style="text-align:left">0x40460000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">aon_timer_aon</td>
+<td style="text-align:left">aon_timer</td>
+<td style="text-align:left">0x40470000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">ast</td>
+<td style="text-align:left">ast</td>
+<td style="text-align:left">0x40480000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">sensor_ctrl_aon</td>
+<td style="text-align:left">sensor_ctrl</td>
+<td style="text-align:left">0x40490000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">sram_ctrl_ret_aon</td>
+<td style="text-align:left">sram_ctrl</td>
+<td style="text-align:left">0x40500000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">0x40600000 (ram)</td>
+</tr>
+<tr>
+<td style="text-align:left">flash_ctrl</td>
+<td style="text-align:left">flash_ctrl</td>
+<td style="text-align:left">0x41000000 (core)</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">0x41008000 (prim)</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">0x20000000 (mem)</td>
+</tr>
+<tr>
+<td style="text-align:left">rv_dm</td>
+<td style="text-align:left">rv_dm</td>
+<td style="text-align:left">0x00010000 (mem)</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">0x41200000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">rv_plic</td>
+<td style="text-align:left">rv_plic</td>
+<td style="text-align:left">0x48000000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">aes</td>
+<td style="text-align:left">aes</td>
+<td style="text-align:left">0x41100000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">hmac</td>
+<td style="text-align:left">hmac</td>
+<td style="text-align:left">0x41110000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">kmac</td>
+<td style="text-align:left">kmac</td>
+<td style="text-align:left">0x41120000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">otbn</td>
+<td style="text-align:left">otbn</td>
+<td style="text-align:left">0x41130000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">keymgr</td>
+<td style="text-align:left">keymgr</td>
+<td style="text-align:left">0x41140000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">csrng</td>
+<td style="text-align:left">csrng</td>
+<td style="text-align:left">0x41150000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">entropy_src</td>
+<td style="text-align:left">entropy_src</td>
+<td style="text-align:left">0x41160000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">edn0</td>
+<td style="text-align:left">edn</td>
+<td style="text-align:left">0x41170000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">edn1</td>
+<td style="text-align:left">edn</td>
+<td style="text-align:left">0x41180000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">sram_ctrl_main</td>
+<td style="text-align:left">sram_ctrl</td>
+<td style="text-align:left">0x411C0000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">0x10000000 (ram)</td>
+</tr>
+<tr>
+<td style="text-align:left">rom_ctrl</td>
+<td style="text-align:left">rom_ctrl</td>
+<td style="text-align:left">0x00008000 (rom)</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">0x411e0000 (regs)</td>
+</tr>
+<tr>
+<td style="text-align:left">rv_core_ibex</td>
+<td style="text-align:left">rv_core_ibex</td>
+<td style="text-align:left">0x411F0000 (cfg)</td>
+</tr>
+</tbody>
+</table>
+<!-- END CMDGEN -->
+<h2 id="entropy-distribution-network" tabindex="-1">Entropy Distribution Network</h2>
+<p><code>top_earlgrey</code> has two <a href="../../../ip/edn/README.md">EDN</a> instances, which are connected to one <a href="../../../ip/csrng/README.md">CSRNG</a> instance (which in turn is connected to one <a href="../../../ip/entropy_src/README.md">Entropy Source</a> instance).
+The first EDN instance, <code>u_edn0</code>, has eight endpoints, which are connected to: Key Manager, OTP Controller, Analog Sensor Top, KMAC Accelerator, Alert Handler, AES Accelerator, the <code>URND</code> port of OTBN, and the Ibex RISC-V Core.
+The second EDN instance, <code>u_edn1</code>, has one endpoint that is connected to the <code>RND</code> port of OTBN and seven endpoints that are tied off.
+The second EDN instance, <code>u_edn1</code> is intended to be configured to deliver highest-quality entropy, e.g., for the generation of cryptographic secrets.
+The first EDN instance, <code>u_edn0</code> is intended to be configured to deliver entropy at a higher rate and thus slightly lower quality.</p>
+<h2 id="hardware-interfaces" tabindex="-1">Hardware Interfaces</h2>
+<h3 id="pinout" tabindex="-1">Pinout</h3>
+<!-- BEGIN CMDGEN util/design/gen-top-docs.py -t hw/top_earlgrey/data/autogen/top_earlgrey.gen.hjson -g pinout -->
+<table>
+<thead>
+<tr>
+<th style="text-align:left">ID</th>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Bank</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Connection Type</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">POR_N</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">InputStd</td>
+<td style="text-align:left">manual</td>
+<td style="text-align:left">System reset</td>
+</tr>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">USB_P</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">DualBidirTol</td>
+<td style="text-align:left">manual</td>
+<td style="text-align:left">USB P signal</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">USB_N</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">DualBidirTol</td>
+<td style="text-align:left">manual</td>
+<td style="text-align:left">USB N signal</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">CC1</td>
+<td style="text-align:left">AVCC</td>
+<td style="text-align:left">InputStd</td>
+<td style="text-align:left">manual</td>
+<td style="text-align:left">ADC input 1</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">CC2</td>
+<td style="text-align:left">AVCC</td>
+<td style="text-align:left">InputStd</td>
+<td style="text-align:left">manual</td>
+<td style="text-align:left">ADC input 2</td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left">FLASH_TEST_VOLT</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">AnalogIn0</td>
+<td style="text-align:left">manual</td>
+<td style="text-align:left">Flash test voltage input</td>
+</tr>
+<tr>
+<td style="text-align:left">6</td>
+<td style="text-align:left">FLASH_TEST_MODE0</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">InputStd</td>
+<td style="text-align:left">manual</td>
+<td style="text-align:left">Flash test mode signal</td>
+</tr>
+<tr>
+<td style="text-align:left">7</td>
+<td style="text-align:left">FLASH_TEST_MODE1</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">InputStd</td>
+<td style="text-align:left">manual</td>
+<td style="text-align:left">Flash test mode signal</td>
+</tr>
+<tr>
+<td style="text-align:left">8</td>
+<td style="text-align:left">OTP_EXT_VOLT</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">AnalogIn1</td>
+<td style="text-align:left">manual</td>
+<td style="text-align:left">OTP external voltage input</td>
+</tr>
+<tr>
+<td style="text-align:left">9</td>
+<td style="text-align:left">SPI_HOST_D0</td>
+<td style="text-align:left">VIOA</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">direct</td>
+<td style="text-align:left">SPI host data</td>
+</tr>
+<tr>
+<td style="text-align:left">10</td>
+<td style="text-align:left">SPI_HOST_D1</td>
+<td style="text-align:left">VIOA</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">direct</td>
+<td style="text-align:left">SPI host data</td>
+</tr>
+<tr>
+<td style="text-align:left">11</td>
+<td style="text-align:left">SPI_HOST_D2</td>
+<td style="text-align:left">VIOA</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">direct</td>
+<td style="text-align:left">SPI host data</td>
+</tr>
+<tr>
+<td style="text-align:left">12</td>
+<td style="text-align:left">SPI_HOST_D3</td>
+<td style="text-align:left">VIOA</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">direct</td>
+<td style="text-align:left">SPI host data</td>
+</tr>
+<tr>
+<td style="text-align:left">13</td>
+<td style="text-align:left">SPI_HOST_CLK</td>
+<td style="text-align:left">VIOA</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">direct</td>
+<td style="text-align:left">SPI host clock</td>
+</tr>
+<tr>
+<td style="text-align:left">14</td>
+<td style="text-align:left">SPI_HOST_CS_L</td>
+<td style="text-align:left">VIOA</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">direct</td>
+<td style="text-align:left">SPI host chip select</td>
+</tr>
+<tr>
+<td style="text-align:left">15</td>
+<td style="text-align:left">SPI_DEV_D0</td>
+<td style="text-align:left">VIOA</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">direct</td>
+<td style="text-align:left">SPI device data</td>
+</tr>
+<tr>
+<td style="text-align:left">16</td>
+<td style="text-align:left">SPI_DEV_D1</td>
+<td style="text-align:left">VIOA</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">direct</td>
+<td style="text-align:left">SPI device data</td>
+</tr>
+<tr>
+<td style="text-align:left">17</td>
+<td style="text-align:left">SPI_DEV_D2</td>
+<td style="text-align:left">VIOA</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">direct</td>
+<td style="text-align:left">SPI device data</td>
+</tr>
+<tr>
+<td style="text-align:left">18</td>
+<td style="text-align:left">SPI_DEV_D3</td>
+<td style="text-align:left">VIOA</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">direct</td>
+<td style="text-align:left">SPI device data</td>
+</tr>
+<tr>
+<td style="text-align:left">19</td>
+<td style="text-align:left">SPI_DEV_CLK</td>
+<td style="text-align:left">VIOA</td>
+<td style="text-align:left">InputStd</td>
+<td style="text-align:left">direct</td>
+<td style="text-align:left">SPI device clock</td>
+</tr>
+<tr>
+<td style="text-align:left">20</td>
+<td style="text-align:left">SPI_DEV_CS_L</td>
+<td style="text-align:left">VIOA</td>
+<td style="text-align:left">InputStd</td>
+<td style="text-align:left">direct</td>
+<td style="text-align:left">SPI device chip select</td>
+</tr>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">IOA0</td>
+<td style="text-align:left">VIOA</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">IOA1</td>
+<td style="text-align:left">VIOA</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">IOA2</td>
+<td style="text-align:left">VIOA</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">IOA3</td>
+<td style="text-align:left">VIOA</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">IOA4</td>
+<td style="text-align:left">VIOA</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left">IOA5</td>
+<td style="text-align:left">VIOA</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">6</td>
+<td style="text-align:left">IOA6</td>
+<td style="text-align:left">VIOA</td>
+<td style="text-align:left">BidirOd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">7</td>
+<td style="text-align:left">IOA7</td>
+<td style="text-align:left">VIOA</td>
+<td style="text-align:left">BidirOd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">8</td>
+<td style="text-align:left">IOA8</td>
+<td style="text-align:left">VIOA</td>
+<td style="text-align:left">BidirOd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">9</td>
+<td style="text-align:left">IOB0</td>
+<td style="text-align:left">VIOB</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">10</td>
+<td style="text-align:left">IOB1</td>
+<td style="text-align:left">VIOB</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">11</td>
+<td style="text-align:left">IOB2</td>
+<td style="text-align:left">VIOB</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">12</td>
+<td style="text-align:left">IOB3</td>
+<td style="text-align:left">VIOB</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">13</td>
+<td style="text-align:left">IOB4</td>
+<td style="text-align:left">VIOB</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">14</td>
+<td style="text-align:left">IOB5</td>
+<td style="text-align:left">VIOB</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">15</td>
+<td style="text-align:left">IOB6</td>
+<td style="text-align:left">VIOB</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">16</td>
+<td style="text-align:left">IOB7</td>
+<td style="text-align:left">VIOB</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">17</td>
+<td style="text-align:left">IOB8</td>
+<td style="text-align:left">VIOB</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">18</td>
+<td style="text-align:left">IOB9</td>
+<td style="text-align:left">VIOB</td>
+<td style="text-align:left">BidirOd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">19</td>
+<td style="text-align:left">IOB10</td>
+<td style="text-align:left">VIOB</td>
+<td style="text-align:left">BidirOd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">20</td>
+<td style="text-align:left">IOB11</td>
+<td style="text-align:left">VIOB</td>
+<td style="text-align:left">BidirOd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">21</td>
+<td style="text-align:left">IOB12</td>
+<td style="text-align:left">VIOB</td>
+<td style="text-align:left">BidirOd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">22</td>
+<td style="text-align:left">IOC0</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">23</td>
+<td style="text-align:left">IOC1</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">24</td>
+<td style="text-align:left">IOC2</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">25</td>
+<td style="text-align:left">IOC3</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">26</td>
+<td style="text-align:left">IOC4</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">27</td>
+<td style="text-align:left">IOC5</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">28</td>
+<td style="text-align:left">IOC6</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">29</td>
+<td style="text-align:left">IOC7</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">30</td>
+<td style="text-align:left">IOC8</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">31</td>
+<td style="text-align:left">IOC9</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">32</td>
+<td style="text-align:left">IOC10</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">BidirOd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">33</td>
+<td style="text-align:left">IOC11</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">BidirOd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">34</td>
+<td style="text-align:left">IOC12</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">BidirOd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">35</td>
+<td style="text-align:left">IOR0</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">36</td>
+<td style="text-align:left">IOR1</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">37</td>
+<td style="text-align:left">IOR2</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">38</td>
+<td style="text-align:left">IOR3</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">39</td>
+<td style="text-align:left">IOR4</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">40</td>
+<td style="text-align:left">IOR5</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">41</td>
+<td style="text-align:left">IOR6</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">42</td>
+<td style="text-align:left">IOR7</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">BidirStd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">21</td>
+<td style="text-align:left">IOR8</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">BidirOd</td>
+<td style="text-align:left">direct</td>
+<td style="text-align:left">Dedicated sysrst_ctrl output (ec_rst_l)</td>
+</tr>
+<tr>
+<td style="text-align:left">22</td>
+<td style="text-align:left">IOR9</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">BidirOd</td>
+<td style="text-align:left">direct</td>
+<td style="text-align:left">Dedicated sysrst_ctrl output (flash_wp_l))</td>
+</tr>
+<tr>
+<td style="text-align:left">43</td>
+<td style="text-align:left">IOR10</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">BidirOd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">44</td>
+<td style="text-align:left">IOR11</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">BidirOd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">45</td>
+<td style="text-align:left">IOR12</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">BidirOd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+<tr>
+<td style="text-align:left">46</td>
+<td style="text-align:left">IOR13</td>
+<td style="text-align:left">VCC</td>
+<td style="text-align:left">BidirOd</td>
+<td style="text-align:left">muxed</td>
+<td style="text-align:left">Muxed IO pad</td>
+</tr>
+</tbody>
+</table>
+<!-- END CMDGEN -->
+<h1 id="rtl-implementation-notes" tabindex="-1">RTL Implementation Notes</h1>
+<p>At this time, the top-level netlist for earlgrey is a combination of hand-written SystemVerilog RTL with auto-generated sections for wiring of comportability interfaces.
+There is a script for this auto-generation, centered around the top-level descriptor file <code>top_earlgrey.hjson</code> found in the repository.
+A full definition of this descriptor file, its features, and related scripting is forthcoming.
+This tooling generates the interconnecting crossbar (via <code>TLUL</code>) as well as the instantiations at the top level.
+It also feeds into this document generation to ensure that the chosen address locations are documented automatically using the data in the source files.</p>
+<h2 id="top-level-vs-chip-targets" tabindex="-1">Top Level vs Chip Targets</h2>
+<p>It should first be <strong>NOTED</strong> that there is some subtlety on the notion of hierarchy within the top level.
+There is netlist automation to create the module <code>top_earlgrey</code> as indicated in sections of this specification that follow.
+<strong>On top</strong> of that module, hierarchically in the repo, are chip level instantiation targets directed towards a particular use case.
+This includes <code>chip_earlgrey_cw310</code> for use in FPGA, and <code>chip_earlgrey_asic</code> for use (eventually) in a silicon implementation.
+These chip level targets will include the actual pads as needed by the target platform.
+At the time of this writing the two are not in perfect synchronization, but the intention will be for them to be as identical as possible.
+Where appropriate, including the block diagram below, notes will be provided where the hierarchy subtleties are explained.</p>
+<h2 id="fpga-platform" tabindex="-1">FPGA Platform</h2>
+<p><strong>TODO: This section needs to be updated once pin updates are complete.</strong></p>
+<p>In the FPGA platform, the logic for the JTAG and the SPI device are multiplexed within <code>chip_earlgrey_cw310</code>.
+This is done for ease of programming by the external host.</p>
+<h2 id="references" tabindex="-1">References</h2>
+<ol>
+<li><a href="https://doi.org/10.1109/PATMOS.2017.8106976">Schiavone, Pasquale Davide, et al. &quot;Slow and steady wins the race? A comparison of
+ultra-low-power RISC-V cores for Internet-of-Things applications.&quot;
+<em>27th International Symposium on Power and Timing Modeling, Optimization and Simulation
+(PATMOS 2017)</em></a></li>
+</ol>
+
+    </div>
+</body>
+</html>
