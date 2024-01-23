@@ -248,77 +248,12 @@
       reset_connections: {rst_ni: "lc_io_div4", rst_edn_ni: "lc"},
       base_addrs: {core: "0x40130000", prim: "0x40132000"}
     },
-    { name: "lc_ctrl",
-      type: "lc_ctrl",
-      clock_srcs: {clk_i: "io_div4", clk_kmac_i: "main"},
-      clock_group: "secure",
-      reset_connections: {rst_ni: "lc_io_div4", rst_kmac_ni: "lc"},
-      base_addr: "0x40140000",
-      param_decl: {
-        // NOTE THAT THIS IS A FEATURE FOR TEST CHIPS ONLY TO MITIGATE
-        // THE RISK OF A BROKEN OTP MACRO. THIS WILL BE DISABLED FOR
-        // PRODUCTION DEVICES.
-        SecVolatileRawUnlockEn: "top_pkg::SecVolatileRawUnlockEn",
-        // The following three values get exposed in the life cycle CSRs
-        // that are also readable via the TAP.
-        SiliconCreatorId: "16'h 4001", // Creator ID for Earlgrey discrete integration
-        ProductId: "16'h 0002", // Earlgrey PROD
-        RevisionId: "8'h 01",   // First tapeout
-        IdcodeValue: "jtag_id_pkg::LC_CTRL_JTAG_IDCODE",
-      },
-    },
-    { name: "alert_handler",
-      type: "alert_handler",
-      clock_srcs: {clk_i: "io_div4", clk_edn_i: "main"},
-      clock_group: "secure",
-      reset_connections: {rst_ni: "lc_io_div4", rst_edn_ni: "lc"},
-      base_addr: "0x40150000",
-      attr: "ipgen",
-    },
     { name: "spi_host0",
       type: "spi_host",
       clock_srcs: {clk_i: "io"},
       clock_group: "peri",
       reset_connections: {rst_ni: "spi_host0"},
       base_addr: "0x40300000",
-    },
-    { name: "pwrmgr_aon",
-      type: "pwrmgr",
-      clock_group: "powerup",
-      clock_srcs: {
-        clk_i: "io_div4",
-        clk_slow_i: "aon",
-        clk_lc_i: "io_div4",
-        clk_esc_i: {
-          clock: "io_div4",
-          group: "secure"
-        }
-      },
-      reset_connections: {
-        rst_ni: {
-          name: "por_io_div4",
-          domain: "Aon"
-        },
-        rst_main_ni: {
-          name: "por_aon",
-          domain: "0"
-        },
-        rst_lc_ni: {
-          name: "lc_io_div4",
-          domain: "Aon"
-        },
-        rst_esc_ni: {
-          name: "lc_io_div4",
-          domain: "Aon"
-        },
-        rst_slow_ni: {
-          name: "por_aon",
-          domain: "Aon",
-        },
-      },
-      domain: ["Aon", "0"],
-      base_addr: "0x40400000",
-      attr: "ipgen",
     },
     { name: "rstmgr_aon",
       type: "rstmgr",
@@ -406,14 +341,6 @@
       domain: ["Aon"],
       base_addr: "0x40440000"
     },
-    { name: "pwm_aon",
-      type: "pwm",
-      clock_srcs: {clk_i: "io_div4", clk_core_i: "aon"},
-      clock_group: "peri",
-      reset_connections: {rst_ni: "lc_io_div4", rst_core_ni: "lc_aon"},
-      domain: ["Aon"],
-      base_addr: "0x40450000",
-    },
     { name: "pinmux_aon",
       type: "pinmux",
       clock_srcs: {clk_i: "io_div4", clk_aon_i: "aon"},
@@ -491,15 +418,6 @@
       base_addr: "0x40480000",
       attr: "reggen_only",
     },
-    { name: "sensor_ctrl_aon",
-      type: "sensor_ctrl",
-      clock_srcs: {clk_i: "io_div4", clk_aon_i: "aon"},
-      clock_group: "secure",
-      reset_connections: {rst_ni: "lc_io_div4", rst_aon_ni: "lc_aon"},
-      domain: ["Aon"],
-      base_addr: "0x40490000",
-      attr: "reggen_top",
-    },
     { name: "sram_ctrl_ret_aon",
       type: "sram_ctrl",
       clock_srcs: {clk_i: "io_div4", clk_otp_i: "io_div4"},
@@ -522,32 +440,6 @@
           size:     "0x100000"
         }
       }
-    },
-    { name: "flash_ctrl",
-      type: "flash_ctrl",
-      clock_srcs: {clk_i: "main", clk_otp_i: "io_div4"},
-      clock_group: "infra",
-      reset_connections: {rst_ni: "lc", rst_otp_ni: "lc_io_div4"},
-      base_addrs: {core: "0x41000000", prim: "0x41008000", mem: "0x20000000"},
-      param_decl: {
-        ProgFifoDepth: "4",
-      },
-      memory: {
-        mem: {
-          label:      "eflash",
-          swaccess:   "ro",
-          data_intg_passthru: "true",
-          exec:       "True",
-          byte_write: "False",
-          config: {
-            type: "flash",
-            banks: 2,
-            pages_per_bank: 256,
-            program_resolution: 8, // maximum number of flash words allowed to program at one time
-          }
-        }
-      },
-      attr: "templated",
     },
     { name: "rv_dm",
       type: "rv_dm",
@@ -731,46 +623,19 @@
   //  e.g flash_ctrl0.flash: [flash_phy0.flash_ctrl]
   inter_module: {
     'connect': {
-      'ast.obs_ctrl'            : ['flash_ctrl.obs_ctrl',
-                                   'otp_ctrl.obs_ctrl'],
+      'ast.obs_ctrl'            : ['otp_ctrl.obs_ctrl'],
       //'ast.ram_1p_cfg'          : ['otbn.ram_cfg',
       'ast.ram_1p_cfg'          : ['sram_ctrl_main.cfg',
                                    'sram_ctrl_ret_aon.cfg',
                                    'rv_core_ibex.ram_cfg'],
       'ast.spi_ram_2p_cfg'      : ['spi_device.ram_cfg'],
       'ast.rom_cfg'             : ['rom_ctrl.rom_cfg'],
-      'alert_handler.crashdump' : ['rstmgr_aon.alert_dump'],
-      'alert_handler.esc_rx'    : ['rv_core_ibex.esc_rx',
-                                   'lc_ctrl.esc_scrap_state0_rx',
-                                   'lc_ctrl.esc_scrap_state1_rx',
-                                   'pwrmgr_aon.esc_rst_rx'],
-      'alert_handler.esc_tx'    : ['rv_core_ibex.esc_tx',
-                                   'lc_ctrl.esc_scrap_state0_tx',
-                                   'lc_ctrl.esc_scrap_state1_tx',
-                                   'pwrmgr_aon.esc_rst_tx'],
-      'aon_timer_aon.nmi_wdog_timer_bark' : ['rv_core_ibex.nmi_wdog'],
-      'flash_ctrl.otp'          : ['otp_ctrl.flash_otp_key'],
-      'flash_ctrl.rma_seed'     : ['lc_ctrl.lc_flash_rma_seed'],
       'otp_ctrl.sram_otp_key'   : ['sram_ctrl_main.sram_otp_key',
                                    'sram_ctrl_ret_aon.sram_otp_key',
                                    'rv_core_ibex.icache_otp_key'],
-      'pwrmgr_aon.pwr_flash'    : ['flash_ctrl.pwrmgr'],
-      'pwrmgr_aon.pwr_rst'      : ['rstmgr_aon.pwr'],
-      'pwrmgr_aon.pwr_clk'      : ['clkmgr_aon.pwr'],
-      'pwrmgr_aon.pwr_otp'      : ['otp_ctrl.pwr_otp'],
-      'pwrmgr_aon.pwr_lc'       : ['lc_ctrl.pwr_lc'],
-      'pwrmgr_aon.strap'        : ['pinmux_aon.strap_en'],
-      'pwrmgr_aon.low_power'    : ['pinmux_aon.sleep_en',
-                                   'aon_timer_aon.sleep_mode'],
-      'pwrmgr_aon.fetch_en'     : ['rv_core_ibex.pwrmgr_cpu_en'],
       'rom_ctrl.pwrmgr_data'    : ['pwrmgr_aon.rom_ctrl'],
-      'alert_handler.crashdump' : ['rstmgr_aon.alert_dump'],
 
       // Daisy chained LC RMA req/ack interface: LC -> Flash -> OTBN -> LC
-      'lc_ctrl.lc_flash_rma_req' : ['flash_ctrl.rma_req'],
-      //'flash_ctrl.rma_ack'       : ['otbn.lc_rma_req'],
-      // OTBN OTP scramble key
-      //'otp_ctrl.otbn_otp_key' : ['otbn.otbn_otp_key'],
 
       // The idle connection is automatically connected through topgen.
       // The user does not need to explicitly declare anything other than
@@ -785,48 +650,6 @@
 
       // OTP LC interface
       'otp_ctrl.otp_lc_data'       : ['lc_ctrl.otp_lc_data'],
-      'lc_ctrl.lc_otp_program'     : ['otp_ctrl.lc_otp_program'],
-      'lc_ctrl.lc_otp_vendor_test' : ['otp_ctrl.lc_otp_vendor_test'],
-
-      // Diversification constant coming from life cycle
-
-      // Strap enable override signal, only used when SecVolatileRawUnlockEn = 1.
-      'lc_ctrl.strap_en_override'  : ['pinmux_aon.strap_en_override'],
-
-      // LC function control signal broadcast
-      'lc_ctrl.lc_dft_en'          : ['otp_ctrl.lc_dft_en',
-                                      'pinmux_aon.lc_dft_en',
-                                      'ast.lc_dft_en',
-                                      'pwrmgr_aon.lc_dft_en',
-                                     ],
-      'lc_ctrl.lc_nvm_debug_en'    : ['flash_ctrl.lc_nvm_debug_en'],
-      'lc_ctrl.lc_hw_debug_en'     : ['sram_ctrl_main.lc_hw_debug_en',
-                                      'pinmux_aon.lc_hw_debug_en',
-                                      'rv_dm.lc_hw_debug_en',
-                                      'clkmgr_aon.lc_hw_debug_en',
-                                      'pwrmgr_aon.lc_hw_debug_en',],
-      'lc_ctrl.lc_cpu_en'          : ['rv_core_ibex.lc_cpu_en'],
-      //'lc_ctrl.lc_keymgr_en'       : ['keymgr.lc_keymgr_en'],
-      'lc_ctrl.lc_escalate_en'     : ['otp_ctrl.lc_escalate_en',
-                                      'sram_ctrl_main.lc_escalate_en',
-                                      'sram_ctrl_ret_aon.lc_escalate_en',
-                                      'aon_timer_aon.lc_escalate_en',
-                                      'flash_ctrl.lc_escalate_en',
-                                      'pinmux_aon.lc_escalate_en'],
-
-      'lc_ctrl.lc_check_byp_en'    : ['otp_ctrl.lc_check_byp_en',
-                                      'pinmux_aon.lc_check_byp_en'],
-      'lc_ctrl.lc_clk_byp_req'     : ['clkmgr_aon.lc_clk_byp_req'],
-      'lc_ctrl.lc_clk_byp_ack'     : ['clkmgr_aon.lc_clk_byp_ack'],
-
-      // LC access control signal broadcast
-      'lc_ctrl.lc_creator_seed_sw_rw_en'   : ['otp_ctrl.lc_creator_seed_sw_rw_en',
-                                              'flash_ctrl.lc_creator_seed_sw_rw_en'],
-      'lc_ctrl.lc_owner_seed_sw_rw_en'     : ['flash_ctrl.lc_owner_seed_sw_rw_en'],
-      'lc_ctrl.lc_iso_part_sw_rd_en'       : ['flash_ctrl.lc_iso_part_sw_rd_en'],
-      'lc_ctrl.lc_iso_part_sw_wr_en'       : ['flash_ctrl.lc_iso_part_sw_wr_en'],
-      'lc_ctrl.lc_seed_hw_rd_en'           : ['otp_ctrl.lc_seed_hw_rd_en',
-                                              'flash_ctrl.lc_seed_hw_rd_en'],
 
       // rv_plic connections
       'rv_plic.msip' : ['rv_core_ibex.irq_software'],
@@ -906,12 +729,6 @@
         'clkmgr_aon.hi_speed_sel'         : 'hi_speed_sel',
         'clkmgr_aon.div_step_down_req'    : 'div_step_down_req',
         'clkmgr_aon.calib_rdy'            : 'calib_rdy',
-        'flash_ctrl.flash_bist_enable'    : 'flash_bist_enable',
-        'flash_ctrl.flash_power_down_h'   : 'flash_power_down_h',
-        'flash_ctrl.flash_power_ready_h'  : 'flash_power_ready_h',
-        'flash_ctrl.flash_test_mode_a'    : 'flash_test_mode_a',
-        'flash_ctrl.flash_test_voltage_h' : 'flash_test_voltage_h',
-        'flash_ctrl.fla_obs'              : 'flash_obs',
         'peri.tl_ast'                     : 'ast_tl',
         'pinmux_aon.dft_strap_test'       : 'dft_strap_test',
         'pinmux_aon.dft_hold_tap_sel'     : 'dft_hold_tap_sel',
@@ -922,10 +739,6 @@
         'otp_ctrl.otp_obs'                : 'otp_obs',
         'rstmgr_aon.por_n'                : 'por_n',
         'rv_core_ibex.fpga_info'          : 'fpga_info',
-        'sensor_ctrl_aon.ast_alert'       : 'sensor_ctrl_ast_alert',
-        'sensor_ctrl_aon.ast_status'      : 'sensor_ctrl_ast_status',
-        'sensor_ctrl_aon.ast2pinmux'      : 'ast2pinmux',
-        'sensor_ctrl_aon.ast_init_done'   : 'ast_init_done',
         'spi_device.sck_monitor'          : 'sck_monitor'
     },
   },
@@ -985,9 +798,6 @@
       { name: 'POR_N'           , type: 'InputStd',     bank: 'VCC' , connection: 'manual', desc: 'System reset'},
       { name: 'CC1'             , type: 'InputStd',     bank: 'AVCC', connection: 'manual', desc: 'ADC input 1', port_type: '`INOUT_AI'},
       { name: 'CC2'             , type: 'InputStd',     bank: 'AVCC', connection: 'manual', desc: 'ADC input 2', port_type: '`INOUT_AI'},
-      { name: 'FLASH_TEST_VOLT' , type: 'AnalogIn0',    bank: 'VCC' , connection: 'manual', desc: 'Flash test voltage input'},
-      { name: 'FLASH_TEST_MODE0', type: 'InputStd',     bank: 'VCC' , connection: 'manual', desc: 'Flash test mode signal'},
-      { name: 'FLASH_TEST_MODE1', type: 'InputStd',     bank: 'VCC' , connection: 'manual', desc: 'Flash test mode signal'},
       { name: 'OTP_EXT_VOLT'    , type: 'AnalogIn1',    bank: 'VCC' , connection: 'manual', desc: 'OTP external voltage input'},
       // Dedicated IOs
       { name: 'SPI_HOST_D0'     , type: 'BidirStd', bank: 'VIOA', connection: 'direct', desc: 'SPI host data'},
@@ -1050,7 +860,7 @@
       { name: 'IOR6'            , type: 'BidirStd', bank: 'VCC' , connection: 'muxed' , desc: 'Muxed IO pad'},
       { name: 'IOR7'            , type: 'BidirStd', bank: 'VCC' , connection: 'muxed' , desc: 'Muxed IO pad'},
       { name: 'IOR8'            , type: 'BidirOd' , bank: 'VCC' , connection: 'direct', desc: 'Dedicated sysrst_ctrl output (ec_rst_l)'},
-      { name: 'IOR9'            , type: 'BidirOd' , bank: 'VCC' , connection: 'direct', desc: 'Dedicated sysrst_ctrl output (flash_wp_l))'},
+      { name: 'IOR9'            , type: 'BidirOd' , bank: 'VCC' , connection: 'direct', desc: 'Muxed IO pad'},
       { name: 'IOR10'           , type: 'BidirOd' , bank: 'VCC' , connection: 'muxed' , desc: 'Muxed IO pad'},
       { name: 'IOR11'           , type: 'BidirOd' , bank: 'VCC' , connection: 'muxed' , desc: 'Muxed IO pad'},
       { name: 'IOR12'           , type: 'BidirOd' , bank: 'VCC' , connection: 'muxed' , desc: 'Muxed IO pad'},
@@ -1114,11 +924,7 @@
       { instance: "gpio",            port: '',               connection: 'muxed' , pad: ''             , desc: ''},
       { instance: "uart0",           port: '',               connection: 'muxed' , pad: ''             , desc: ''},
       { instance: "i2c0",            port: '',               connection: 'muxed' , pad: ''             , desc: ''},
-      { instance: "pattgen",         port: '',               connection: 'muxed' , pad: ''             , desc: ''},
       { instance: "spi_device",      port: 'tpm_csb',        connection: 'muxed' , pad: ''             , desc: ''},
-      { instance: "flash_ctrl",      port: '',               connection: 'muxed' , pad: ''             , desc: ''},
-      { instance: "sensor_ctrl_aon", port: '',               connection: 'muxed' , pad: ''             , desc: ''},
-      { instance: "pwm_aon",         port: '',               connection: 'muxed' , pad: ''             , desc: ''},
       { instance: "otp_ctrl",        port: 'test[0]',        connection: 'muxed' , pad: ''             , desc: ''},
       // Sysrst ctrl has both muxed and dedicated IOs
       { instance: "sysrst_ctrl_aon", port: 'ac_present',     connection: 'muxed' , pad: ''             , desc: ''},
@@ -1128,7 +934,6 @@
       { instance: "sysrst_ctrl_aon", port: 'pwrb_in',        connection: 'muxed' , pad: ''             , desc: ''},
       { instance: "sysrst_ctrl_aon", port: 'bat_disable',    connection: 'muxed' , pad: ''             , desc: ''},
       { instance: "sysrst_ctrl_aon", port: 'ec_rst_l',       connection: 'direct', pad: 'IOR8'         , desc: ''},
-      { instance: "sysrst_ctrl_aon", port: 'flash_wp_l',     connection: 'direct', pad: 'IOR9'         , desc: ''},
       { instance: "sysrst_ctrl_aon", port: 'key0_out',       connection: 'muxed' , pad: ''             , desc: ''},
       { instance: "sysrst_ctrl_aon", port: 'key1_out',       connection: 'muxed' , pad: ''             , desc: ''},
       { instance: "sysrst_ctrl_aon", port: 'key2_out',       connection: 'muxed' , pad: ''             , desc: ''},
@@ -1221,8 +1026,7 @@
         remove_ports: [],
         remove_pads: [
           'CC1', 'CC2',
-          'FLASH_TEST_VOLT', 'OTP_EXT_VOLT',
-          'FLASH_TEST_MODE0', 'FLASH_TEST_MODE1'
+          'OTP_EXT_VOLT'
         ],
 
         add_pads: [
@@ -1257,8 +1061,7 @@
         remove_ports: [],
         remove_pads: [
           'CC1', 'CC2',
-          'FLASH_TEST_VOLT', 'OTP_EXT_VOLT'
-          'FLASH_TEST_MODE0', 'FLASH_TEST_MODE1'
+          'OTP_EXT_VOLT'
         ],
 
         add_pads: [
