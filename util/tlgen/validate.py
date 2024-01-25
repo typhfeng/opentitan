@@ -327,9 +327,9 @@ def validate(obj: Dict[Any, Any]) -> Optional[Xbar]:
 
                 if checkBaseSizeOverlap(address_from, size):
                     log.error(
-                        "Size mask and base address are overlapping. "
+                        " %s size mask and base address are overlapping. "
                         " Check the config. Addr(0x%x - 0x%x)"
-                        % (addr_entry[0], addr_entry[1]))
+                        % (nodeobj["name"], addr_entry[0], addr_entry[1]))
                     raise SystemExit("Base/size overlapping error occurred")
 
                 if checkAddressOverlap(addr_entry, addr_ranges):
