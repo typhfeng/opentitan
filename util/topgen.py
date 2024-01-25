@@ -943,7 +943,7 @@ def _process_top(topcfg: Dict[str, object], args: argparse.Namespace,
     completecfg = merge_top(topcfg, name_to_block, xbar_objs)
 
     # Generate flash controller and flash memory
-    generate_flash(topcfg, out_path)
+    # generate_flash(topcfg, out_path)
 
     # Generate PLIC
     if not args.no_plic and \

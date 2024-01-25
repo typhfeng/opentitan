@@ -51,7 +51,7 @@
       rom_ctrl.rom
       rv_dm.mem
       sram_ctrl_main.ram
-      flash_ctrl.mem
+      sram_ctrl_ret_aon.ram
     ]
     rv_core_ibex.cored:
     [
@@ -62,12 +62,11 @@
       sram_ctrl_main.ram
       peri
       spi_host0
-      flash_ctrl.core
-      flash_ctrl.prim
-      flash_ctrl.mem
       rv_plic
       sram_ctrl_main.regs
       rv_core_ibex.cfg
+      sram_ctrl_ret_aon.ram
+      sram_ctrl_ret_aon.regs
     ]
     rv_dm.sba:
     [
@@ -78,12 +77,11 @@
       sram_ctrl_main.ram
       peri
       spi_host0
-      flash_ctrl.core
-      flash_ctrl.prim
-      flash_ctrl.mem
       rv_plic
       sram_ctrl_main.regs
       rv_core_ibex.cfg
+      sram_ctrl_ret_aon.ram
+      sram_ctrl_ret_aon.regs
     ]
   }
   nodes:
@@ -135,7 +133,7 @@
       addr_range:
       [
         {
-          base_addr: 0x41200000
+          base_addr: 0x60300000
           size_byte: 0x4
         }
       ]
@@ -192,7 +190,7 @@
       addr_range:
       [
         {
-          base_addr: 0x411e0000
+          base_addr: 0x60600000
           size_byte: 0x80
         }
       ]
@@ -213,16 +211,12 @@
       addr_range:
       [
         {
-          base_addr: 0x40040000
-          size_byte: 0x100100
+          base_addr: 0x40480000
+          size_byte: 0x400
         }
         {
-          base_addr: 0x40400000
-          size_byte: 0x300000
-        }
-        {
-          base_addr: 0x44000000
-          size_byte: 0x40
+          base_addr: 0x80000000
+          size_byte: 0x40000000
         }
       ]
     }
@@ -237,65 +231,8 @@
       addr_range:
       [
         {
-          base_addr: 0x40300000
+          base_addr: 0x70100000
           size_byte: 0x40
-        }
-      ]
-      xbar: false
-      stub: false
-      pipeline: true
-    }
-    {
-      name: flash_ctrl.core
-      type: device
-      clock: clk_main_i
-      reset: rst_main_ni
-      req_fifo_pass: false
-      rsp_fifo_pass: false
-      inst_type: flash_ctrl
-      addr_range:
-      [
-        {
-          base_addr: 0x41000000
-          size_byte: 0x200
-        }
-      ]
-      xbar: false
-      stub: false
-      pipeline: true
-    }
-    {
-      name: flash_ctrl.prim
-      type: device
-      clock: clk_main_i
-      reset: rst_main_ni
-      req_fifo_pass: false
-      rsp_fifo_pass: false
-      inst_type: flash_ctrl
-      addr_range:
-      [
-        {
-          base_addr: 0x41008000
-          size_byte: 0x80
-        }
-      ]
-      xbar: false
-      stub: false
-      pipeline: true
-    }
-    {
-      name: flash_ctrl.mem
-      type: device
-      clock: clk_main_i
-      reset: rst_main_ni
-      req_fifo_pass: false
-      rsp_fifo_pass: false
-      inst_type: flash_ctrl
-      addr_range:
-      [
-        {
-          base_addr: 0x20000000
-          size_byte: 0x100000
         }
       ]
       xbar: false
@@ -332,7 +269,7 @@
       addr_range:
       [
         {
-          base_addr: 0x411f0000
+          base_addr: 0x60700000
           size_byte: 0x100
         }
       ]
@@ -351,7 +288,7 @@
       addr_range:
       [
         {
-          base_addr: 0x411c0000
+          base_addr: 0x60200000
           size_byte: 0x20
         }
       ]
@@ -371,6 +308,42 @@
         {
           base_addr: 0x10000000
           size_byte: 0x20000
+        }
+      ]
+      xbar: false
+      stub: false
+      req_fifo_pass: true
+    }
+    {
+      name: sram_ctrl_ret_aon.regs
+      type: device
+      clock: clk_main_i
+      reset: rst_main_ni
+      pipeline: false
+      inst_type: sram_ctrl
+      addr_range:
+      [
+        {
+          base_addr: 0x60400000
+          size_byte: 0x20
+        }
+      ]
+      xbar: false
+      stub: false
+      req_fifo_pass: true
+    }
+    {
+      name: sram_ctrl_ret_aon.ram
+      type: device
+      clock: clk_main_i
+      reset: rst_main_ni
+      pipeline: false
+      inst_type: sram_ctrl
+      addr_range:
+      [
+        {
+          base_addr: 0x60000000
+          size_byte: 0x1000
         }
       ]
       xbar: false

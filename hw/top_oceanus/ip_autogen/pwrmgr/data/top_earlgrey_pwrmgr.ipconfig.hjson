@@ -6,7 +6,7 @@
   param_values:
   {
     top_name: earlgrey
-    NumWkups: 6
+    NumWkups: 5
     Wkups:
     [
       {
@@ -33,11 +33,6 @@
         name: wkup_req
         width: "1"
         module: aon_timer_aon
-      }
-      {
-        name: wkup_req
-        width: "1"
-        module: sensor_ctrl_aon
       }
     ]
     rst_reqs:

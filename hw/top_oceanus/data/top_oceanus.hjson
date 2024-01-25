@@ -186,7 +186,7 @@
       // the ip.hjson will declare the reset port names
       // If none are defined at ip.hjson, rst_ni is used by default
       reset_connections: {rst_ni: "data_proc"},
-      base_addr: "0x40000000",
+      base_addr: "0x60500000",
     },    
     { name: "uart0",    // instance name
       type: "uart",     // Must be matched to the ip name in `ip.hson` (_reg, _cfg permitted)
@@ -201,14 +201,14 @@
       // the ip.hjson will declare the reset port names
       // If none are defined at ip.hjson, rst_ni is used by default
       reset_connections: {rst_ni: "lc_io_div4"},
-      base_addr: "0x44000000",
+      base_addr: "0x80000000",
     },
     { name: "gpio",
       type: "gpio",
       clock_srcs: {clk_i: "io_div4"},
       clock_group: "peri",
       reset_connections: {rst_ni: "lc_io_div4"},
-      base_addr: "0x40040000",
+      base_addr: "0x80010000",
       param_decl: {
         GpioAsyncOn: "1"
       }
@@ -218,42 +218,80 @@
       clock_srcs: {clk_i: "io_div4", scan_clk_i: "io_div2"},
       clock_group: "peri",
       reset_connections: {rst_ni: "spi_device"},
-      base_addr: "0x40050000",
+      base_addr: "0x80020000",
     },
     { name: "i2c0",
       type: "i2c",
       clock_srcs: {clk_i: "io_div4"},
       clock_group: "peri",
       reset_connections: {rst_ni: "i2c0"},
-      base_addr: "0x40080000",
+      base_addr: "0x80030000",
     },
     { name: "pattgen",
       type: "pattgen",
       clock_srcs: {clk_i: "io_div4"},
       clock_group: "peri",
       reset_connections: {rst_ni: "lc_io_div4"},
-      base_addr: "0x400E0000",
+      base_addr: "0x90000000",
     },
     { name: "rv_timer",
       type: "rv_timer",
       clock_srcs: {clk_i: "io_div4"},
       clock_group: "timers",
       reset_connections: {rst_ni: "lc_io_div4"},
-      base_addr: "0x40100000",
+      base_addr: "0x90010000",
     },
     { name: "otp_ctrl",
       type: "otp_ctrl",
       clock_srcs: {clk_i: "io_div4", clk_edn_i: "main"},
       clock_group: "secure",
       reset_connections: {rst_ni: "lc_io_div4", rst_edn_ni: "lc"},
-      base_addrs: {core: "0x40130000", prim: "0x40132000"}
+      base_addrs: {core: "0xa0000000", prim: "0xb0001000"}
     },
     { name: "spi_host0",
       type: "spi_host",
       clock_srcs: {clk_i: "io"},
       clock_group: "peri",
       reset_connections: {rst_ni: "spi_host0"},
-      base_addr: "0x40300000",
+      base_addr: "0x70100000",
+    },
+    { name: "pwrmgr_aon",
+      type: "pwrmgr",
+      clock_group: "powerup",
+      clock_srcs: {
+        clk_i: "io_div4",
+        clk_slow_i: "aon",
+        clk_lc_i: "io_div4",
+        clk_esc_i: {
+          clock: "io_div4",
+          group: "secure"
+        }
+      },
+      reset_connections: {
+        rst_ni: {
+          name: "por_io_div4",
+          domain: "Aon"
+        },
+        rst_main_ni: {
+          name: "por_aon",
+          domain: "0"
+        },
+        rst_lc_ni: {
+          name: "lc_io_div4",
+          domain: "Aon"
+        },
+        rst_esc_ni: {
+          name: "lc_io_div4",
+          domain: "Aon"
+        },
+        rst_slow_ni: {
+          name: "por_aon",
+          domain: "Aon",
+        },
+      },
+      domain: ["Aon", "0"],
+      base_addr: "0x80040000",
+      attr: "ipgen",
     },
     { name: "rstmgr_aon",
       type: "rstmgr",
@@ -277,7 +315,7 @@
         },
       },
       domain: ["Aon", "0"],
-      base_addr: "0x40410000",
+      base_addr: "0x80050000",
       attr: "templated",
     },
     { name: "clkmgr_aon",
@@ -322,7 +360,7 @@
                           rst_root_main_ni: "por"
                          },
       domain: ["Aon"],
-      base_addr: "0x40420000",
+      base_addr: "0x80060000",
       attr: "templated",
     },
     { name: "sysrst_ctrl_aon",
@@ -331,7 +369,7 @@
       clock_group: "secure",
       reset_connections: {rst_ni: "lc_io_div4", rst_aon_ni: "lc_aon"},
       domain: ["Aon"],
-      base_addr: "0x40430000"
+      base_addr: "0x80070000"
     },
     { name: "adc_ctrl_aon",
       type: "adc_ctrl",
@@ -339,7 +377,15 @@
       clock_group: "peri",
       reset_connections: {rst_ni: "lc_io_div4", rst_aon_ni: "lc_aon"},
       domain: ["Aon"],
-      base_addr: "0x40440000"
+      base_addr: "0x80080000"
+    },
+    { name: "pwm_aon",
+      type: "pwm",
+      clock_srcs: {clk_i: "io_div4", clk_core_i: "aon"},
+      clock_group: "peri",
+      reset_connections: {rst_ni: "lc_io_div4", rst_core_ni: "lc_aon"},
+      domain: ["Aon"],
+      base_addr: "0x80090000",
     },
     { name: "pinmux_aon",
       type: "pinmux",
@@ -350,7 +396,7 @@
                           rst_sys_ni: "sys_io_div4"
                          },
       domain: ["Aon"],
-      base_addr: "0x40460000",
+      base_addr: "0x800a0000",
       attr: "templated",
       param_decl: {
         // NOTE THAT THIS IS A FEATURE FOR TEST CHIPS ONLY TO MITIGATE
@@ -365,7 +411,26 @@
       clock_group: "timers",
       reset_connections: {rst_ni: "lc_io_div4", rst_aon_ni: "lc_aon"},
       domain: ["Aon"],
-      base_addr: "0x40470000",
+      base_addr: "0x800b0000",
+    },
+    { name: "lc_ctrl",
+      type: "lc_ctrl",
+      clock_srcs: {clk_i: "io_div4", clk_kmac_i: "main"},
+      clock_group: "secure",
+      reset_connections: {rst_ni: "lc_io_div4", rst_kmac_ni: "lc"},
+      base_addr: "0x800c0000",
+      param_decl: {
+        // NOTE THAT THIS IS A FEATURE FOR TEST CHIPS ONLY TO MITIGATE
+        // THE RISK OF A BROKEN OTP MACRO. THIS WILL BE DISABLED FOR
+        // PRODUCTION DEVICES.
+        SecVolatileRawUnlockEn: "top_pkg::SecVolatileRawUnlockEn",
+        // The following three values get exposed in the life cycle CSRs
+        // that are also readable via the TAP.
+        SiliconCreatorId: "16'h 4001", // Creator ID for Earlgrey discrete integration
+        ProductId: "16'h 580", // OCEANUS PROD
+        RevisionId: "8'h 01",   // First tapeout
+        IdcodeValue: "jtag_id_pkg::LC_CTRL_JTAG_IDCODE",
+      },
     },
     { name: "ast",
       type: "ast",
@@ -420,14 +485,14 @@
     },
     { name: "sram_ctrl_ret_aon",
       type: "sram_ctrl",
-      clock_srcs: {clk_i: "io_div4", clk_otp_i: "io_div4"},
+      clock_srcs: {clk_i: "main", clk_otp_i: "io_div4"},
       clock_group: "infra",
-      reset_connections: {rst_ni: "lc_io_div4", rst_otp_ni: "lc_io_div4"},
+      reset_connections: {rst_ni: "lc_io", rst_otp_ni: "lc_io_div4"},
       domain: ["Aon"],
       param_decl: {
         InstrExec: "0",
       },
-      base_addrs: {regs: "0x40500000", ram: "0x40600000"},
+      base_addrs: {regs: "0x60400000", ram: "0x60000000"},
       // Memory regions must be associated with a dedicated
       // TL-UL device interface.
       memory: {
@@ -437,7 +502,7 @@
           data_intg_passthru: "true",
           exec:       "True",
           byte_write: "True",
-          size:     "0x100000"
+          size:     "0x1000"
         }
       }
     },
@@ -450,7 +515,7 @@
         IdcodeValue: "jtag_id_pkg::RV_DM_JTAG_IDCODE",
       },
       // Note that this module also contains a bus host.
-      base_addrs: {mem: "0x00010000", regs: "0x41200000"}
+      base_addrs: {mem: "0x00010000", regs: "0x60300000"}
     },
     { name: "rv_plic",
       type: "rv_plic",
@@ -468,7 +533,7 @@
       param_decl: {
         InstrExec: "1",
       },
-      base_addrs: {regs: "0x411C0000", ram: "0x10000000"},
+      base_addrs: {regs: "0x60200000", ram: "0x10000000"},
       // Memory regions must be associated with a dedicated
       // TL-UL device interface.
       memory: {
@@ -487,7 +552,7 @@
       clock_srcs: {clk_i: "main"},
       clock_group: "infra",
       reset_connections: {rst_ni: "lc"},
-      base_addrs: {rom: "0x00008000", regs: "0x411e0000"},
+      base_addrs: {rom: "0x00008000", regs: "0x60600000"},
       memory: {
         rom: {
           label:              "rom",
@@ -544,7 +609,7 @@
                           rst_edn_ni: "lc",
                           rst_esc_ni: "lc_io_div4",
                           rst_otp_ni: "lc_io_div4"},
-      base_addr: "0x411F0000",
+      base_addr: "0x60700000",
     },
   ],
 
@@ -633,6 +698,15 @@
       'otp_ctrl.sram_otp_key'   : ['sram_ctrl_main.sram_otp_key',
                                    'sram_ctrl_ret_aon.sram_otp_key',
                                    'rv_core_ibex.icache_otp_key'],
+      //'pwrmgr_aon.pwr_flash'    : ['flash_ctrl.pwrmgr'],
+      'pwrmgr_aon.pwr_rst'      : ['rstmgr_aon.pwr'],
+      'pwrmgr_aon.pwr_clk'      : ['clkmgr_aon.pwr'],
+      'pwrmgr_aon.pwr_otp'      : ['otp_ctrl.pwr_otp'],
+      'pwrmgr_aon.pwr_lc'       : ['lc_ctrl.pwr_lc'],
+      'pwrmgr_aon.strap'        : ['pinmux_aon.strap_en'],
+      'pwrmgr_aon.low_power'    : ['pinmux_aon.sleep_en',
+                                   'aon_timer_aon.sleep_mode'],
+      'pwrmgr_aon.fetch_en'     : ['rv_core_ibex.pwrmgr_cpu_en'],
       'rom_ctrl.pwrmgr_data'    : ['pwrmgr_aon.rom_ctrl'],
 
       // Daisy chained LC RMA req/ack interface: LC -> Flash -> OTBN -> LC
@@ -860,7 +934,7 @@
       { name: 'IOR6'            , type: 'BidirStd', bank: 'VCC' , connection: 'muxed' , desc: 'Muxed IO pad'},
       { name: 'IOR7'            , type: 'BidirStd', bank: 'VCC' , connection: 'muxed' , desc: 'Muxed IO pad'},
       { name: 'IOR8'            , type: 'BidirOd' , bank: 'VCC' , connection: 'direct', desc: 'Dedicated sysrst_ctrl output (ec_rst_l)'},
-      { name: 'IOR9'            , type: 'BidirOd' , bank: 'VCC' , connection: 'direct', desc: 'Muxed IO pad'},
+      { name: 'IOR9'            , type: 'BidirOd' , bank: 'VCC' , connection: 'muxed' , desc: 'Muxed IO pad'},
       { name: 'IOR10'           , type: 'BidirOd' , bank: 'VCC' , connection: 'muxed' , desc: 'Muxed IO pad'},
       { name: 'IOR11'           , type: 'BidirOd' , bank: 'VCC' , connection: 'muxed' , desc: 'Muxed IO pad'},
       { name: 'IOR12'           , type: 'BidirOd' , bank: 'VCC' , connection: 'muxed' , desc: 'Muxed IO pad'},
