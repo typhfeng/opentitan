@@ -9,10 +9,6 @@
   '''
   // Unique comportable IP identifier defined under KNOWN_CIP_IDS in the regtool.
   cip_id:             "0",
-  design_spec:        "../doc",
-  dv_doc:             "../doc/dv",
-  hw_checklist:       "../doc/checklist",
-  sw_checklist:       "/sw/device/lib/dif/dif_uart",
   revisions: [
   {
     version:            "0.0.1",
@@ -26,16 +22,6 @@
   clocking: [{clock: "clk_i", reset: "rst_ni"}],
   bus_interfaces: [
     { protocol: "tlul", direction: "device" }
-  ],
-  available_input_list: [
-    { name: "rx", desc: "Serial receive bit" }
-  ],
-  available_output_list: [
-    { name: "tx", desc: "Serial transmit bit" }
-  ],
-  interrupt_list: [
-  ],
-  alert_list: [
   ],
   regwidth: "32",
   registers: [

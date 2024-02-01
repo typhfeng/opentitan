@@ -3,6 +3,9 @@
 *.swp
 *.swo
 tags
+
+temp/
+
 __pycache__
 /.vscode
 opentitan-docs
