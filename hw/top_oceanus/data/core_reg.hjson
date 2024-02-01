@@ -1,0 +1,518 @@
+// Copyright lowRISC contributors.
+// Licensed under the Apache License, Version 2.0, see LICENSE for details.
+// SPDX-License-Identifier: Apache-2.0
+{
+  name:               "core_reg",
+  human_name:         "CORE_REG",
+  one_line_desc:      "core registers for rv core sim-registers and boot setting registers",
+  one_paragraph_desc: '''
+  '''
+  // Unique comportable IP identifier defined under KNOWN_CIP_IDS in the regtool.
+  cip_id:             "0",
+  design_spec:        "../doc",
+  dv_doc:             "../doc/dv",
+  hw_checklist:       "../doc/checklist",
+  sw_checklist:       "/sw/device/lib/dif/dif_uart",
+  revisions: [
+  {
+    version:            "0.0.1",
+    life_stage:         "L0",
+    design_stage:       "D0",
+    verification_stage: "V0",
+    commit_id:          "",
+    notes:              ""
+  }
+  ]
+  clocking: [{clock: "clk_i", reset: "rst_ni"}],
+  bus_interfaces: [
+    { protocol: "tlul", direction: "device" }
+  ],
+  available_input_list: [
+    { name: "rx", desc: "Serial receive bit" }
+  ],
+  available_output_list: [
+    { name: "tx", desc: "Serial transmit bit" }
+  ],
+  interrupt_list: [
+  ],
+  alert_list: [
+  ],
+  regwidth: "32",
+  registers: [
+    {
+      name: DBG0
+      desc: debug register0
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg0
+          desc: debug_register0
+        }
+      ]
+    }
+    {
+      name: DBG1
+      desc: debug register1
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg1
+          desc: debug_register1
+        }
+      ]
+    }
+    {
+      name: DBG2
+      desc: debug register2
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg2
+          desc: debug_register2
+        }
+      ]
+    }
+    {
+      name: DBG3
+      desc: debug register3
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg3
+          desc: debug_register3
+        }
+      ]
+    }
+    {
+      name: DBG4
+      desc: debug register4
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg4
+          desc: debug_register4
+        }
+      ]
+    }
+    {
+      name: DBG5
+      desc: debug register5
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg5
+          desc: debug_register5
+        }
+      ]
+    }
+    {
+      name: DBG6
+      desc: debug register6
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg6
+          desc: debug_register6
+        }
+      ]
+    }
+    {
+      name: DBG7
+      desc: debug register7
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg7
+          desc: debug_register7
+        }
+      ]
+    }
+    {
+      name: DBG8
+      desc: debug register8
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg8
+          desc: debug_register8
+        }
+      ]
+    }
+    {
+      name: DBG9
+      desc: debug register9
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg9
+          desc: debug_register9
+        }
+      ]
+    }
+    {
+      name: DBG10
+      desc: debug register10
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg10
+          desc: debug_register10
+        }
+      ]
+    }
+    {
+      name: DBG11
+      desc: debug register11
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg11
+          desc: debug_register11
+        }
+      ]
+    }
+    {
+      name: DBG12
+      desc: debug register12
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg12
+          desc: debug_register12
+        }
+      ]
+    }
+    {
+      name: DBG13
+      desc: debug register13
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg13
+          desc: debug_register13
+        }
+      ]
+    }
+    {
+      name: DBG14
+      desc: debug register14
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg14
+          desc: debug_register14
+        }
+      ]
+    }
+    {
+      name: DBG15
+      desc: debug register15
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg15
+          desc: debug_register15
+        }
+      ]
+    }
+    {
+      name: DBG16
+      desc: debug register16
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg16
+          desc: debug_register16
+        }
+      ]
+    }
+    {
+      name: DBG17
+      desc: debug register17
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg17
+          desc: debug_register17
+        }
+      ]
+    }
+    {
+      name: DBG18
+      desc: debug register18
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg18
+          desc: debug_register18
+        }
+      ]
+    }
+    {
+      name: DBG19
+      desc: debug register19
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg19
+          desc: debug_register19
+        }
+      ]
+    }
+    {
+      name: DBG20
+      desc: debug register20
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg20
+          desc: debug_register20
+        }
+      ]
+    }
+    {
+      name: DBG21
+      desc: debug register21
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg21
+          desc: debug_register21
+        }
+      ]
+    }
+    {
+      name: DBG22
+      desc: debug register22
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg22
+          desc: debug_register22
+        }
+      ]
+    }
+    {
+      name: DBG23
+      desc: debug register23
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg23
+          desc: debug_register23
+        }
+      ]
+    }
+    {
+      name: DBG24
+      desc: debug register24
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg24
+          desc: debug_register24
+        }
+      ]
+    }
+    {
+      name: DBG25
+      desc: debug register25
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg25
+          desc: debug_register25
+        }
+      ]
+    }
+    {
+      name: DBG26
+      desc: debug register26
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg26
+          desc: debug_register26
+        }
+      ]
+    }
+    {
+      name: DBG27
+      desc: debug register27
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg27
+          desc: debug_register27
+        }
+      ]
+    }
+    {
+      name: DBG28
+      desc: debug register28
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg28
+          desc: debug_register28
+        }
+      ]
+    }
+    {
+      name: DBG29
+      desc: debug register29
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg29
+          desc: debug_register29
+        }
+      ]
+    }
+    {
+      name: DBG30
+      desc: debug register30
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg30
+          desc: debug_register30
+        }
+      ]
+    }
+    {
+      name: DBG31
+      desc: debug register31
+      swaccess: rw
+      hwaccess: none
+      fields:
+      [
+        {
+          bits: 31:0
+          name: dbg31
+          desc: debug_register31
+        }
+      ]
+    }
+    { name: "BOOT_MODE",
+      desc: "chip mode",
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        { bits: "1:0" 
+          enum: [
+            { value: "0",
+              name: "txlvl1",
+              desc: "1 character"
+            },
+            { value: "1",
+              name: "txlvl2",
+              desc: "2 characters"
+            },
+            { value: "2",
+              name: "txlvl4",
+              desc: "4 characters"
+            },
+            { value: "3",
+              name: "txlvl8",
+              desc: "8 characters"
+            },
+          ]
+        }
+      ]
+    }
+  ]
+}
