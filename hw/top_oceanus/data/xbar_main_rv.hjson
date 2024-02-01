@@ -1,45 +1,39 @@
-// Copyright lowRISC contributors.
-// Licensed under the Apache License, Version 2.0, see LICENSE for details.
-// SPDX-License-Identifier: Apache-2.0
+
 { name: "main",
   type: "xbar",
   clock: "clk_main_i", // Main clock, used in sockets
-  other_clock_list: [ "clk_ts_i", "clk_dp_i"] // Secondary clocks used by specific nodes
   reset: "rst_main_ni", // Main reset, used in sockets
-  other_reset_list: [ "rst_ts_ni", "rst_dp_ni"] // Secondary clocks used by specific nodes
+  clock_connections: {
+    clk_main_i:"clk_main_i",
+    clk_ts_i:"clk_ts_i",
+    clk_dp_i:"clk_dp_i",
+  }
+  reset_connections: {
+    rst_main_ni:"rst_main_ni",
+    rst_ts_ni:"rst_ts_ni",
+    rst_dp_ni:"rst_dp_ni",
+  }
 
-  // Rationale for pipeline and req/rsp_fifo_pass:
-  // For host interfaces that are used during production state (corei/cored),
-  // minimize the amount of host introduced latency.  This is accomplished
-  // by setting pipeline to false.
-  // For host interfaces that are only used for debug, relax the timing by
-  // inserting a register slice and not allowing passthrough (more access
-  // latency. This is accomplished by setting `req/rsp_fifo_pass` to false,
-  // and implicitly using the default of pipeline true.)
-  //
-  // For device interfaces, especially configuration registers, latency is
-  // not generally a concern, thus use `req/rsp_fifo_pass` false and pipeline
-  // true.
-  // For device accesses to memories (ram / rom / flash), performance is a concern,
-  // so use pipeline false where permissible by timing. If not, find a combination
-  // that works.
   nodes: [
     { name:  "rv_core_ibex.corei",
       type:  "host",
       clock: "clk_main_i",
       reset: "rst_main_ni",
+      xbar: false
       pipeline: false
     },
     { name:  "rv_core_ibex.cored",
       type:  "host",
       clock: "clk_main_i",
       reset: "rst_main_ni",
+      xbar: false
       pipeline: false
     },
     { name:      "rv_dm.sba",
       type:      "host",
       clock:     "clk_main_i",
       reset:     "rst_main_ni",
+      xbar: false
       req_fifo_pass: false,
       rsp_fifo_pass: false,
     },
@@ -47,6 +41,7 @@
       type:      "host",
       clock:     "clk_ts_i",
       reset:     "rst_ts_ni",
+      xbar: false
       req_fifo_pass: false,
       rsp_fifo_pass: false,
     },
@@ -54,65 +49,122 @@
       type:      "device",
       clock:     "clk_main_i",
       reset:     "rst_main_ni",
+      xbar: false
       req_fifo_pass: false,
       rsp_fifo_pass: false,
+      addr_range: [{
+        base_addr: "0x18000000",
+        size_byte: "0x1000000", 
+      }]      
     },
-    { name:      "swap_mem",
+    { name:      "swap_mem.regs",
       type:      "device",
       clock:     "clk_main_i",
       reset:     "rst_main_ni",
+      xbar: false
       req_fifo_pass: false,
       rsp_fifo_pass: false,
+      addr_range: [{
+        base_addr: "0x1a000000",
+        size_byte: "0x1000000",  
+      }]      
+    },
+    { name:      "swap_mem.ram",
+      type:      "device",
+      clock:     "clk_main_i",
+      reset:     "rst_main_ni",
+      xbar: false
+      req_fifo_pass: false,
+      rsp_fifo_pass: false,
+      addr_range: [{
+        base_addr: "0x1c000000",
+        size_byte: "0x4000000",   
+      }]      
     },
     { name:      "rv_dm.regs",
       type:      "device",
       clock:     "clk_main_i",
       reset:     "rst_main_ni",
+      xbar: false
       req_fifo_pass: false,
       rsp_fifo_pass: false,
+      addr_range: [{
+        base_addr: "0x8000000",
+        size_byte: "0x4000000",  
+      }]      
     },
     { name:      "rv_dm.mem",
       type:      "device",
       clock:     "clk_main_i",
       reset:     "rst_main_ni",
+      xbar: false
       req_fifo_pass: false,
       rsp_fifo_pass: false,
+      addr_range: [{
+        base_addr: "0xc000000",
+        size_byte: "0x4000000",   
+      }]      
     },
     { name:      "rom_ctrl.rom",
       type:      "device",
       clock:     "clk_main_i",
       reset:     "rst_main_ni",
+      xbar: false
       req_fifo_pass: true,
       rsp_fifo_pass: false,
+      addr_range: [{
+        base_addr: "0x10000000",
+        size_byte: "0x8000000",   
+      }]      
     },
     { name:      "rom_ctrl.regs",
       type:      "device",
       clock:     "clk_main_i",
       reset:     "rst_main_ni",
+      xbar: false
       req_fifo_pass: false,
       rsp_fifo_pass: false,
+      addr_range: [{
+        base_addr: "0x19000000",
+        size_byte: "0x10000",   
+      }]      
     },
     { name:      "peri",
       type:      "device",
       clock:     "clk_ts_i",
       reset:     "rst_ts_ni",
+      xbar: false
       req_fifo_pass: false,
       rsp_fifo_pass: false,
+      addr_range: [{
+        base_addr: "0x60000000",
+        size_byte: "0x600000",  
+      }]      
     },
     { name:      "spi_host",
       type:      "device",
       clock:     "clk_ts_i",
       reset:     "rst_ts_ni",
+      xbar: false
       req_fifo_pass: false,
       rsp_fifo_pass: false,
+      addr_range: [{
+        base_addr: "0x40000000",
+        size_byte: "0x20000000",   
+      }]      
     },
     { name:      "rv_plic",
       type:      "device",
       clock:     "clk_main_i",
       reset:     "rst_main_ni",
       inst_type: "rv_plic",
+      xbar: false
       req_fifo_pass: false,
       rsp_fifo_pass: false,
+      addr_range: [{
+        base_addr: "0x4000000",
+        size_byte: "0x4000000", 
+      }]      
     },
     // Return and examine whether this path
     // latency can be improved.
@@ -120,82 +172,102 @@
       type:      "device",
       clock:     "clk_main_i"
       reset:     "rst_main_ni"
+      xbar: false
       req_fifo_pass: false,
       rsp_fifo_pass: false,
+      addr_range: [{
+        base_addr: "0x00000000",
+        size_byte: "0x4000000",  
+      }]      
     },
     { name:      "sram_ctrl.regs",
       type:      "device",
       clock:     "clk_main_i",
       reset:     "rst_main_ni",
+      xbar: false
       req_fifo_pass: false,
       rsp_fifo_pass: false,
+      addr_range: [{
+        base_addr: "0x1b000000",
+        size_byte: "0x1000000",  
+      }]      
     },
     { name:      "sram_ctrl.ram",
       type:      "device",
       clock:     "clk_main_i",
       reset:     "rst_main_ni",
+      xbar: false
       pipeline:  false
+      addr_range: [{
+        base_addr: "0x20000000",
+        size_byte: "0x20000000",  
+      }]      
     },
     { name:      "dp",
       type:      "device",
       clock:     "clk_dp_i",
       reset:     "rst_dp_ni",
+      xbar: false
       pipeline:  false
+      addr_range: [{
+        base_addr: "0x80000000",
+        size_byte: "0x10000000", 
+      }]      
     },
     { name:      "ts",
       type:      "device",
       clock:     "clk_ts_i",
       reset:     "rst_ts_ni",
+      xbar: false
       pipeline:  false
+      addr_range: [{
+        base_addr: "0x90000000",
+        size_byte: "0x100000", 
+      }]      
     },    
     { name:      "ana_ctrl",
       type:      "device",
       clock:     "clk_ts_i",
       reset:     "rst_ts_ni",
+      xbar: false
       pipeline:  false
+      addr_range: [{
+        base_addr: "0x70000000",
+        size_byte: "0x10000000",  
+      }]      
     },    
   ],
   #host      rv_core_ibex.corei rv_core_ibex.cored rv_dm.sba pad_in
   #device    core_reg  swap_mem rv_dm.regs rv_dm.mem rom_ctrl.rom peri
   #          spi_host rv_plic rv_core_ibex.cfg sram_ctrl.ram sram_ctrl.regs dp ts ana_ctrl 
-  clock_connections: {
-    clk_main_i:"clk_main_i",
-    clk_ts_i:"clk_main_i",
-    clk_dp_i:"clk_main_i",
-  }
-  reset_connections: {
-    rst_main_ni:"rst_main_ni",
-    rst_ts_ni:"rst_main_ni",
-    rst_dp_ni:"rst_main_ni",
-  }
   connections: {
-    rv_core_ibex.corei:  ["rom_ctrl.rom", "rv_dm.mem", "sram_ctrl.ram","swap_mem","spi_host"],
+    rv_core_ibex.corei:  ["rom_ctrl.rom", "rv_dm.mem", "sram_ctrl.ram","swap_mem.ram","spi_host"],
     rv_core_ibex.cored:  [
-      "core_reg", "swap_mem",
+      "core_reg", "swap_mem.ram", "swap_mem.regs",
       "rom_ctrl.rom", "rom_ctrl.regs", "rv_dm.mem", "rv_dm.regs",
       "sram_ctrl.ram", "sram_ctrl.regs",
       "peri", "spi_host", 
       "rv_plic",  
       "rv_core_ibex.cfg",
-      dp, ts, ana_ctrl,
+      "dp", "ts", "ana_ctrl",
     ],
     rv_dm.sba: [
-      "core_reg", "swap_mem",
+      "core_reg", "swap_mem.ram", "swap_mem.regs",
       "rom_ctrl.rom", "rom_ctrl.regs", "rv_dm.mem", "rv_dm.regs",
       "sram_ctrl.ram", "sram_ctrl.regs",
       "peri", "spi_host", 
       "rv_plic",  
       "rv_core_ibex.cfg",
-      dp, ts, ana_ctrl,
+      "dp", "ts", "ana_ctrl",
     ],
     pad_in: [
-      "core_reg", "swap_mem",
+      "core_reg", "swap_mem.ram", "swap_mem.regs",
       "rom_ctrl.rom", "rom_ctrl.regs", "rv_dm.mem", "rv_dm.regs",
       "sram_ctrl.ram", "sram_ctrl.regs",
       "peri", "spi_host", 
       "rv_plic",  
       "rv_core_ibex.cfg",
-      dp, ts, ana_ctrl,
+      "dp", "ts", "ana_ctrl",
     ],
   },
 }
