@@ -100,4 +100,4 @@ rdata_o  = {32{rd_sel_d[0]}} & rdata[0] |
 
   end
 
-endmodule
+endmodddule

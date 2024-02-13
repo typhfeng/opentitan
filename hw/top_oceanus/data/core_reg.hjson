@@ -475,26 +475,26 @@
     }
     { name: "BOOT_MODE",
       desc: "chip mode",
-      swaccess: "rw",
-      hwaccess: "hro",
+      swaccess: "ro",
+      hwaccess: "hwo",
       fields: [
         { bits: "1:0" 
           enum: [
             { value: "0",
-              name: "txlvl1",
-              desc: "1 character"
+              name: "boot_mode_swap",
+              desc: "boot from swap sram"
             },
             { value: "1",
-              name: "txlvl2",
-              desc: "2 characters"
+              name: "boot_mode_sim",
+              desc: "boot as sim mode"
             },
             { value: "2",
-              name: "txlvl4",
-              desc: "4 characters"
+              name: "boot_mod_spi",
+              desc: "boot from spi host"
             },
             { value: "3",
-              name: "txlvl8",
-              desc: "8 characters"
+              name: "boot_mode_uart",
+              desc: "default mode boot from uart"
             },
           ]
         }
