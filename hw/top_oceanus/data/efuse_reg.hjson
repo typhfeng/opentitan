@@ -1,0 +1,73 @@
+// Copyright lowRISC contributors.
+// Licensed under the Apache License, Version 2.0, see LICENSE for details.
+// SPDX-License-Identifier: Apache-2.0
+{
+  name:               "efuse_reg",
+  human_name:         "EFUSE_REG",
+  one_line_desc:      "core registers for efuse ctrl register",
+  one_paragraph_desc: '''
+  '''
+  // Unique comportable IP identifier defined under KNOWN_CIP_IDS in the regtool.
+  cip_id:             "0",
+  revisions: [
+  {
+    version:            "0.0.1",
+    life_stage:         "L0",
+    design_stage:       "D0",
+    verification_stage: "V0",
+    commit_id:          "",
+    notes:              ""
+  }
+  ]
+  clocking: [{clock: "clk_i", reset: "rst_ni"}],
+  bus_interfaces: [
+    { protocol: "tlul", direction: "device" }
+  ],
+  regwidth: "32",
+  registers: [
+    { name: "EFUSE_CTRL",
+      desc: "efuse ctrl ",
+      hwqe: "true",
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        { bits: "9:0" 
+          resval: "0",
+          name: "efuse_addr",
+          desc: "the efuse read addr for each bit"
+        }
+        {
+          bits: "10"  
+          resval: "0",
+          name: "efuse_read",
+          desc: "efuse read operation"
+        }  
+        {
+          bits: "11"  
+          resval: "0",
+          name: "efuse_write",
+          desc: "efuse PGM operation"
+        }  
+        {
+          bits: "19:12"  
+          resval: "0",
+          name: "efuse_manreg",
+          desc: "efuse manual operation ctrl reg"
+        }  
+      ]
+    }
+    { name: "EFUSE_READ",
+      desc: "efuse read data ",
+      hwqe: "true",
+      swaccess: "ro",
+      hwaccess: "hwo",
+      fields: [
+        { bits: "31:0" 
+          resval: "0",
+          name: "efuse_addr",
+          desc: "the efuse read addr for each bit"
+        }
+      ]
+    }
+  ]
+}
